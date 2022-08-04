@@ -100,7 +100,9 @@
     height : 100%;
 }
 
-.fontStyle{
+.buttonStyle{
+    background:white;
+    border : none;
     font-size: 0.8rem;
     text-align: center;
     color: #495057;

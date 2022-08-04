@@ -1,6 +1,4 @@
-import Link from 'next/link';
 import React, { useCallback, useEffect, useState } from 'react';
-import axios, { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import styles from 'styles/pages/Login.module.css';
 import RegisterModal from 'components/register/RegisterModal';
@@ -16,6 +14,7 @@ interface LoginDate {
 }
 
 function Login() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [wrongVisible, setWrongVisible] = useState<boolean>(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState<boolean>(false);
   const [registerSuccess, setRegisterSuccess] = useState<boolean>(false);
@@ -85,9 +84,8 @@ function Login() {
             setIsCert={setIsCert}
           />
         ) : null}
-        {registerSuccess ? (
-          <RegisterSuccessModal registerSuccess={registerSuccess} setRegisterSuccess={setRegisterSuccess} />
-        ) : null}
+        {/* eslint-disable-next-line max-len */}
+        {registerSuccess ? (<RegisterSuccessModal registerSuccess={registerSuccess} setRegisterSuccess={setRegisterSuccess} />) : null}
         <section className={styles.renderingImage}>{/* 렌더링 페이지 이미지 넣을 곳 */}</section>
 
         <section className={styles.loginSection}>
@@ -133,15 +131,17 @@ function Login() {
 
             <div className={styles.passwordSignBox}>
               {/* TODO 회원가입 Link Tag 삭제 */}
-              <Link href="" className={styles.passwordSignLink}>
-                <a className={styles.fontStyle}>비밀번호 찾기</a>
-              </Link>
+              <div className={styles.passwordSignLink}>
+                {/* eslint-disable-next-line react/button-has-type */}
+                <button onClick={onClickToggleModal} className={styles.buttonStyle}>비밀번호 찾기</button>
+              </div>
               <div className={styles.divide} />
-              <Link href="" className={styles.passwordSignLink}>
-                <a onClick={onClickToggleModal} className={styles.fontStyle}>
+              <div className={styles.passwordSignLink}>
+                {/* eslint-disable-next-line react/button-has-type */}
+                <button onClick={onClickToggleModal} className={styles.buttonStyle}>
                   회원가입
-                </a>
-              </Link>
+                </button>
+              </div>
             </div>
           </div>
         </section>

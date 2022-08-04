@@ -1,4 +1,6 @@
-import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
+import React, {
+  Dispatch, SetStateAction, useCallback, useEffect, useState,
+} from 'react';
 import styles from 'styles/main/CertificationModal.module.css';
 import AuthTimer from './AuthTimer';
 
@@ -12,6 +14,7 @@ interface Props {
 }
 
 function CertificationModal({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   registerSuccess,
   setRegisterSuccess,
   isCert,
@@ -70,13 +73,13 @@ function CertificationModal({
   }, [isCert]);
 
   /* 인증 완료 버튼 이벤트 함수 */
-  const onClickSubmitButton = (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    /* 서버로 요청 */
-    alert('submit');
-
-    setIsCert(true);
-  };
+  // const onClickSubmitButton = (e: React.FormEvent<HTMLButtonElement>) => {
+  //   e.preventDefault();
+  //   /* 서버로 요청 */
+  //   alert('submit');
+  //
+  //   setIsCert(true);
+  // };
 
   useEffect(() => {}, [certNumber]);
 
@@ -84,9 +87,13 @@ function CertificationModal({
     <div className={styles.modalContainer}>
       <div className={styles.modalTopContainer}>
         {/* 뒤로가기 이메일 인증, X */}
-        <img onClick={onClickReturn} src={'/icons/Return.png'} alt={'Return Button'} className={styles.returnButton} />
+        {/* eslint-disable-next-line max-len */}
+        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/click-events-have-key-events */}
+        <img onClick={onClickReturn} src="/icons/Return.png" alt="Return Button" className={styles.returnButton} />
         <span className={styles.modalTitle}>이메일 인증</span>
-        <img onClick={onClickClose} src={'/icons/Close.png'} alt={'Close Button'} className={styles.closeButton} />
+        {/* eslint-disable-next-line max-len */}
+        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/click-events-have-key-events */}
+        <img onClick={onClickClose} src="/icons/Close.png" alt="Close Button" className={styles.closeButton} />
       </div>
 
       {/* 인증번호가 발송되었습니다. 부분 */}
@@ -96,7 +103,7 @@ function CertificationModal({
           <span className={styles.certInputSubText}>4자리 숫자를 입력해주세요.</span>
 
           <div className={styles.certInputContainer}>
-            <input onChange={onChangeCertInput} maxLength={4} className={styles.certInput} type={'number'} />
+            <input onChange={onChangeCertInput} maxLength={4} className={styles.certInput} type="number" />
             <AuthTimer />
           </div>
 
@@ -109,6 +116,8 @@ function CertificationModal({
 
         <div className={styles.certReqDiv}>
           {/* 인증번호 재발송 버튼 */}
+          {/* eslint-disable-next-line max-len */}
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
           <span onClick={onClickReSend} className={styles.certSendButton}>
             인증번호 재발송
           </span>
@@ -119,10 +128,12 @@ function CertificationModal({
       {/* 완료 버튼 */}
       <div className={styles.submitButtonContainer}>
         {isActive ? (
+          // eslint-disable-next-line react/button-has-type
           <button onClick={onCLickSubmit} className={styles.submitButtonActive}>
             완료
           </button>
         ) : (
+          // eslint-disable-next-line react/button-has-type
           <button className={styles.submitButton}>완료</button>
         )}
       </div>

@@ -1,7 +1,6 @@
 import React, {
   Dispatch, SetStateAction, useCallback, useEffect, useState,
 } from 'react';
-import { IoCloseOutline } from 'react-icons/io5';
 import Image from 'next/image';
 import styled from 'styled-components';
 import styles from 'styles/main/RegisterModal.module.css';
@@ -29,6 +28,7 @@ const OverlapCheckedButton = styled.button`
 `;
 
 function RegisterModal({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   isCert,
   setIsCert,
   isOpenRegisterOpen,
@@ -45,12 +45,14 @@ function RegisterModal({
 
   // event 처리용 변수
   const [isOverlap, setIsOverlap] = useState<boolean>(false); // 이메일 중복확인
+  // eslint-disable-next-line max-len
   const [isCorrectPW, setIsCorrectPW] = useState<boolean | null>(null); // password와 password check 비교
   const [isActive, setIsActive] = useState<boolean>(false); // 완료버튼 활성화
   const [isCheckedPassword, setIsCheckedPassword] = useState<{ visible: boolean; type: string }>({
     visible: false,
     type: 'password',
   });
+  // eslint-disable-next-line max-len
   const [isCheckedPasswordCheck, setIsCheckedPasswordCheck] = useState<{ visible: boolean; type: string }>({
     visible: false,
     type: 'password',
@@ -158,11 +160,14 @@ function RegisterModal({
       <div className={styles.modalTopContainer}>
         {/* 회원가입, X */}
         <span className={styles.modalTitle}>회원가입</span>
+        {/* eslint-disable-next-line max-len */}
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
         <img onClick={onClickCloseModal} src="/icons/Close.png" alt="Close Button" className={styles.closeButton} />
       </div>
       <div className={styles.formContainer}>
         {/*  form  */}
         <div className={styles.inputContainer}>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>아주대학교 이메일</label>
           <input
             className={styles.emailInput}
@@ -175,6 +180,7 @@ function RegisterModal({
           {isOverlap ? (
             <OverlapCheckedButton onClick={onClickOverlapButton}>중복확인</OverlapCheckedButton>
           ) : (
+            // eslint-disable-next-line react/button-has-type
             <button onClick={onClickOverlapButton} className={styles.overlapCheckButton}>
               중복확인
             </button>
@@ -182,7 +188,9 @@ function RegisterModal({
         </div>
 
         <div className={styles.inputContainer}>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>Password</label>
+          {/* eslint-disable-next-line max-len */}
           <input onChange={onChangePassword} className={styles.commonInputTag} type={isCheckedPassword.type} />
           {isCheckedPassword.visible ? (
             <Image
@@ -205,6 +213,7 @@ function RegisterModal({
         </div>
 
         <div className={styles.inputContainer}>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>Password 확인</label>
           <input
             onChange={onChangeCheckPassword}
@@ -229,6 +238,7 @@ function RegisterModal({
             />
           )}
           <span>표시</span>
+          {/* eslint-disable-next-line no-nested-ternary */}
           {isCorrectPW === null ? null : isCorrectPW ? (
             <p className={styles.correct}>비밀번호가 일치합니다.</p>
           ) : (
@@ -237,6 +247,7 @@ function RegisterModal({
         </div>
 
         <div className={styles.inputContainer}>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>이름</label>
           <input
             onChange={(e) => {
@@ -248,6 +259,7 @@ function RegisterModal({
         </div>
 
         <div className={styles.inputContainer}>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>학과</label>
           <input
             onChange={(e: React.FormEvent<HTMLInputElement>) => {
@@ -259,6 +271,7 @@ function RegisterModal({
         </div>
 
         <div className={styles.inputContainer}>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>학번</label>
           <input
             onChange={(e: React.FormEvent<HTMLInputElement>) => {
@@ -270,6 +283,7 @@ function RegisterModal({
         </div>
 
         <div className={styles.inputContainer}>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>휴대폰 번호</label>
           <input
             onChange={(e: React.FormEvent<HTMLInputElement>) => {
@@ -283,10 +297,12 @@ function RegisterModal({
       </div>
       <div className={styles.submitButtonContainer}>
         {isActive ? (
+          // eslint-disable-next-line react/button-has-type
           <button onClick={onClickSubmitButton} className={styles.submitButtonActive}>
             완료
           </button>
         ) : (
+          // eslint-disable-next-line react/button-has-type
           <button className={styles.submitButton}>완료</button>
         )}
       </div>

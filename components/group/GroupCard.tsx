@@ -1,7 +1,6 @@
 import Tag from 'components/common/Tag';
 import React from 'react';
 import styles from 'styles/group/GroupCard.module.css';
-import Image from 'next/image';
 import Link from 'next/link';
 
 interface GroupCardProps {
@@ -17,14 +16,15 @@ function GroupCard({
   return (
     <Link href={`/group:${groupName}`}>
       <div className={styles.groupContainer}>
-          <img className={styles.groupRepresentativeImage} src={url} alt="Group representative Image" />
-          {/* 즐겨찾기 버튼 넣을 곳 */}
-          { like ? null : null }
-          <span className={styles.groupNameText}>{groupName}</span>
-          {
+        {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
+        <img className={styles.groupRepresentativeImage} src={url} alt="Group representative Image" />
+        {/* 즐겨찾기 버튼 넣을 곳 */}
+        { like ? null : null }
+        <span className={styles.groupNameText}>{groupName}</span>
+        {
             tagList.map((tag) => (<Tag tag={tag} />))
           }
-        </div>
+      </div>
     </Link>
   );
 }

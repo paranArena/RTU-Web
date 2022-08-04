@@ -1,12 +1,12 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import styles from 'styles/common/Button.module.css';
 
-interface buttonProps {
+interface ButtonProps {
   requestFlag : boolean;
   setRequestFlag : Dispatch<SetStateAction<boolean>>;
 }
 
-function JoinButton({ requestFlag, setRequestFlag }:buttonProps) {
+function JoinButton({ requestFlag, setRequestFlag }:ButtonProps) {
   return (
     <button
       onClick={() => { setRequestFlag(!requestFlag); }}
@@ -18,7 +18,7 @@ function JoinButton({ requestFlag, setRequestFlag }:buttonProps) {
   );
 }
 
-function RequestButton({ requestFlag, setRequestFlag }:buttonProps) {
+function RequestButton({ requestFlag, setRequestFlag }:ButtonProps) {
   return (
     <button
       onClick={() => { setRequestFlag(!requestFlag); }}

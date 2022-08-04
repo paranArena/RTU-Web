@@ -60,7 +60,10 @@ function TopNavigationBar() {
 
       <div className={styles.searchContainer}>
         <input onChange={onChangeSearchInput} className={styles.searchInput} type="text" />
+        {/* eslint-disable-next-line max-len */}
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
         <div onClick={onClickSearch} className={styles.searchIcon} />
+        {/* eslint-disable-next-line max-len */}
         {/* <img onClick={onClickSearch} className={styles.searchIcon} src="/icons/search.png" /> */}
       </div>
 
