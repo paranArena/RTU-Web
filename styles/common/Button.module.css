@@ -1,0 +1,33 @@
+.joinButton{
+    width: 8.125rem;
+    height: 2.875rem;
+
+    background: #FFFFFF;
+    border: 0.105rem solid #1E2F97;
+    box-shadow: 0 0 0.42rem rgba(30, 47, 151, 0.3);
+    border-radius: 1.731rem;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.25rem;
+    line-height: 30px;
+
+    color: #1E2F97;
+}
+
+.requestButton{
+    width: 8.125rem;
+    height: 2.875rem;
+
+    background: #1E2F97;
+    border:0.105rem solid #1E2F97;
+    box-shadow: 0 0 0.42rem rgba(30, 47, 151, 0.3);
+    border-radius: 1.731rem;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.25rem;
+    line-height: 30px;
+
+    color: #FFFFFF;
+}

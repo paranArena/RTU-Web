@@ -1,0 +1,271 @@
+.modalContainer{
+    width : 47.5%;
+    height : 66.5740740741%;
+
+    position :absolute;
+    background: #F8F9FA;
+    border-radius: 35px;
+    box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.3);
+
+    top : 16.6666666667%;
+    left : 26.25%;
+}
+
+.modalTopContainer{
+    padding-top : 2%;
+    width : 100%;
+    height : 10.9874826147%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.closeButton{
+    width : 24px;
+    height : 24px;
+
+    position : absolute;
+    top : 4%;
+    right : 4%;
+}
+
+.modalTitle{
+    font-weight: 500;
+    line-height: 43px;
+    font-size : 1.6rem;
+}
+
+.formContainer{
+    width : 100%;
+    height : 71.9054242003%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.inputContainer{
+    margin-left : 10%;
+    width : 100%;
+    height : 8.8974854932%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.inputContainer label{
+    width : 17%;
+    font-weight: 700;
+    line-height: 22px;
+    text-align: end;
+    font-size : 1rem;
+    color: #495057;
+}
+
+.inputContainer span{
+    font-weight: 700;
+    line-height: 22px;
+    text-align: center;
+    font-size : 1rem;
+    color: #495057;
+    margin-left : 1.3%;
+}
+
+
+.commonInputTag{
+    margin-left : 5%;
+    margin-right : 2%;
+    width : 49.1228070175%;
+    height : 100%;
+
+    background: #FFFFFF;
+    box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
+    border : none;
+
+    padding-left : 2%;
+}
+
+.emailInput{
+    margin-left : 5%;
+
+    width : 33.3333333333%;
+    height : 100%;
+
+    background: #FFFFFF;
+    box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
+    border : none;
+}
+
+.overlapCheckButton{
+    margin-left : 3.5%;
+
+    width : 14.3640350877%;
+    height : 100%;
+    font-size : 1rem;
+    font-weight: 400;
+    line-height: 33px;
+
+    color: #ADB5BD;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+    border : none;
+}
+
+.submitButton{
+    width : 18.75%;
+    height : 56.074766365%;
+
+    font-weight: 400;
+    line-height: 38px;
+    font-size : 1.2rem;
+    color: #000000;
+
+    border : none;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+}
+
+.submitButtonContainer{
+    width : 100%;
+    height : 14.8817802503%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.notCorrect{
+    color : #EB1808;
+    display: block;
+    position: absolute ;
+    left : 29%;
+    top : 41.25%;
+    font-size: 0.7rem;
+}
+
+.correct{
+    color : #2CA900;
+    display: block;
+    position: absolute ;
+    left : 29%;
+    top : 41.25%;
+    font-size: 0.7rem;
+}
+
+.submitButtonActive{
+    width : 18.75%;
+    height : 56.074766365%;
+
+    font-weight: 400;
+    line-height: 38px;
+    font-size : 1.2rem;
+    color: white;
+
+    border : none;
+    background: #1E2F97;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+}
+
+/* Success Modal */
+.successTextContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width : 63.5964912281%;
+    height : 31.9888734353%;
+}
+
+.successModalContainer{
+    width : 47.5%;
+    height : 66.5740740741%;
+
+    position :absolute;
+    background: #F8F9FA;
+    border-radius: 35px;
+    box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.3);
+
+    top : 16.6666666667%;
+    left : 26.25%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bigFont{
+    position: absolute;
+    top : 36.578581363%;
+
+    font-style: normal;
+    font-weight: 900;
+    font-size: 2rem;
+    line-height: 22px;
+    /* identical to box height, or 55% */
+
+    text-align: center;
+    color: #000000;
+}
+
+.middleFont{
+    position: absolute;
+    top : 47.7051460362%;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.2rem;
+    line-height: 32px;
+    /* identical to box height, or 107% */
+
+    text-align: center;
+
+    color: #000000;
+    /*margin-bottom : 7%;*/
+}
+
+.successModalButton{
+    position: absolute;
+    top : 60.2225312935%;
+
+    background: #1E2F97;
+    box-shadow: 0 0 4px rgba(30, 47, 151, 0.35);
+    border-radius: 30px;
+
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 38px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+    border : none;
+
+    width : 18.75%;
+    height : 8.3449235049%;
+}
+
+
+.absoluteFontBig{
+    position: absolute;
+    top : 36.578581363%;
+
+    font-style: normal;
+    font-weight: 900;
+    font-size: 2rem;
+    line-height: 22px;
+    /* identical to box height, or 55% */
+
+    text-align: center;
+    color: #000000;
+}

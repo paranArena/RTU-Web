@@ -1,0 +1,18 @@
+.outerContainer{
+    width : 100vw;
+    height : auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.innerContainer{
+    margin-top : 19.9090909091vh;
+    width : 80.2083333333%;
+    height : auto;
+
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+

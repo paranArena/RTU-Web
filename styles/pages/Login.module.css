@@ -1,0 +1,162 @@
+.container {
+    width : 100vw;
+    height : 100vh;
+
+    margin : 0;
+    padding : 0;
+}
+
+.main {
+    width : 100%;
+    height : 100%;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.renderingImage{
+    width : 66.40625%;
+    height : 100%;
+
+    background-image: url("/images/renderingBackgroundImage.png") ;
+    background-size : cover;
+}
+
+.loginSection{
+    width:33.59375%;
+    height : 100%;
+
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginBox{
+    width : 72.0930232558%;
+    height : 13.3333333333%;
+
+    display : flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+}
+
+.inputTag{
+    width : 100%;
+    height : 45.13888889%;
+
+    border : none;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
+    font-size: 1rem;
+
+    color : #000000;
+
+    padding-left : 10%;
+}
+
+.inputTag::placeholder{
+    color: #ADB5BD;
+}
+
+.submitLinkBox{
+    width : 34.2635658915%;
+    height : 12.2222222222%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top : 10%;
+}
+
+.submitButton{
+    width : 100%;
+    height : 45.4545454545%;
+
+    font-size: 1.2rem;
+    background: #FFFFFF;
+    border : none;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+}
+.submitButton:hover{
+    color: #FFFFFF;
+    background: #1E2F97;
+}
+
+.passwordSignBox{
+    width : 100%;
+    height : 16.6666666667%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.passwordSignLink{
+    width : 50%;
+    height : 100%;
+}
+
+.fontStyle{
+    font-size: 0.8rem;
+    text-align: center;
+    color: #495057;
+}
+
+.divide{
+    width: 0;
+    height : 14px;
+    border-right: 1px solid #E9ECEF;
+}
+
+.explainTextContainer{
+    width : 72.0930232558%;
+    height : 5.3703703704%;
+
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom : 7%;
+}
+
+.firstText{
+    color: #000000;
+    font-weight: 900;
+    font-size:1.5rem;
+}
+
+.secondText{
+    color: #000000;
+    font-weight: 500;
+    font-size :1rem;
+}
+
+.logoContainer{
+    height : 15.3703703704%;
+    width : 100%;
+
+    background-color: lightgray;
+
+    margin-bottom : 10%;
+}
+
+.wrongInput{
+    width : 72.0930232558%;
+    height : 0.8rem;
+    padding-left: 8%;
+    margin-top : 1%;
+
+    font-weight: 400;
+    font-size :0.8rem;
+    color : #EB1808;
+}
+
+.wrongInputHidden{
+    width : 72.0930232558%;
+    height : 0.8rem;
+    padding-left: 8%;
+    margin-top : 1%;
+}

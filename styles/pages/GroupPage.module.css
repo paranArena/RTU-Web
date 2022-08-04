@@ -1,0 +1,78 @@
+.outerContainer{
+    width : 100vw;
+    height : auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.innerContainer{
+    margin-top : 19.9090909091vh;
+    width : 80.2083333333%;
+    height : 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.textContainer{
+    width : 92.1538461538%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #F1F3F5;
+    padding-bottom : 0.813rem;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 22px;
+    color: #000000;
+    margin-bottom : 2.5454545455vh;
+}
+
+.likeContainer{
+    width : 100%;
+    height : auto;
+    display: flex;
+    flex-direction: column;
+    margin-bottom : 6.25rem;
+    align-items: center;
+}
+
+.groupContainer{
+    width : 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-auto-flow: row;
+}
+
+
+.joinedContainer{
+    width : 100%;
+    height : auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.addGroupButtonContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.addImage{
+    width : 0.75rem;
+    height : 0.75rem;
+    background-image: url("/icons/plus.png");
+    background-repeat : no-repeat;
+    background-size : cover;
+    margin-right: 4px;
+    margin-bottom: 4px;
+}

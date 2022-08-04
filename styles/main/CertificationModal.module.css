@@ -1,0 +1,200 @@
+.modalContainer{
+    width : 47.5%;
+    height : 66.5740740741%;
+
+    position :absolute;
+    background: #F8F9FA;
+    border-radius: 35px;
+    box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.3);
+
+    top : 16.6666666667%;
+    left : 26.25%;
+}
+
+.modalTopContainer{
+    padding-top : 2%;
+    width : 100%;
+    height : 10.9874826147%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.closeButton{
+    width : 24px;
+    height : 24px;
+
+    position : absolute;
+    top : 4%;
+    right : 4%;
+}
+
+.returnButton{
+    width : 24px;
+    height : 24px;
+
+    position : absolute;
+    top : 4%;
+    left : 4%;
+}
+
+.modalTitle{
+    font-weight: 500;
+    line-height: 43px;
+    font-size : 1.6rem;
+}
+
+.certModalMainContainer{
+    width : 100%;
+    height : 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.certInputDiv{
+    width : 100%;
+    height : 63.6%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.certInputDivTitle{
+    font-weight: 500;
+    font-size: 1.4rem;
+    line-height: 22px;
+}
+
+.certInputSubText{
+    margin-top : 3%;
+    margin-bottom :1.5%;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 22px;
+}
+
+.certInputContainer{
+    width: 49.3421052632%;
+    height: 18%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.certInput{
+    width : 100%;
+    height : 100%;
+
+    background-color: #FFFFFF;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
+    border:none;
+    text-align: center;
+    font-weight: 500;
+    font-size: 2.4rem;
+    line-height: 30px;
+    /*margin-bottom : 5%;*/
+}
+
+.certInput::-webkit-outer-spin-button,
+.certInput::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin : 0;
+}
+
+.certReqDiv:focus{
+    border:none;
+    appearance: none;
+    outline : none;
+}
+
+.certReqDiv{
+    width : 100%;
+    height : 21.8%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.submitButtonActive{
+    width : 18.75%;
+    height : 56.074766365%;
+
+    font-weight: 400;
+    line-height: 38px;
+    font-size : 1.2rem;
+    color: white;
+
+    border : none;
+    background: #1E2F97;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+}
+
+.submitButtonContainer{
+    width : 100%;
+    height : 14.8817802503%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.submitButton{
+    width : 18.75%;
+    height : 56.074766365%;
+
+    font-weight: 400;
+    line-height: 38px;
+    font-size : 1.2rem;
+    color: #000000;
+
+    border : none;
+    background: #FFFFFF;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+}
+
+.certSendButton{
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 22px;
+    /* identical to box height, or 110% */
+
+    text-align: center;
+    letter-spacing: -0.408px;
+
+    color: #495057;
+}
+
+
+.notCorrectCert{
+    position: relative;
+    margin-top : 10px;
+    font-size: 1rem;
+    line-height: 22px;
+    /* identical to box height, or 138% */
+    text-align: center;
+    letter-spacing: -0.408px;
+    color: #EB1808;
+}
+
+
+.reSendText{
+    position: absolute;
+    margin-top : 7%;
+
+    font-weight: 400;
+    font-size: 0.8rem;
+    line-height: 22px;
+    text-align: center;
+    letter-spacing: -0.408px;
+
+    color: #495057;
+}

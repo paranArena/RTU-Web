@@ -1,0 +1,113 @@
+.topNavigationBarContainer{
+    width : 100vw;
+    height : 100px;
+
+    position : fixed;
+    top:0;
+    left : 0;
+    z-index : 999;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+}
+
+.navContainer{
+    width : 14.5833333333%;
+    margin-right : 3.7%;
+}
+
+.navContainer ul{
+    list-style-type: none;
+    margin : 0;
+    padding : 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navItem{
+    font-weight: 500;
+    font-size: 1.2rem;
+    line-height: 22px;
+    color: black;
+}
+
+.currentNavItem{
+    font-weight: 500;
+    font-size: 1.2rem;
+    line-height: 22px;
+    color: #1E2F97;
+}
+
+.logo{
+    font-style: normal;
+    font-weight: 900;
+    font-size: 35px;
+    line-height: 22px;
+
+    color: #1E2F97;
+    margin-left : 3.7%;
+}
+
+.searchContainer{
+    width : 31.25%;
+    height : 41.6666666667%;
+
+    background: #FFFFFF;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+    outline: none;
+    border : none;
+}
+
+.searchInput{
+    width : 100%;
+    height : 100%;
+
+    background: #FFFFFF;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+    outline: none;
+    border : none;
+}
+
+.searchContainer:focus{
+    outline : none;
+}
+
+.searchIcon{
+    background-image: url("/icons/search.png");
+    background-repeat : no-repeat;
+    background-size : cover;
+    position: absolute;
+    top : 36%;
+    left : 59.2%;
+    width : 24px;
+    height : 24px;
+    /*width : 1.8rem;*/
+    /*height : 1.7rem;*/
+}
+
+.searchIcon:hover{
+    background-image: url("/icons/searching.png");
+    background-repeat : no-repeat;
+    background-size : cover;
+}
+
+
+.searchInput{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 2.188rem;
+    padding-left : 1.875rem;
+    padding-top:0.438rem;
+    padding-bottom:0.438rem;
+    letter-spacing: -0.041rem;
+
+    color: #000000;
+}
