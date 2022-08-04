@@ -128,13 +128,11 @@ function CertificationModal({
       {/* 완료 버튼 */}
       <div className={styles.submitButtonContainer}>
         {isActive ? (
-          // eslint-disable-next-line react/button-has-type
-          <button onClick={onCLickSubmit} className={styles.submitButtonActive}>
+          <button type="button" onClick={onCLickSubmit} className={styles.submitButtonActive}>
             완료
           </button>
         ) : (
-          // eslint-disable-next-line react/button-has-type
-          <button className={styles.submitButton}>완료</button>
+          <button type="button" className={styles.submitButton}>완료</button>
         )}
       </div>
     </div>
