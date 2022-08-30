@@ -145,9 +145,11 @@ function RegisterModal({
     axios.post('/signup', params, {
       headers,
     }).then((res) => {
+      // eslint-disable-next-line no-console
       console.log(res);
     })
       .catch((error) => {
+        // eslint-disable-next-line no-console
         console.log(error);
       });
 
@@ -198,11 +200,14 @@ function RegisterModal({
         {/* 회원가입, X */}
         <span className={styles.modalTitle}>회원가입</span>
 
+        {/* eslint-disable-next-line max-len */}
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
         <img onClick={onClickCloseModal} src="/icons/Close.png" alt="Close Button" className={styles.closeButton} />
       </div>
       <div className={styles.formContainer}>
         {/*  form  */}
         <div className={styles.inputContainer}>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>아주대학교 이메일</label>
           <input
             className={styles.emailInput}
@@ -222,7 +227,9 @@ function RegisterModal({
         </div>
 
         <div className={styles.inputContainer}>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>Password</label>
+          {/* eslint-disable-next-line max-len */}
           <input onChange={onChangePassword} className={styles.commonInputTag} type={isCheckedPassword.type} />
           {isCheckedPassword.visible ? (
             <Image
@@ -279,6 +286,7 @@ function RegisterModal({
         </div>
 
         <div className={styles.inputContainer}>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>이름</label>
           <input
             onChange={(e) => {
@@ -290,6 +298,7 @@ function RegisterModal({
         </div>
 
         <div className={styles.inputContainer}>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label htmlFor="department">학과</label>
           <input
             id="department"
@@ -302,6 +311,7 @@ function RegisterModal({
         </div>
 
         <div className={styles.inputContainer}>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label htmlFor="studentID">학번</label>
           <input
             id="studentID"

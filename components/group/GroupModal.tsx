@@ -178,30 +178,39 @@ function GroupModal() {
         className={`${styles.groupContentContainer} ${styles.groupHome}`}
       >
         {/* div 2 */}
+        {/* eslint-disable-next-line no-nested-ternary,max-len */}
         { tabStyles.home.current ? <GroupModalHome /> : tabStyles.rent.current ? <GroupModalRent /> : null }
       </section>
       <section className={`${styles.groupMenuContainer}`}>
         {/* div 2 */}
         <nav>
           <ul>
+            {/* eslint-disable-next-line max-len */}
+            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
             <li
               className={tabStyles.home.style}
               onClick={() => setCurrentTab('HOME')}
             >
               HOME
             </li>
+            {/* eslint-disable-next-line max-len */}
+            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
             <li
               className={tabStyles.rent.style}
               onClick={() => setCurrentTab('대여')}
             >
               대여
             </li>
+            {/* eslint-disable-next-line max-len */}
+            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
             <li
               className={tabStyles.notice.style}
               onClick={() => setCurrentTab('공지')}
             >
               공지
             </li>
+            {/* eslint-disable-next-line max-len */}
+            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
             <li
               className={tabStyles.admin.style}
               onClick={() => setCurrentTab('관리자')}

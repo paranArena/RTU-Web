@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import styles from 'styles/common/Button.module.css';
 
 interface ButtonProps {
@@ -22,17 +22,17 @@ function JoinButton({ requestFlag, setRequestFlag }:ButtonProps) {
   );
 }
 
-function RequestButton({ requestFlag, setRequestFlag }:ButtonProps) {
-  return (
-    <button
-      onClick={() => { setRequestFlag(!requestFlag); }}
-      className={styles.requestButton}
-      type="submit"
-    >
-      요청완료
-    </button>
-  );
-}
+// function RequestButton({ requestFlag, setRequestFlag }:ButtonProps) {
+//   return (
+//     <button
+//       onClick={() => { setRequestFlag(!requestFlag); }}
+//       className={styles.requestButton}
+//       type="submit"
+//     >
+//       요청완료
+//     </button>
+//   );
+// }
 
 function RegisteredButton({ buttonCSS } :RegisterButtonProps) {
   console.log('RegisteredButton : ', buttonCSS);
@@ -58,4 +58,4 @@ function RegisteredButton({ buttonCSS } :RegisterButtonProps) {
   );
 }
 
-export { JoinButton, RequestButton, RegisteredButton };
+export { JoinButton, RegisteredButton };

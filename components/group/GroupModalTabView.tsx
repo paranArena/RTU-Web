@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styles from 'styles/group/GroupModalTabView.module.css';
-import Rent from '../../pages/rent';
 
 interface INoticeListItem {
   imageUrl : string | null;
@@ -20,15 +19,19 @@ interface IRentalItem {
 function NoticeListItem({
   imageUrl, noticeTitle, noticeContent, noticeWriter, noticeDateCreated,
 }:INoticeListItem) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const today = new Date();
   // TODO 몇일까지가 최근 글인지 정해야할 듯
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [newNotice, setNewNotice] = useState(false);
 
   return (
     <li className={styles.noticeItemContainer}>
       <div className={styles.noticeImageTitleContainer}>
         {
-              imageUrl ? <img className={styles.noticeImage} src={imageUrl} alt="notice image" />
+              imageUrl
+              // eslint-disable-next-line jsx-a11y/img-redundant-alt
+                ? <img className={styles.noticeImage} src={imageUrl} alt="notice image" />
                 : null
           }
         <div className={styles.noticeTitleContentContainer}>
@@ -64,6 +67,7 @@ function RentalItem({
       {quantity
         ? (
           <>
+            {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
             <img className={styles.rentalItemImage} src={imageUrl} alt="Rental Item Image" />
             <h3>{rentalItemName}</h3>
             <span>
@@ -75,6 +79,7 @@ function RentalItem({
         )
         : (
           <>
+            {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
             <img className={styles.rentalItemImage} src="https://picsum.photos/200/200" alt="Rental Item Image" />
             <h3>더보기</h3>
           </>
