@@ -50,9 +50,11 @@ function Login() {
     axios.post('http://ec2-13-125-234-225.ap-northeast-2.compute.amazonaws.com:8080/authenticate', loginData)
       .then((res: { status: number; data: { token: any; }; }) => {
         if (res.status === 200) {
+          // eslint-disable-next-line no-console
           console.log(res.data.token);
         }
       }).catch((error : AxiosError) => {
+      // eslint-disable-next-line no-console
         console.log(error);
       });
     router.push('/main');

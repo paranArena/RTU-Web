@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Header from 'components/common/Header';
 import TopNavigation from 'components/common/TopNavigation';
 import styles from 'styles/rent/RentPage.module.css';
 import RentItemCurrentInfo from '../../components/rent/RentItemCurrentInfo';
 
 function RentPage() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [show, setShow] = useState<boolean>(true);
-
 
   return (
     <div className={styles.container}>
@@ -16,6 +16,7 @@ function RentPage() {
         <div className={styles.rentItemImageListContainer}>
           <div className={styles.rentImageRepresentativeOuterContainer}>
             <img className={styles.buttonIcon} src="/icons/leftButton.png" alt="left Button" />
+            {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
             <img className={styles.rentItemRepresentativeImage} src="https://picsum.photos/200" alt="Rental Item Image" />
             <img className={styles.buttonIcon} src="/icons/rightButton.png" alt="right Button" />
           </div>
@@ -23,15 +24,19 @@ function RentPage() {
           <div className={styles.rentItemSmallImageContainer}>
             <ul className={styles.rentItemSmallList}>
               <li>
+                {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
                 <img className={styles.rentItemSmallImage} src="https://picsum.photos/200/200" alt="Rental Item IMage" />
               </li>
               <li>
+                {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
                 <img className={styles.rentItemSmallImage} src="https://picsum.photos/200/200" alt="Rental Item IMage" />
               </li>
               <li>
+                {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
                 <img className={styles.rentItemSmallImage} src="https://picsum.photos/200/200" alt="Rental Item IMage" />
               </li>
               <li>
+                {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
                 <img className={styles.rentItemSmallImage} src="https://picsum.photos/200/200" alt="Rental Item IMage" />
               </li>
             </ul>
@@ -90,10 +95,15 @@ function RentPage() {
           <h3>사용시 주의사항</h3>
           <div>
             <p>
+              {/* eslint-disable-next-line max-len */}
               1. 천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을 천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을 천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을 천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을
-              <br/><br/>
+              <br />
+              <br />
+              {/* eslint-disable-next-line max-len */}
               2. 천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을 천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을 천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을 천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을
-              <br/><br/>
+              <br />
+              <br />
+              {/* eslint-disable-next-line max-len */}
               3. 천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을 천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을 천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을
             </p>
 

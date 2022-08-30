@@ -41,6 +41,7 @@ function CertificationModal({
 
   const onClickReSend = () => {
     /* 인증번호 재발송 */
+    // eslint-disable-next-line no-console
     console.log('인증번호 재발송');
     setReSend(!reSend);
   };
