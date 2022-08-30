@@ -7,7 +7,6 @@ function Main() {
     <div>
       <Header />
       <TopNavigation />
-
     </div>
   );
 }

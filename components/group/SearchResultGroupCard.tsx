@@ -1,7 +1,7 @@
 import Tag from 'components/common/Tag';
 import React, { useState } from 'react';
 import styles from 'styles/group/SearchResultGroupCard.module.css';
-import { JoinButton, RequestButton } from 'components/common/Button';
+import { JoinButton } from 'components/common/Button';
 
 // interface SearchResultGroupCardProps {
 //   groupName : string; // 그룹이름
@@ -33,8 +33,7 @@ function SearchResultGroupCard({ Membership } :Props) {
           </div>
 
           {/* eslint-disable-next-line no-nested-ternary,max-len */}
-          { !flag ? !requestFlag ? <JoinButton requestFlag={requestFlag} setRequestFlag={setRequestFlag} />
-            : <RequestButton requestFlag={requestFlag} setRequestFlag={setRequestFlag} />
+          { !flag ? <JoinButton requestFlag={requestFlag} setRequestFlag={setRequestFlag} />
             : <span className={styles.groupPersonnelMembership}>가입된 그룹</span>}
         </div>
         <div className={styles.tagContainer}>

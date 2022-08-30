@@ -15,7 +15,7 @@
 }
 
 .navContainer{
-    width : 14.5833333333%;
+    width : 280px;
     margin-right : 3.7%;
 }
 
@@ -40,7 +40,7 @@
     font-weight: 500;
     font-size: 1.2rem;
     line-height: 22px;
-    color: #1E2F97;
+    color: var(--primary);
 }
 
 .logo{
@@ -49,12 +49,12 @@
     font-size: 35px;
     line-height: 22px;
 
-    color: #1E2F97;
+    color: var(--primary);
     margin-left : 3.7%;
 }
 
 .searchContainer{
-    width : 31.25%;
+    width : 40%;
     height : 41.6666666667%;
 
     background: #FFFFFF;
@@ -84,10 +84,12 @@
     background-repeat : no-repeat;
     background-size : cover;
     position: absolute;
+
     top : 36%;
-    left : 59.2%;
     width : 24px;
     height : 24px;
+
+    margin-left:37%;
     /*width : 1.8rem;*/
     /*height : 1.7rem;*/
 }

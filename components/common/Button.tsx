@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import styles from 'styles/common/Button.module.css';
 
 interface ButtonProps {
@@ -6,14 +6,18 @@ interface ButtonProps {
   setRequestFlag : Dispatch<SetStateAction<boolean>>;
 }
 
+interface RegisterButtonProps {
+  buttonCSS : boolean;
+}
+
 function JoinButton({ requestFlag, setRequestFlag }:ButtonProps) {
   return (
     <button
       onClick={() => { setRequestFlag(!requestFlag); }}
-      className={styles.joinButton}
-      type="button"
+      className={requestFlag ? styles.requestButton : styles.joinButton}
+      type="submit"
     >
-      가입요청
+      { requestFlag ? '요청완료' : '가입요청'}
     </button>
   );
 }
@@ -23,11 +27,35 @@ function RequestButton({ requestFlag, setRequestFlag }:ButtonProps) {
     <button
       onClick={() => { setRequestFlag(!requestFlag); }}
       className={styles.requestButton}
-      type="button"
+      type="submit"
     >
       요청완료
     </button>
   );
 }
 
-export { JoinButton, RequestButton };
+function RegisteredButton({ buttonCSS } :RegisterButtonProps) {
+  console.log('RegisteredButton : ', buttonCSS);
+  if (buttonCSS !== false) {
+    return (
+      <button
+        className={styles.active}
+        onClick={() => { console.log('submit'); }}
+        type="submit"
+      >
+        등록하기
+      </button>
+    );
+  }
+  return (
+    <button
+      className={styles.unActive}
+      onClick={() => { console.log('submit'); }}
+      type="submit"
+    >
+      등록하기
+    </button>
+  );
+}
+
+export { JoinButton, RequestButton, RegisteredButton };

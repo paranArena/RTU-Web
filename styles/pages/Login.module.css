@@ -83,7 +83,7 @@
 }
 .submitButton:hover{
     color: #FFFFFF;
-    background: #1E2F97;
+    background: var(--primary);
 }
 
 .passwordSignBox{

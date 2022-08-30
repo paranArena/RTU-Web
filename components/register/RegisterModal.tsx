@@ -4,6 +4,7 @@ import React, {
 import Image from 'next/image';
 import styled from 'styled-components';
 import styles from 'styles/main/RegisterModal.module.css';
+import axios from 'axios';
 
 interface ShowProps {
   isOpenRegisterOpen: boolean;
@@ -11,6 +12,16 @@ interface ShowProps {
   isCert: boolean;
   setIsCert: Dispatch<SetStateAction<boolean>>;
 }
+
+const headers = {
+  Accept: 'application/json',
+  'x-ms-version': '2019-07-11',
+  'x-ms-documentdb-isquery': true,
+  'Content-Type': 'application/query+json',
+  'x-ms-documentdb-query-enablecrosspartition': 'true',
+  'cache-control': 'no-cache',
+  'Access-Control-Allow-Origin': '*',
+};
 
 const OverlapCheckedButton = styled.button`
   margin-left: 3.5%;
@@ -122,8 +133,34 @@ function RegisterModal({
   /* 회원가입 완료 버튼 이벤트 함수 */
   const onClickSubmitButton = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    const params = JSON.stringify({
+      email: 'test@test.com',
+      password: 'qwerqwer',
+      name: 'john',
+      phoneNumber: '01012345678',
+      studentId: '202020700',
+      major: 'software',
+    });
+
+    axios.post('/signup', params, {
+      headers,
+    }).then((res) => {
+      console.log(res);
+    })
+      .catch((error) => {
+        console.log(error);
+      });
+
     /* 서버로 요청 */
-    alert('submit');
+    // axios.post('https://rtu-rent-server-uwdjr.run.goorm.io/signup', {
+    //   email: 'test@test.com',
+    //   password: 'qwerqwer',
+    //   name: 'john',
+    //   phoneNumber: '01012345678',
+    //   studentId: '202020700',
+    //   major: 'software',
+    // }).then((res) => { console.log(res); })
+    //   .catch((e: AxiosError) => { console.log(e); });
 
     setIsCert(true);
   };
@@ -139,7 +176,7 @@ function RegisterModal({
   }, [checkPassword, password]);
 
   useEffect(() => {
-    console.log(isCorrectPW);
+
   }, [isCorrectPW]);
 
   // 회원가입 모달 창 닫기 버튼 이벤트
@@ -160,14 +197,12 @@ function RegisterModal({
       <div className={styles.modalTopContainer}>
         {/* 회원가입, X */}
         <span className={styles.modalTitle}>회원가입</span>
-        {/* eslint-disable-next-line max-len */}
-        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
+
         <img onClick={onClickCloseModal} src="/icons/Close.png" alt="Close Button" className={styles.closeButton} />
       </div>
       <div className={styles.formContainer}>
         {/*  form  */}
         <div className={styles.inputContainer}>
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>아주대학교 이메일</label>
           <input
             className={styles.emailInput}
@@ -180,17 +215,14 @@ function RegisterModal({
           {isOverlap ? (
             <OverlapCheckedButton onClick={onClickOverlapButton}>중복확인</OverlapCheckedButton>
           ) : (
-            // eslint-disable-next-line react/button-has-type
-            <button onClick={onClickOverlapButton} className={styles.overlapCheckButton}>
+            <button type="button" onClick={onClickOverlapButton} className={styles.overlapCheckButton}>
               중복확인
             </button>
           )}
         </div>
 
         <div className={styles.inputContainer}>
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>Password</label>
-          {/* eslint-disable-next-line max-len */}
           <input onChange={onChangePassword} className={styles.commonInputTag} type={isCheckedPassword.type} />
           {isCheckedPassword.visible ? (
             <Image
@@ -247,7 +279,6 @@ function RegisterModal({
         </div>
 
         <div className={styles.inputContainer}>
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>이름</label>
           <input
             onChange={(e) => {
@@ -259,9 +290,9 @@ function RegisterModal({
         </div>
 
         <div className={styles.inputContainer}>
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label>학과</label>
+          <label htmlFor="department">학과</label>
           <input
+            id="department"
             onChange={(e: React.FormEvent<HTMLInputElement>) => {
               setDepartment(e.currentTarget.value);
             }}
@@ -271,9 +302,9 @@ function RegisterModal({
         </div>
 
         <div className={styles.inputContainer}>
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label>학번</label>
+          <label htmlFor="studentID">학번</label>
           <input
+            id="studentID"
             onChange={(e: React.FormEvent<HTMLInputElement>) => {
               setStudentID(Number(e.currentTarget.value));
             }}
@@ -297,13 +328,11 @@ function RegisterModal({
       </div>
       <div className={styles.submitButtonContainer}>
         {isActive ? (
-          // eslint-disable-next-line react/button-has-type
-          <button onClick={onClickSubmitButton} className={styles.submitButtonActive}>
+          <button type="submit" onClick={onClickSubmitButton} className={styles.submitButtonActive}>
             완료
           </button>
         ) : (
-          // eslint-disable-next-line react/button-has-type
-          <button className={styles.submitButton}>완료</button>
+          <button type="submit" className={styles.submitButton}>완료</button>
         )}
       </div>
     </div>

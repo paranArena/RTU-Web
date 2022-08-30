@@ -1,0 +1,187 @@
+.outerContainer{
+    width : 86vw;
+    height : 75vh;
+
+    display: flex;
+    flex-direction: row;
+}
+
+/* group info section */
+.groupInfoContainer{
+    width : 20vw;
+    height : 70vh;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+}
+
+.groupInfoOuterContainer{
+    width : 20vw;
+    height : 50vh;
+
+    padding : 1.5rem;
+
+    margin-bottom: 2.5rem;
+
+    background: #F8F9FA;
+    backdrop-filter: blur(10px);
+    border-radius: 25px 0 0 25px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.groupInfoIntroduceContainer{
+    width : 100%;
+    height : 35%;
+
+    margin-bottom : 5%;
+    overflow : hidden;
+}
+
+.groupInfoTagContainer{
+    width : 100%;
+    height : 8%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+
+    color: #495057;
+}
+
+
+.groupInfoTagContainer span{
+    padding-right : 10px;
+}
+
+.groupInfoImageContainer{
+    width : 100%;
+    height : 50%;
+}
+
+.groupInfoImage{
+    width : 100%;
+    height : 85%;
+
+    border-radius: 16px;
+}
+
+.groupName{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.875rem;
+    line-height: 22px;
+
+    color : var(--primary);
+    text-align: center;
+}
+
+.groupMemberNumber{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 22px;
+
+    color: var(--black);
+}
+
+.groupInfoIntroduce{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 22px;
+
+    color: var(--black);
+
+    display: block;
+    overflow: hidden;
+}
+
+.groupInfoInnerContainer{
+    width :100%;
+    height: 1.875rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom : 5px;
+}
+
+/* group Content Section */
+.groupContentContainer{
+    width : 60vw;
+    height : 75vh;
+
+    background: #FFFFFF;
+    backdrop-filter: blur(10px);
+    border-radius: 0 25px 25px 25px;
+
+    overflow:scroll;
+}
+
+.groupHome{
+    padding : 5%;
+}
+
+.groupRent{
+    padding-right: 5%;
+    padding-left: 5%;
+    padding-top : 5%;
+}
+
+/* group Menu Section */
+.groupMenuContainer{
+    position : relative;
+    top : 12%;
+
+    width : 6vw;
+    height : 24vh;
+
+    background: #F8F9FA;
+
+    backdrop-filter: blur(10px);
+
+    border-radius: 0 25px 25px 0;
+}
+
+.groupMenuContainer nav{
+    width : 100%;
+    height : 100%;
+}
+
+.groupMenuContainer nav ul{
+    width : 100%;
+    height : 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding-left : 10px;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 27px;
+    letter-spacing: -0.496216px;
+}
+
+.groupMenuContainer nav ul:hover{
+    cursor : pointer;
+}
+
+.groupCurrentMenuText{
+    color: var(--primary);
+}
+
+.groupMenuText{
+    color: var(--black);
+}

@@ -5,6 +5,7 @@ import RegisterModal from 'components/register/RegisterModal';
 import CertificationModal from 'components/register/CertificationModal';
 import RegisterSuccessModal from 'components/register/RegisterSuccessModal';
 import Header from 'components/common/Header';
+import axios, { AxiosError } from 'axios';
 
 // const API_SERVER = '';
 
@@ -25,7 +26,6 @@ function Login() {
   const [isCert, setIsCert] = useState<boolean>(false);
 
   const onClickToggleModal = useCallback(() => {
-    console.log(isRegisterOpen);
     setIsRegisterOpen(!isRegisterOpen);
   }, [isRegisterOpen]);
 
@@ -47,14 +47,14 @@ function Login() {
     // setWrongVisible(!wrongVisible);
     // 서버에 로그인 요청
 
-    // axios.post(`https://rtu-rent-server-uwdjr.run.goorm.io/authenticate`, loginData)
-    //     .then( (res: { status: number; data: { token: any; }; }) => {
-    //          if( res.status === 200){
-    //              console.log(res.data.token);
-    //          }
-    // }).catch( (error : AxiosError) => {
-    //    console.log(error);
-    // });
+    axios.post('http://ec2-13-125-234-225.ap-northeast-2.compute.amazonaws.com:8080/authenticate', loginData)
+      .then((res: { status: number; data: { token: any; }; }) => {
+        if (res.status === 200) {
+          console.log(res.data.token);
+        }
+      }).catch((error : AxiosError) => {
+        console.log(error);
+      });
     router.push('/main');
   };
 

@@ -1,0 +1,172 @@
+.modalContainer{
+    width : 60.9375%;
+    height : 72.7272727273%;
+    background: #FFFFFF;
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.modalTitle{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.875rem;
+    line-height: 27px;
+    text-align: center;
+    letter-spacing: -0.496216px;
+    color: #000000;
+    margin-top : 5%;
+    margin-bottom: 5%;
+}
+
+.modalContentContainer{
+    padding : 0 50px 0 50px;
+    width : 100%;
+    height : 55%;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.modalContentOne{
+    width : 50%;
+    height : 100%;
+    display: flex;
+    flex-direction: column;
+    padding-right : 2rem;
+    align-items: center;
+}
+
+.modalContentOne div:first-child{
+    width : 80%;
+    height : 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.25rem;
+    line-height: 29px;
+
+    text-align: center;
+    letter-spacing: -0.533455px;
+    color: #495057;
+
+    padding-bottom:18px;
+}
+
+.modalContentOne div:nth-child(2){
+    padding-left : 10px;
+    width : 80%;
+    height : 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.modalContentTwo{
+    width : 50%;
+    height : 100%;
+    display: flex;
+    flex-direction: column;
+    padding-left : 2rem;
+}
+
+.groupImage{
+    width : 100%;
+    height : 90%;
+
+    border-radius: 20px;
+}
+
+
+.contentTitle{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.25rem;
+    line-height: 29px;
+    /* identical to box height, or 137% */
+
+    text-align: center;
+    letter-spacing: -0.533455px;
+
+    color: #495057;
+}
+
+.explainText{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.5rem;
+    line-height: 29px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.533455px;
+
+    color: #868E96;
+}
+
+.inputLineTag{
+    width : 100%;
+    height : 1.625rem;
+    margin-top : 0.8rem;
+    font-size : 1.125rem;
+    border : none;
+    border-bottom: 1.5px solid #DEE2E6;
+}
+
+.inputLineTag:focus{
+    outline:none;
+}
+
+.inputLineGroupName{
+    width : 100%;
+    margin-top : 0.8rem;
+    font-size : 2.5rem;
+    border : none;
+    border-bottom: 1.5px solid #DEE2E6;
+}
+
+.inputLineGroupName:focus{
+    outline:none;
+}
+
+.inputBoxIntro{
+    width : 100%;
+    height : 60%;
+    background: #FFFFFF;
+    border : none;
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    resize:none;
+}
+
+.inputBoxIntro:focus{
+    outline:0;
+}
+
+.groupNameContainer{
+    width : 100%;
+    height : 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.introduceContainer{
+    width : 100%;
+    height : 55%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+}

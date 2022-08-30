@@ -1,0 +1,85 @@
+.ItemInfoContainer{
+    width : 95%;
+    height : 70px;
+
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    border-bottom: 1.49628px solid #F1F3F5;
+}
+
+.tagTerm{
+    margin-right : 2em;
+    width : 60px;
+    height : 30px;
+
+    border-radius: 22px;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: rgba(44, 169, 0, 0.5);
+
+    color: #000000;
+}
+
+.tagFC{
+    margin-right : 2em;
+    width : 60px;
+    height : 30px;
+    background: rgba(255, 184, 0, 0.5);
+
+    border-radius: 22px;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    color: #000000;
+}
+
+.rentDateContainer{
+    position: absolute;
+    right : 7%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.rentDate{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #000000;
+}
+
+.rentItemName{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.610482px;
+
+    color: #000000;
+}

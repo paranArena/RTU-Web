@@ -14,7 +14,9 @@ function GroupCard({
   url, groupName, tagList, like,
 } : GroupCardProps) {
   return (
-    <Link href={`/group:${groupName}`}>
+    <Link href="/group/main">
+      {/* <Link href={`/group:${groupName}`}> */}
+
       <div className={styles.groupContainer}>
         {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
         <img className={styles.groupRepresentativeImage} src={url} alt="Group representative Image" />
