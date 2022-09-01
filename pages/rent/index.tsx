@@ -5,8 +5,10 @@ import styles from 'styles/rent/RentPage.module.css';
 import RentItemCurrentInfo from '../../components/rent/RentItemCurrentInfo';
 import FixedRentModal from '../../components/rent/FixedRentModal';
 
-import { KAKAO_API_KEY } from '../../config';
+// import { KAKAO_API_KEY } from '../../config';
 import { CommonButton } from '../../components/common/Button';
+
+const KAKAO_API_KEY = 'KAKAO_API_KEY';
 
 interface MapProps {
   latitude: number; // 위도
