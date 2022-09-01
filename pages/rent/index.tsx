@@ -303,6 +303,7 @@ function RentPage() {
               </div>
             </div>
 
+            {/* eslint-disable-next-line no-console */}
             <CommonButton text="확인" onClickEvent={() => { console.log('확인'); }} />
           </div>
         ) }

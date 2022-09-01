@@ -21,7 +21,7 @@ function FixedRentModal() {
           {/* 시간 */}
         </div>
       </section>
-      <button>완료</button>
+      <button type="submit">완료</button>
     </div>
   );
 }
