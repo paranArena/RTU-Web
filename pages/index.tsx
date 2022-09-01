@@ -7,7 +7,11 @@ import RegisterSuccessModal from 'components/register/RegisterSuccessModal';
 import Header from 'components/common/Header';
 import axios, { AxiosError } from 'axios';
 
-// const API_SERVER = '';
+declare global {
+  interface Window {
+    kakao: any;
+  }
+}
 
 interface LoginDate {
   email: string;
@@ -47,11 +51,11 @@ function Login() {
     // setWrongVisible(!wrongVisible);
     // 서버에 로그인 요청
 
-    axios.post('http://ec2-13-125-234-225.ap-northeast-2.compute.amazonaws.com:8080/authenticate', loginData)
-      .then((res: { status: number; data: { token: any; }; }) => {
+    axios.post('http://ec2-13-125-234-225.ap-northeast-2.compute.amazonaws.com:8080/authenticate', { email: 'example1@example.com', password: 'example123' })
+      .then((res: { status: number; data:string; }) => {
         if (res.status === 200) {
           // eslint-disable-next-line no-console
-          console.log(res.data.token);
+          console.log(res.data);
         }
       }).catch((error : AxiosError) => {
       // eslint-disable-next-line no-console

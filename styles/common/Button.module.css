@@ -1,5 +1,4 @@
 .joinButton{
-
     width: 8.125rem;
     height: 2.875rem;
 
@@ -72,4 +71,40 @@
     line-height: 33px;
 
     color: white;
+}
+
+.commonButton{
+    box-sizing: border-box;
+
+    width: 200px;
+    height: 50px;
+
+    background: #FFFFFF;
+    border: 1.71679px solid #1E2F97;
+    box-shadow: 0 0 6.86714px rgba(30, 47, 151, 0.3);
+    border-radius: 28px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+
+    /*display: flex;*/
+    /*align-items: center;*/
+    /*text-align: center;*/
+
+    color: #1E2F97;
+}
+
+
+.commonButton:hover{
+    background: #1E2F97;
+    border: 3px solid #1E2F97;
+    box-shadow: 0 0 13px rgba(30, 47, 151, 0.3);
+    border-radius: 55px;
+
+    /*display: flex;*/
+    /*align-items: center;*/
+    /*text-align: center;*/
+
+    color: #FFFFFF;
 }

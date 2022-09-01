@@ -10,6 +10,11 @@ interface RegisterButtonProps {
   buttonCSS : boolean;
 }
 
+interface CommonButtonProps {
+  text : string;
+  onClickEvent : React.MouseEventHandler<HTMLButtonElement>;
+}
+
 function JoinButton({ requestFlag, setRequestFlag }:ButtonProps) {
   return (
     <button
@@ -58,4 +63,10 @@ function RegisteredButton({ buttonCSS } :RegisterButtonProps) {
   );
 }
 
-export { JoinButton, RegisteredButton };
+function CommonButton({ text, onClickEvent }:CommonButtonProps) {
+  return (
+    <button className={styles.commonButton} type="submit" onClick={onClickEvent}>{text}</button>
+  );
+}
+
+export { JoinButton, RegisteredButton, CommonButton };

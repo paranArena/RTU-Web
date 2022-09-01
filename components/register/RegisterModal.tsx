@@ -142,7 +142,7 @@ function RegisterModal({
       major: 'software',
     });
 
-    axios.post('/signup', params, {
+    axios.post('http://ec2-13-125-234-225.ap-northeast-2.compute.amazonaws.com:8080/signup', params, {
       headers,
     }).then((res) => {
       // eslint-disable-next-line no-console
@@ -210,6 +210,8 @@ function RegisterModal({
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>아주대학교 이메일</label>
           <input
+            minLength={6}
+            maxLength={30}
             className={styles.emailInput}
             onChange={(e) => {
               setEmail(e.target.value);
@@ -230,7 +232,13 @@ function RegisterModal({
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>Password</label>
           {/* eslint-disable-next-line max-len */}
-          <input onChange={onChangePassword} className={styles.commonInputTag} type={isCheckedPassword.type} />
+          <input
+            minLength={8}
+            maxLength={30}
+            onChange={onChangePassword}
+            className={styles.commonInputTag}
+            type={isCheckedPassword.type}
+          />
           {isCheckedPassword.visible ? (
             <Image
               width={20}
@@ -255,6 +263,8 @@ function RegisterModal({
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>Password 확인</label>
           <input
+            minLength={8}
+            maxLength={30}
             onChange={onChangeCheckPassword}
             className={styles.commonInputTag}
             type={isCheckedPasswordCheck.type}
@@ -289,6 +299,8 @@ function RegisterModal({
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>이름</label>
           <input
+            minLength={2}
+            maxLength={10}
             onChange={(e) => {
               setName(e.target.value);
             }}
@@ -314,6 +326,8 @@ function RegisterModal({
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label htmlFor="studentID">학번</label>
           <input
+            minLength={6}
+            maxLength={15}
             id="studentID"
             onChange={(e: React.FormEvent<HTMLInputElement>) => {
               setStudentID(Number(e.currentTarget.value));
