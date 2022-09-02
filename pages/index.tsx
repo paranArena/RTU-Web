@@ -7,6 +7,9 @@ import RegisterSuccessModal from 'components/register/RegisterSuccessModal';
 import Header from 'components/common/Header';
 import axios, { AxiosError } from 'axios';
 
+axios.defaults.baseURL = 'http://ec2-13-125-234-225.ap-northeast-2.compute.amazonaws.com:8080';
+axios.defaults.withCredentials = true;
+
 declare global {
   interface Window {
     kakao: any;
@@ -23,9 +26,9 @@ function Login() {
   const [wrongVisible, setWrongVisible] = useState<boolean>(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState<boolean>(false);
   const [registerSuccess, setRegisterSuccess] = useState<boolean>(false);
-  const [loginData, setLoginData] = useState<LoginDate>({ email: '', password: '' });
   const router = useRouter();
 
+  const [loginData, setLoginData] = useState<LoginDate>({ email: '', password: '' });
   // Cert Modal Props
   const [isCert, setIsCert] = useState<boolean>(false);
 
@@ -47,21 +50,31 @@ function Login() {
     setLoginData(currentLoginData);
   };
 
+  // Login Reqeust
   const onClickLogin = () => {
     // setWrongVisible(!wrongVisible);
     // 서버에 로그인 요청
 
-    axios.post('http://ec2-13-125-234-225.ap-northeast-2.compute.amazonaws.com:8080/authenticate', { email: 'example1@example.com', password: 'example123' })
+    axios.post('/authenticate', loginData)
       .then((res: { status: number; data:string; }) => {
         if (res.status === 200) {
           // eslint-disable-next-line no-console
-          console.log(res.data);
+          const tokenJSON = res.data;
+          console.log(tokenJSON);
+
+          // @ts-ignore
+          const accessToken = tokenJSON.token;
+          console.log(accessToken);
+
+          // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
+          axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+
+          router.push('/main');
         }
       }).catch((error : AxiosError) => {
       // eslint-disable-next-line no-console
         console.log(error);
       });
-    router.push('/main');
   };
 
   useEffect(() => {}, [isCert]);

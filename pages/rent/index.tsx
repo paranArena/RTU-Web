@@ -3,8 +3,7 @@ import Header from 'components/common/Header';
 import TopNavigation from 'components/common/TopNavigation';
 import styles from 'styles/rent/RentPage.module.css';
 import RentItemCurrentInfo from '../../components/rent/RentItemCurrentInfo';
-import FixedRentModal from '../../components/rent/FixedRentModal';
-
+import AlertModal from '../../components/common/AlertModal';
 // import { KAKAO_API_KEY } from '../../config';
 import { CommonButton } from '../../components/common/Button';
 
@@ -107,7 +106,19 @@ function RentPage() {
       <Header />
       <TopNavigation />
 
-      { selectedRentType['fixed-term'] ? <FixedRentModal /> : null }
+      { selectedRentType['fixed-term'] ? (
+        <AlertModal
+          onClickEvent={() => {
+            setSelectedRentType({
+              'fixed-term': false,
+              'first-come': false,
+            });
+          }}
+          titleText="아직 지원하지 않는 기능입니다."
+          contentText={null}
+        />
+      ) : null }
+      {/* { selectedRentType['fixed-term'] ? <FixedRentModal /> : null } */}
       { !selectedRentType['first-come']
         ? (
           <>
@@ -306,7 +317,15 @@ function RentPage() {
             </div>
 
             {/* eslint-disable-next-line no-console */}
-            <CommonButton text="확인" onClickEvent={() => { console.log('확인'); }} />
+            <CommonButton
+              text="확인"
+              onClickEvent={() => {
+                setSelectedRentType({
+                  'fixed-term': false,
+                  'first-come': false,
+                });
+              }}
+            />
           </div>
         ) }
     </div>
