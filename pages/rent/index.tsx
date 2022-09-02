@@ -11,7 +11,7 @@ import { CommonButton } from '../../components/common/Button';
 const KAKAO_API_KEY = 'KAKAO_API_KEY';
 
 interface MapProps {
-  latitude: number; // 위도
+  latitude: number; // 위도22222
   longitude: number; // 경도
 }
 
