@@ -40,12 +40,11 @@ function JoinButton({ requestFlag, setRequestFlag }:ButtonProps) {
 // }
 
 function RegisteredButton({ buttonCSS } :RegisterButtonProps) {
-  console.log('RegisteredButton : ', buttonCSS);
   if (buttonCSS !== false) {
     return (
       <button
         className={styles.active}
-        onClick={() => { console.log('submit'); }}
+        onClick={() => { }}
         type="submit"
       >
         등록하기
@@ -55,7 +54,7 @@ function RegisteredButton({ buttonCSS } :RegisterButtonProps) {
   return (
     <button
       className={styles.unActive}
-      onClick={() => { console.log('submit'); }}
+      onClick={() => { }}
       type="submit"
     >
       등록하기
