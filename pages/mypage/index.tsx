@@ -1,6 +1,4 @@
-import React from 'react';
-import Header from 'components/common/Header';
-import TopNavigation from 'components/common/TopNavigation';
+
 import styles from 'styles/pages/MyPage.module.css';
 
 // useEffect(() => {
@@ -15,11 +13,7 @@ import styles from 'styles/pages/MyPage.module.css';
 
 function MyPage() {
   return (
-    <div className={styles.mypageConatiner}>
-      <Header />
-      <TopNavigation />
-
-    </div>
+    <div className={styles.mypageConatiner} />
   );
 }
 

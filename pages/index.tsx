@@ -5,7 +5,11 @@ import RegisterModal from 'components/register/RegisterModal';
 import CertificationModal from 'components/register/CertificationModal';
 import RegisterSuccessModal from 'components/register/RegisterSuccessModal';
 import Header from 'components/common/Header';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
+import { SERVER_API } from '../config';
+
+axios.defaults.baseURL = 'http://ec2-13-125-234-225.ap-northeast-2.compute.amazonaws.com:8080';
+axios.defaults.withCredentials = true;
 
 axios.defaults.baseURL = 'http://ec2-13-125-234-225.ap-northeast-2.compute.amazonaws.com:8080';
 axios.defaults.withCredentials = true;
@@ -32,6 +36,29 @@ function Login() {
   // Cert Modal Props
   const [isCert, setIsCert] = useState<boolean>(false);
 
+  const onClickLoginButton = (e : React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    console.log(loginData);
+
+    if (loginData.email === '' && loginData.password === '') {
+      alert('아이디와 비밀번호를 입력해주세요');
+    } else {
+      axios.post(`${SERVER_API}/authenticate`, loginData)
+        .then((res) => {
+          if (res.status === 200) {
+            localStorage.setItem('token', res.data.token);
+            router.push('/main');
+          } else {
+            console.log('아디 비버 틀림');
+          }
+        })
+        .catch((err) => {
+          console.log('login fail');
+          console.log(err);
+        });
+    }
+  };
+
   const onClickToggleModal = useCallback(() => {
     setIsRegisterOpen(!isRegisterOpen);
   }, [isRegisterOpen]);
@@ -49,41 +76,11 @@ function Login() {
     currentLoginData.password = e.currentTarget.value;
     setLoginData(currentLoginData);
   };
-
-  // Login Reqeust
-  const onClickLogin = () => {
-    // setWrongVisible(!wrongVisible);
-    // 서버에 로그인 요청
-
-    axios.post('/authenticate', loginData)
-      .then((res: { status: number; data:string; }) => {
-        if (res.status === 200) {
-          // eslint-disable-next-line no-console
-          const tokenJSON = res.data;
-          console.log(tokenJSON);
-
-          // @ts-ignore
-          const accessToken = tokenJSON.token;
-          console.log(accessToken);
-
-          // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
-          axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-
-          router.push('/main');
-        }
-      }).catch((error : AxiosError) => {
-      // eslint-disable-next-line no-console
-        console.log(error);
-      });
-  };
-
   useEffect(() => {}, [isCert]);
 
   return (
     <div className={styles.container}>
-
       <Header />
-
       <main className={styles.main}>
         {isRegisterOpen ? (
           <RegisterModal
@@ -144,7 +141,7 @@ function Login() {
           )}
 
           <div className={styles.submitLinkBox}>
-            <button onClick={onClickLogin} className={styles.submitButton} type="submit">
+            <button onClick={onClickLoginButton} className={styles.submitButton} type="submit">
               로그인
             </button>
 

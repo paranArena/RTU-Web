@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Header from 'components/common/Header';
-import TopNavigation from 'components/common/TopNavigation';
 import styles from 'styles/rent/RentPage.module.css';
 import RentItemCurrentInfo from '../../components/rent/RentItemCurrentInfo';
 import AlertModal from '../../components/common/AlertModal';
@@ -10,7 +8,7 @@ import { CommonButton } from '../../components/common/Button';
 const KAKAO_API_KEY = 'KAKAO_API_KEY';
 
 interface MapProps {
-  latitude: number; // 위도
+  latitude: number; // 위도22222
   longitude: number; // 경도
 }
 
@@ -103,8 +101,6 @@ function RentPage() {
 
   return (
     <div className={styles.container}>
-      <Header />
-      <TopNavigation />
 
       { selectedRentType['fixed-term'] ? (
         <AlertModal
