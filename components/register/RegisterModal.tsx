@@ -142,7 +142,7 @@ function RegisterModal({
       major: 'software',
     });
 
-    axios.post('http://ec2-13-125-234-225.ap-northeast-2.compute.amazonaws.com:8080/signup', params, {
+    axios.post('/signup', params, {
       headers,
     }).then((res) => {
       // eslint-disable-next-line no-console
@@ -239,7 +239,7 @@ function RegisterModal({
             className={styles.commonInputTag}
             type={isCheckedPassword.type}
           />
-          {isCheckedPassword.visible ? (
+          {isCheckedPassword ? (
             <Image
               width={20}
               height={20}

@@ -1,0 +1,60 @@
+.alertModalContainer{
+    width : 50vw;
+    height : 270px;
+
+    position: fixed;
+    z-index: 999;
+
+    top : 15vw;
+    right : 25vw;
+
+    background: #F8F9FA;
+    box-shadow: 0 0 9px 3px rgba(0, 0, 0, 0.3);
+    border-radius: 21px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.closeIconContainer{
+    width : 50vw;
+    height : 48px;
+}
+
+.closeIcon{
+    width : 24px;
+    height : 24px;
+
+    margin : 20px;
+
+    position : absolute;
+    right : 0;
+    top : 0;
+}
+
+.alertTextContainer{
+    width : 50vw;
+    height : 160px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.representativeIcon{
+    width : 42px;
+    height : 42px;
+    margin : 8px;
+}
+
+.titleText{
+    font-style: normal;
+    font-weight: 900;
+    font-size: 26px;
+
+    text-align: center;
+
+    color: #000000;
+}
