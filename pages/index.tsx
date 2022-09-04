@@ -11,6 +11,9 @@ import { SERVER_API } from '../config';
 axios.defaults.baseURL = 'http://ec2-13-125-234-225.ap-northeast-2.compute.amazonaws.com:8080';
 axios.defaults.withCredentials = true;
 
+axios.defaults.baseURL = 'http://ec2-13-125-234-225.ap-northeast-2.compute.amazonaws.com:8080';
+axios.defaults.withCredentials = true;
+
 declare global {
   interface Window {
     kakao: any;
@@ -27,7 +30,6 @@ function Login() {
   const [wrongVisible, setWrongVisible] = useState<boolean>(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState<boolean>(false);
   const [registerSuccess, setRegisterSuccess] = useState<boolean>(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const router = useRouter();
 
   const [loginData, setLoginData] = useState<LoginDate>({ email: '', password: '' });
@@ -74,7 +76,6 @@ function Login() {
     currentLoginData.password = e.currentTarget.value;
     setLoginData(currentLoginData);
   };
-
   useEffect(() => {}, [isCert]);
 
   return (

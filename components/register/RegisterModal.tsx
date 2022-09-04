@@ -291,7 +291,7 @@ function RegisterModal({
             className={styles.commonInputTag}
             type={isCheckedPassword.type}
           />
-          {isCheckedPassword.visible ? (
+          {isCheckedPassword ? (
             <Image
               width={20}
               height={20}
