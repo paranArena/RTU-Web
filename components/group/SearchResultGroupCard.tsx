@@ -12,23 +12,30 @@ import { JoinButton } from 'components/common/Button';
 //   request : boolean;
 // }
 
-interface Props {
-  Membership : boolean;
+interface IGroupCard {
+  name: string;
+  hashtags: string[];
+  clubRole: string;
+  id: number;
+  introduction: string;
+  thumbnailPath: string
 }
 
-function SearchResultGroupCard({ Membership } :Props) {
-  const flag = Membership;
+function SearchResultGroupCard({
+  name, hashtags, clubRole, id, thumbnailPath, introduction,
+} : IGroupCard) {
+  const flag = false;
   const [requestFlag, setRequestFlag] = useState<boolean>(false);
 
   return (
     <div className={styles.cardContainer}>
       {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
-      <img className={styles.groupImage} src="/images/tennis.jpeg" alt="group Image" />
+      <img className={styles.groupImage} src="https://picsum.photos/200" alt="group Image" />
 
       <div className={styles.textContainer}>
         <div className={styles.textTopContainer}>
           <div>
-            <span className={styles.groupNameText}>그룹이름</span>
+            <span className={styles.groupNameText}>{name}</span>
             <span className={styles.groupPersonnelMembership}>멤버73명</span>
           </div>
 
@@ -37,10 +44,13 @@ function SearchResultGroupCard({ Membership } :Props) {
             : <span className={styles.groupPersonnelMembership}>가입된 그룹</span>}
         </div>
         <div className={styles.tagContainer}>
-          <Tag tag="태그" />
-          <Tag tag="태그" />
+          {
+            hashtags.map(
+              (tag) => (<Tag tag={tag} />),
+            )
+          }
         </div>
-        <span className={styles.introduceText}>안녕하세요. 테니스 동아리 ARC입니다. 정기연습은 월, 목입니다.</span>
+        <span className={styles.introduceText}>{introduction}</span>
       </div>
     </div>
   );

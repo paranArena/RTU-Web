@@ -1,6 +1,4 @@
 import React from 'react';
-import Header from 'components/common/Header';
-import TopNavigation from 'components/common/TopNavigation';
 import styles from 'styles/pages/GroupPage.module.css';
 import Link from 'next/link';
 import GroupCard from '../../components/group/GroupCard';
@@ -24,8 +22,6 @@ const rendering = () => {
 function GroupPage() {
   return (
     <div className={styles.outerContainer}>
-      <Header />
-      <TopNavigation />
 
       <div className={styles.innerContainer}>
         {/*  즐겨찾기  */}

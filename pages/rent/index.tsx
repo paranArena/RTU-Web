@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Header from 'components/common/Header';
-import TopNavigation from 'components/common/TopNavigation';
 import styles from 'styles/rent/RentPage.module.css';
 import RentItemCurrentInfo from '../../components/rent/RentItemCurrentInfo';
 import AlertModal from '../../components/common/AlertModal';
@@ -103,8 +101,6 @@ function RentPage() {
 
   return (
     <div className={styles.container}>
-      <Header />
-      <TopNavigation />
 
       { selectedRentType['fixed-term'] ? (
         <AlertModal

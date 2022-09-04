@@ -1,9 +1,20 @@
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, {
+  Dispatch, SetStateAction,
+  useEffect, useState,
+} from 'react';
 import { useRouter } from 'next/router';
 import styles from 'styles/common/TopNavigation.module.css';
 
-function TopNavigationBar() {
+interface TopNavigationBarProps {
+  setIsSearched : Dispatch<SetStateAction<boolean>>;
+  isSearched : boolean;
+}
+
+function TopNavigationBar({ setIsSearched, isSearched } :TopNavigationBarProps) {
+  // useEffect(() => {
+  //   console.log(setIsSearched, isSearched);
+  // }, [setIsSearched, isSearched]);
   const router = useRouter();
   const path = router.pathname;
 
@@ -14,6 +25,10 @@ function TopNavigationBar() {
     rent: false,
     mypage: false,
   });
+
+  useEffect(() => {
+    console.log(isSearched);
+  }, [isSearched]);
 
   useEffect(() => {
     if (path === '/group') {
@@ -35,18 +50,22 @@ function TopNavigationBar() {
         mypage: true,
       });
     }
-  }, [router]);
+  }, [current]);
 
-  const onClickSearch = () => {
-    router.push({
-      pathname: '/search',
-      query: {
-        query: searchInput,
-      },
-    });
+  const onClickSearch = (e : React.MouseEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    console.log('onClickSearch : ', searchInput);
+
+    // setIsSearched(!isSearched);
+    setIsSearched((prev) => !prev);
+    if (searchInput === '') {
+      router.push('/search');
+    } else {
+      router.push(`/clubs/search?name=${searchInput}`);
+    }
   };
 
-  const onChangeSearchInput = (e: React.FormEvent<HTMLInputElement>) => {
+  const onChangeSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const currentInput = e.currentTarget.value;
     setSearchInput(currentInput);
@@ -55,11 +74,34 @@ function TopNavigationBar() {
   return (
     <div className={styles.topNavigationBarContainer}>
       <div className={styles.logo}>
-        <Link href={router}>Ren2U</Link>
+        <Link href="/main">Ren2U</Link>
       </div>
 
-      <div className={styles.searchContainer}>
-        <input onChange={onChangeSearchInput} className={styles.searchInput} type="text" />
+      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+      <div
+        className={styles.searchContainer}
+      >
+        <input
+          id="input"
+          onKeyPress={(e:React.KeyboardEvent<HTMLInputElement>) => {
+            if (e.key === 'Enter') {
+              // e.target.value = '';
+              // setSearchInput(searchInput);
+
+              // const search = searchInput;
+              setIsSearched((prev) => !prev);
+              if (searchInput === '') {
+                router.push({ pathname: '/search' });
+              } else {
+                router.push(`/search?name=${searchInput}`);
+              }
+            }
+          }}
+          name="input"
+          onChange={onChangeSearchInput}
+          className={styles.searchInput}
+          type="text"
+        />
         {/* eslint-disable-next-line max-len */}
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
         <div onClick={onClickSearch} className={styles.searchIcon} />

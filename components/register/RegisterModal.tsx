@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import styles from 'styles/main/RegisterModal.module.css';
 import axios from 'axios';
 import { rexIDCheck, rexPhoneNumber } from '../../RegExp';
+import { SERVER_API } from '../../config';
 
 interface ShowProps {
   isOpenRegisterOpen: boolean
@@ -35,21 +36,21 @@ const OverlapCheckedButton = styled.button`
 `;
 
 interface SignUpProps {
-  email: string | null
-  password: string | null
-  name: string | null
-  major: string | null
-  studentId: string | null
-  phoneNumber: string | null
+  email: string
+  password: string
+  name: string
+  major: string
+  studentId: string
+  phoneNumber: string
 }
 
 const defaultSignUpProps: SignUpProps = {
-  email: null,
-  password: null,
-  name: null,
-  major: null,
-  studentId: null,
-  phoneNumber: null,
+  email: '',
+  password: '',
+  name: '',
+  major: '',
+  studentId: '',
+  phoneNumber: '',
 };
 
 const onInputMaxLengthCheck = (object) => {
@@ -146,26 +147,38 @@ function RegisterModal({
   }, [signupProps]);
 
   useEffect(() => {
-    console.log(isCheckedPasswordCheck);
-    console.log(isCheckedPassword);
+    // console.log(isCheckedPasswordCheck);
+    // console.log(isCheckedPassword);
   }, [isCheckedPasswordCheck, isCheckedPassword]);
 
   useEffect(() => {
-    console.log('useEffect');
-    console.log(signupProps.password);
-    console.log(checkPassword);
+    // console.log(signupProps.password);
+    // console.log(checkPassword);
   }, [signupProps, checkPassword]);
 
   /* 완료 버튼 활성화 이벤트 함수 */
   useEffect(() => {
-    if (
-      signupProps.email !== ('' || null) && rexIDCheck.test(signupProps.email) && signupProps.password !== ('' || null) && checkPassword !== ('' || null) && signupProps.name !== ('' || null) && signupProps.major !== ('' || null) && ((signupProps.phoneNumber).search(rexPhoneNumber) > -1) && signupProps.studentId !== ('' || null) && isCorrectPW !== false
-      && isOverlap.flag) {
+    const flag = (signupProps.email !== '')
+        && (signupProps.password !== '')
+        && (signupProps.name !== '')
+    && (signupProps.major !== '')
+    && (signupProps.studentId !== '')
+    && (signupProps.phoneNumber !== '')
+    && ((signupProps.email.search(rexIDCheck)) > -1)
+    && ((signupProps.phoneNumber.search(rexPhoneNumber)) > -1)
+    && (signupProps.password.length >= 8);
+    if (flag) {
+      console.log('set true flag : ', flag);
       setIsActive(true);
     } else {
+      console.log('set false flag : ', flag);
       setIsActive(false);
     }
-  }, [signupProps, isActive]);
+  }, [signupProps]);
+
+  useEffect(() => {
+    console.log('isActive : ', isActive);
+  }, [isActive]);
 
   useEffect(() => {
     if (signupProps.password !== null || checkPassword !== null) {
@@ -176,26 +189,6 @@ function RegisterModal({
       }
     }
   }, [signupProps, isCorrectPW]);
-
-  /* 회원가입 완료 버튼 이벤트 함수 */
-  // const onClickSubmitButton = (e: React.FormEvent<HTMLButtonElement>) => {
-  //   e.preventDefault();
-  //
-  //   axios
-  //     .post(
-  //       'http://ec2-13-125-234-225.ap-northeast-2.compute.amazonaws.com:8080/signup',
-  //       signupProps,
-  //     )
-  //     .then((res) => {
-  //       // eslint-disable-next-line no-console
-  //       console.log(res);
-  //     })
-  //     .catch((error) => {
-  //       // eslint-disable-next-line no-console
-  //       console.log(error);
-  //     });
-  //   setIsCert(true);
-  // };
 
   // 회원가입 모달 창 닫기 버튼 이벤트
   const onClickCloseModal = useCallback(() => {
@@ -213,7 +206,7 @@ function RegisterModal({
 
       axios
         .get(
-          `http://ec2-13-125-234-225.ap-northeast-2.compute.amazonaws.com:8080/members/:${params}/exists`,
+          `${SERVER_API}/members/:${params}/exists`,
         )
         .then((res) => {
           if (res.data) {
@@ -435,7 +428,7 @@ function RegisterModal({
               let Email = signupProps.email;
               Email = Email.concat('@ajou.ac.kr');
 
-              axios.post('http://ec2-13-125-234-225.ap-northeast-2.compute.amazonaws.com:8080/signup', {
+              axios.post(`${SERVER_API}/signup`, {
                 email: Email,
                 password: signupProps.password,
                 name: signupProps.name,
@@ -458,7 +451,7 @@ function RegisterModal({
           <button
             type="submit"
             onClick={() => {
-              alert('완료버튼 활서화 안됨.');
+              alert('완료버튼 활성화 안됨.');
             }}
             className={styles.submitButton}
           >
