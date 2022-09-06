@@ -50,19 +50,19 @@ function TopNavigationBar({ setIsSearched, isSearched } :TopNavigationBarProps) 
         mypage: true,
       });
     }
-  }, [current]);
+  }, [path]);
 
   const onClickSearch = (e : React.MouseEvent<HTMLInputElement>) => {
     e.preventDefault();
-    console.log('onClickSearch : ', searchInput);
 
     // setIsSearched(!isSearched);
     setIsSearched((prev) => !prev);
-    if (searchInput === '') {
-      router.push('/search');
-    } else {
-      router.push(`/clubs/search?name=${searchInput}`);
-    }
+    router.push({
+      pathname: '/search',
+      query: {
+        input: searchInput,
+      },
+    });
   };
 
   const onChangeSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,11 +90,12 @@ function TopNavigationBar({ setIsSearched, isSearched } :TopNavigationBarProps) 
 
               // const search = searchInput;
               setIsSearched((prev) => !prev);
-              if (searchInput === '') {
-                router.push({ pathname: '/search' });
-              } else {
-                router.push(`/search?name=${searchInput}`);
-              }
+              router.push({
+                pathname: '/search',
+                query: {
+                  input: searchInput,
+                },
+              });
             }
           }}
           name="input"
@@ -111,33 +112,18 @@ function TopNavigationBar({ setIsSearched, isSearched } :TopNavigationBarProps) 
 
       <nav className={styles.navContainer}>
         <ul>
-          {current.group ? (
-            <li className={styles.currentNavItem}>
-              <Link href="/group">그룹</Link>
-            </li>
-          ) : (
-            <li className={styles.navItem}>
-              <Link href="/group">그룹</Link>
-            </li>
-          )}
-          {current.rent ? (
-            <li className={styles.currentNavItem}>
-              <Link href="/rent">대여</Link>
-            </li>
-          ) : (
-            <li className={styles.navItem}>
-              <Link href="/rent">대여</Link>
-            </li>
-          )}
-          {current.mypage ? (
-            <li className={styles.currentNavItem}>
-              <Link href="/mypage">마이페이지</Link>
-            </li>
-          ) : (
-            <li className={styles.navItem}>
-              <Link href="/mypage">마이페이지</Link>
-            </li>
-          )}
+          <li className={current.group ? styles.currentNavItem : styles.navItem}>
+            <Link href="/group">그룹</Link>
+          </li>
+
+          <li className={current.rent ? styles.currentNavItem : styles.navItem}>
+            <Link href="/rent">대여</Link>
+          </li>
+
+          <li className={current.mypage ? styles.currentNavItem : styles.navItem}>
+            <Link href="/mypage">마이페이지</Link>
+          </li>
+
         </ul>
       </nav>
     </div>

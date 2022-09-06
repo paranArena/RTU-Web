@@ -1,6 +1,11 @@
-.mypageConatiner{
+.myPageConatiner{
     width : 100vw;
     height : 100vh;
 
     background-color: whitesmoke;
 }
+ .mypageConatiner h1{
+     background-color: gold;
+     font-size: 3rem;
+     color : greenyellow;
+ }

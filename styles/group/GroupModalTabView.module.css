@@ -164,7 +164,8 @@
 }
 
 .rentalItemImage{
-    width : 100%;
+    width : 135px;
+    height : 135px;
     border-radius: 8px;
     margin-bottom : 6px;
 }
