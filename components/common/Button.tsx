@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import styles from 'styles/common/Button.module.css';
 
 // interface ButtonProps {
@@ -47,4 +47,5 @@ function CommonButton({ text, onClickEvent }:CommonButtonProps) {
   );
 }
 
+// eslint-disable-next-line import/prefer-default-export
 export { CommonButton };

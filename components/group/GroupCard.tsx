@@ -1,10 +1,7 @@
 import Tag from 'components/common/Tag';
 import React from 'react';
 import styles from 'styles/group/GroupCard.module.css';
-import Link from 'next/link';
-import axios from 'axios';
 import { useRouter } from 'next/router';
-import { SERVER_API } from '../../config';
 
 interface GroupCardProps {
   url : string | null;
@@ -30,6 +27,8 @@ function GroupCard({
   };
 
   return (
+  // eslint-disable-next-line max-len
+  // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
     <div className={styles.groupContainer} onClick={onClickGroupCard}>
       {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
       <img className={styles.groupRepresentativeImage} src={url} alt="Group representative Image" />

@@ -91,6 +91,7 @@ async function SearchRequest(query : string) {
 
   if (result[0] !== undefined) {
     const newArray = result.filter((item, i) => (
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       result.findIndex((item2, j) => item.id === item2.id) === i
     ));
     return flag ? newArray : null;
@@ -99,8 +100,13 @@ async function SearchRequest(query : string) {
   return null;
 }
 
-function SearchResult({ isSearched } : ClubSearchProps) {
+interface ISearchResult {
+  isSearched :ClubSearchProps
+}
+
+function SearchResult({ isSearched } : ISearchResult) {
   const [clubs, setClubs] = useState<ClubDataModal[] | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [clubData, setClubData] = useState<any>(null);
   const [query, setQuery] = useState<string | string[]>('');
   const router = useRouter();
@@ -108,6 +114,7 @@ function SearchResult({ isSearched } : ClubSearchProps) {
 
   useEffect(() => {
     setQuery(router.query.input);
+    console.log(isSearched);
   }, [router.query.input]);
 
   useEffect(() => {

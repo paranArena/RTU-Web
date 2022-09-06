@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styles from 'styles/pages/GroupPage.module.css';
-import Link from 'next/link';
 import axios from 'axios';
 import GroupCard from '../../components/group/GroupCard';
 import { SERVER_API } from '../../config';
@@ -63,6 +62,7 @@ function GroupPage() {
         {/*    <div className={styles.addGroupButtonContainer}> */}
         {/*      <div className={styles.addImage} /> */}
         {/*      /!* eslint-disable-next-line max-len *!/ */}
+        {/* eslint-disable-next-line max-len */}
         {/*      /!* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions *!/ */}
         {/*      <span>그룹 만들기</span> */}
         {/*    </div> */}

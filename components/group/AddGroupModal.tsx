@@ -113,6 +113,7 @@ function AddGroupModal({
       },
     })
       .then((res) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const clubID = res.data.data.id;
       })
       .catch((err) => {
@@ -136,7 +137,10 @@ function AddGroupModal({
           <div>
             {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
             <img className={styles.groupImage} src={imgSrc === '' ? '/images/defaultImg.png' : imgSrc} alt="group presentative image" />
-            <label htmlFor="file-upload">
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label
+              htmlFor="file-upload"
+            >
               사진 추가
             </label>
             <input id="file-upload" style={{ display: 'none' }} type="file" onChange={onChangeImg} />

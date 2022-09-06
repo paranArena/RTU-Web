@@ -11,13 +11,13 @@ interface IClubProfileSettingModal {
 }
 
 function ClubProfileSettingModal({ clubData }:IClubProfileSettingModal) {
-  const [active, setActive] = useState<boolean>(true);
-  const [settingClubData, setSettingClubData] = useState<ClubDataModal>(clubData);
+  // const [active, setActive] = useState<boolean>(true);
+  // const [settingClubData, setSettingClubData] = useState<ClubDataModal>(clubData);
 
   useEffect(() => {
-    console.log('uE');
-    console.log('clubData : ', clubData);
-    console.log('settingClubData : ', settingClubData);
+    // console.log('uE');
+    // console.log('clubData : ', clubData);
+    // console.log('settingClubData : ', settingClubData);
   }, []);
 
   return (
@@ -36,6 +36,7 @@ function ClubProfileSettingModal({ clubData }:IClubProfileSettingModal) {
               alt="group presentative image"
             />
 
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label
               className={styles.uploadText}
               htmlFor="file-upload"
@@ -53,7 +54,11 @@ function ClubProfileSettingModal({ clubData }:IClubProfileSettingModal) {
           <div className={styles.tagInputContainer}>
             <span className={styles.modalText}>태그</span>
             <input onChange={() => {}} className={stylesModal.inputLineTag} type="text" />
-            <span className={stylesModal.explainText}>#과 띄어쓰기를 포함해 영어는 최대 36글자, 한글은 24글자까지 가능합니다.</span>
+            <span
+              className={stylesModal.explainText}
+            >
+              #과 띄어쓰기를 포함해 영어는 최대 36글자, 한글은 24글자까지 가능합니다.
+            </span>
           </div>
 
         </div>
