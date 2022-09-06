@@ -8,10 +8,10 @@ import Header from 'components/common/Header';
 import axios from 'axios';
 import { SERVER_API } from '../config';
 
-axios.defaults.baseURL = 'http://ec2-13-125-234-225.ap-northeast-2.compute.amazonaws.com:8080';
+axios.defaults.baseURL = 'http://ec2-15-165-38-225.ap-northeast-2.compute.amazonaws.com:8080/';
 axios.defaults.withCredentials = true;
 
-axios.defaults.baseURL = 'http://ec2-13-125-234-225.ap-northeast-2.compute.amazonaws.com:8080';
+axios.defaults.baseURL = 'http://ec2-15-165-38-225.ap-northeast-2.compute.amazonaws.com:8080/';
 axios.defaults.withCredentials = true;
 
 declare global {
@@ -43,6 +43,7 @@ function Login() {
     if (loginData.email === '' && loginData.password === '') {
       alert('아이디와 비밀번호를 입력해주세요');
     } else {
+      console.log(SERVER_API);
       axios.post(`${SERVER_API}/authenticate`, loginData)
         .then((res) => {
           if (res.status === 200) {
@@ -50,10 +51,12 @@ function Login() {
             router.push('/main');
           } else {
             console.log('아디 비버 틀림');
+            console.log('login fail');
           }
         })
         .catch((err) => {
-          console.log('login fail');
+          console.log('login error');
+          console.log(SERVER_API);
           console.log(err);
         });
     }

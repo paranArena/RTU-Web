@@ -189,10 +189,11 @@
     max-width : 1170px;
     min-width : 700px;
     width : 80%;
+    height : 90%;
+
 
     max-height : 550px;
     min-height : 500px;
-    height : 80%;
     background: #FFFFFF;
     backdrop-filter: blur(10px);
     border-radius: 25px;
@@ -290,7 +291,7 @@
 
 .active{
     position: absolute;
-    bottom : 8%;
+    bottom : 5%;
 
     box-sizing: border-box;
     background: var(--primary);
@@ -310,7 +311,7 @@
 
 .unActive{
     position: absolute;
-    bottom : 8%;
+    bottom : 5%;
 
     box-sizing: border-box;
     background: #FFFFFF;

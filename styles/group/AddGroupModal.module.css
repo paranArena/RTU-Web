@@ -138,6 +138,7 @@
 }
 
 .inputBoxIntro{
+    padding : 5px;
     width : 100%;
     height : 60%;
     background: #FFFFFF;
@@ -180,12 +181,11 @@
     box-shadow: 0 0 4px rgba(30, 47, 151, 0.3);
     border-radius: 30px;
     width : 130px;
-    height : 46px;
+    height : 45px;
 
     font-style: normal;
     font-weight: 400;
     font-size: 1.375rem;
-    line-height: 33px;
 
     color: var(--primary);
 }
@@ -193,19 +193,27 @@
 .active{
     position: absolute;
     bottom : 8%;
+    width : 130px;
+    height : 45px;
 
     box-sizing: border-box;
     background: var(--primary);
     border: 1px solid var(--primary);
     box-shadow: 0 0 4px rgba(30, 47, 151, 0.3);
     border-radius: 30px;
-    width : 130px;
-    height : 46px;
 
     font-style: normal;
     font-weight: 400;
     font-size: 1.375rem;
-    line-height: 33px;
 
     color: white;
+}
+
+.alertModalContainer{
+    z-index: 999;
+
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

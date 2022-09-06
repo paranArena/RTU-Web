@@ -21,7 +21,6 @@ function GroupMain() {
         .then((res) => {
           if (res.status === 200) {
             setClubData(res.data.data);
-            console.log(res.data.data);
           }
         })
         .catch((err) => {

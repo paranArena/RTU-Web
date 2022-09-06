@@ -5,7 +5,7 @@ function Header() {
     <Head>
       <title>Ren2U</title>
       <meta name="description" content="Ren2U Web Service" />
-      <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+      {/* <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" /> */}
       <link rel="icon" href="/favicon.ico" />
     </Head>
   );

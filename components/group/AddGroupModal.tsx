@@ -3,8 +3,10 @@ import React, {
 } from 'react';
 import styles from 'styles/group/AddGroupModal.module.css';
 import axios from 'axios';
+import AlertModal from 'components/common/AlertModal';
 import { IAddGroup } from '../../globalInterface';
 import { SERVER_API } from '../../config';
+import group from '../../pages/group';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 interface addGroupModal {
@@ -14,7 +16,7 @@ interface addGroupModal {
   setIsButtonActive : Dispatch<SetStateAction<boolean>>;
 }
 
-function ParseTag(hashtags : string) : string[] {
+export function ParseTag(hashtags : string) : string[] {
   let string = hashtags;
   const result = [];
   const rexStart = /[#]/gm;
@@ -47,10 +49,11 @@ function AddGroupModal({
 } : addGroupModal) {
   const [imgSrc, setImgSrc] = useState<string>('');
   const [imgData, setImgData] = useState<any>(null);
+  const [isAlertModal, setIsAlertModal] = useState<number | null>(null);
 
   useEffect(() => {
-
-  }, [groupForm.thumbnail]);
+    console.log('uE');
+  }, [groupForm.thumbnail, groupForm.name, groupForm.hashtags, groupForm.introduction]);
 
   useEffect(() => {
     if (groupForm.name !== '' && groupForm.introduction !== '') {
@@ -92,6 +95,12 @@ function AddGroupModal({
   const onClickAddClubButton = (e : React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
+    if (groupForm.name !== '' && groupForm.introduction !== '') {
+      setIsButtonActive(true);
+    } else {
+      setIsButtonActive(false);
+    }
+
     if (typeof groupForm.hashtags === 'string') {
       setGroupForm({ ...groupForm, hashtags: ParseTag(groupForm.hashtags) });
     }
@@ -99,13 +108,22 @@ function AddGroupModal({
     const data = new FormData();
     data.append('name', groupForm.name);
     data.append('introduction', groupForm.introduction);
-    data.append('thumbnail', imgData);
 
     if (typeof groupForm.hashtags === 'object') {
+      console.log("typeof groupForm.hashtags === 'object'");
       groupForm.hashtags.forEach((tag) => {
+        console.log('tag : ', tag);
         data.append('hashtags', tag);
       });
+    } else {
+      data.append('hashtags', '');
     }
+
+    // if (imgData === null) {
+    //   data.append('thumbnail', null);
+    // } else {
+    data.append('thumbnail', imgData);
+    // }
 
     axios.post(`${SERVER_API}/clubs`, data, {
       headers: {
@@ -115,17 +133,31 @@ function AddGroupModal({
       .then((res) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const clubID = res.data.data.id;
+        console.log(res);
+        if (res.status === 200) {
+          setIsAlertModal(res.status);
+        }
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.status === 409) {
+          setIsAlertModal(409);
+        } else if (err.response.status === 400) {
+          setIsAlertModal(400);
+        } else {
+          setIsAlertModal(null);
+        }
       });
   };
 
   const onChangeImg = (e) => {
-    const objectUrl = URL.createObjectURL(e.target.files[0]);
-    setImgSrc(objectUrl);
-    setImgData(e.target.files[0]);
-    return () => URL.revokeObjectURL(objectUrl);
+    if (e.target.files.length > 0) {
+      const objectUrl = URL.createObjectURL(e.target.files[0]);
+      setImgSrc(objectUrl);
+      setImgData(e.target.files[0]);
+      return () => URL.revokeObjectURL(objectUrl);
+    }
+    setImgSrc('/images/defaultImg.png');
+    setImgData(null);
   };
 
   return (
@@ -171,6 +203,31 @@ function AddGroupModal({
 
       </div>
       <button onClick={onClickAddClubButton} type="submit" className={isButtonActive !== false ? styles.active : styles.unActive}>등록하기</button>
+
+      {(isAlertModal !== null && isAlertModal !== 400)
+        ? (
+          <AlertModal
+            top={10}
+            titleText={isAlertModal === 200 ? '등록 성공' : '등록 실패'}
+            type={isAlertModal === 200 ? 'info' : 'alert'}
+            onClickEvent={() => {
+              setIsAlertModal(null);
+            }}
+            contentText={isAlertModal === 200 ? '클럽이 성공적으로 등록되었습니다.' : '이미 존재하는 클럽이름입니다.'}
+          />
+        ) : null}
+      {isAlertModal === 400 ? (
+        <AlertModal
+          top={10}
+          titleText="등록 실패"
+          type="alert"
+          onClickEvent={() => {
+            setIsAlertModal(null);
+          }}
+          contentText="클럽 등록에 실패하였습니다. 다시 한 번 더 확인해주세요."
+        />
+      ) : null}
+
     </div>
   );
 }

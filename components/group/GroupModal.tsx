@@ -316,6 +316,8 @@ function GroupModal({ clubData }: IGroupModal) {
       {
         alert ? (
           <AlertModal
+            top={30}
+            type="alert"
             titleText="관리자 권한이 필요합니다!"
             onClickEvent={() => {
               setAlert(false); setCurrentTab('HOME');

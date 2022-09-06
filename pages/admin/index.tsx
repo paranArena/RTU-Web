@@ -1,24 +1,150 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  Dispatch, SetStateAction, useEffect, useRef, useState,
+} from 'react';
 import styles from 'styles/pages/AdminPage.module.css';
 import stylesModal from 'styles/group/AddGroupModal.module.css';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { SERVER_API } from '../../config';
 import { ClubDataModal } from '../../globalInterface';
+import { ParseTag } from '../../components/group/AddGroupModal';
 
 interface IClubProfileSettingModal {
+  id : string;
   clubData : ClubDataModal;
+  setClubData : Dispatch<SetStateAction<ClubDataModal>>
 }
 
-function ClubProfileSettingModal({ clubData }:IClubProfileSettingModal) {
-  // const [active, setActive] = useState<boolean>(true);
-  // const [settingClubData, setSettingClubData] = useState<ClubDataModal>(clubData);
+function stringToTag(tagList : string[]) {
+  let result = '';
+  const shap = '#';
+  tagList.forEach((item) => {
+    result = result.concat(shap);
+    result = result.concat(item);
+    result = result.concat(' ');
+  });
+
+  return result;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSettingModal) {
+  const [active, setActive] = useState<boolean>(true);
+  const [settingClubData, setSettingClubData] = useState<ClubDataModal>(clubData);
+
+  // 그룹 프로필 이미지 처리용 데이터
+  const [imgSrc, setImgSrc] = useState<string>('');
+  const [imgData, setImgData] = useState<any>(null);
+
+  // 서버에서 받아온 클럽 이름/소개/태그 설정하기 위한 useRef
+  const groupNameRef = useRef();
+  const groupIntroRef = useRef();
+  const groupTagRef = useRef();
+
+  // 처음 마운트될 때
+  useEffect(() => {
+    // eslint-disable-next-line max-len
+    if (groupNameRef.current !== undefined && groupIntroRef.current !== undefined && groupTagRef.current !== undefined) {
+      // @ts-ignore
+      groupNameRef.current.value = settingClubData.name;
+      // @ts-ignore
+      groupIntroRef.current.value = settingClubData.introduction;
+
+      if (Array.isArray(settingClubData.hashtags) && settingClubData.hashtags.length > 0) {
+        // @ts-ignore
+        groupTagRef.current.value = stringToTag(settingClubData.hashtags);
+      }
+    }
+  }, []);
 
   useEffect(() => {
-    // console.log('uE');
-    // console.log('clubData : ', clubData);
-    // console.log('settingClubData : ', settingClubData);
-  }, []);
+    if (settingClubData.name !== '' && settingClubData.introduction !== '') {
+      setActive(true);
+    } else {
+      setActive(false);
+    }
+  }, [settingClubData, active]);
+
+  const onChangeGroupName = (e) => {
+    e.preventDefault();
+    setSettingClubData({
+      ...settingClubData,
+      name: e.currentTarget.value,
+    });
+  };
+
+  const onChangeGroupIntroduce = (e) => {
+    e.preventDefault();
+    setSettingClubData({
+      ...settingClubData,
+      introduction: e.currentTarget.value,
+    });
+  };
+
+  const onChangeGroupTag = (e) => {
+    e.preventDefault();
+    setSettingClubData({
+      ...settingClubData,
+      hashtags: e.currentTarget.value,
+    });
+  };
+
+  const onClickSettingButton = (e : React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    if (typeof clubData.hashtags === 'string') {
+      setClubData({ ...clubData, hashtags: ParseTag(clubData.hashtags) });
+    }
+
+    const data = new FormData();
+    data.append('name', clubData.name);
+    data.append('introduction', clubData.introduction);
+
+    if (typeof clubData.hashtags === 'object') {
+      console.log("typeof groupForm.hashtags === 'object'");
+      clubData.hashtags.forEach((tag) => {
+        console.log('tag : ', tag);
+        data.append('hashtags', tag);
+      });
+    } else {
+      data.append('hashtags', '');
+    }
+
+    // if (imgData === null) {
+    //   data.append('thumbnail', null);
+    // } else {
+    data.append('thumbnail', imgData);
+    // }
+
+    // TODO:: BACKEND API 아직 완성 안됨. 구현해야 함.
+    axios.put(`${SERVER_API}/clubs/${id}/info`, data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    })
+      .then((res) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const clubID = res.data.data.id;
+        console.log(res);
+        if (res.status === 200) {
+          console.log(res);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const onChangeImg = (e) => {
+    if (e.target.files.length > 0) {
+      const objectUrl = URL.createObjectURL(e.target.files[0]);
+      setImgSrc(objectUrl);
+      setImgData(e.target.files[0]);
+      return () => URL.revokeObjectURL(objectUrl);
+    }
+    setImgSrc('/images/defaultImg.png');
+    setImgData(null);
+  };
 
   return (
     <div className={styles.modalContainer}>
@@ -30,9 +156,9 @@ function ClubProfileSettingModal({ clubData }:IClubProfileSettingModal) {
             {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
             <img
               className={stylesModal.groupImage}
-              src={clubData.thumbnailPath === '' || clubData.thumbnailPath === null
+              src={imgSrc === ''
                 ? '/images/defaultImg.png'
-                : clubData.thumbnailPath}
+                : imgSrc}
               alt="group presentative image"
             />
 
@@ -47,13 +173,13 @@ function ClubProfileSettingModal({ clubData }:IClubProfileSettingModal) {
               id="file-upload"
               style={{ display: 'none' }}
               type="file"
-              onChange={() => {}}
+              onChange={onChangeImg}
             />
           </div>
 
           <div className={styles.tagInputContainer}>
             <span className={styles.modalText}>태그</span>
-            <input onChange={() => {}} className={stylesModal.inputLineTag} type="text" />
+            <input ref={groupTagRef} id="groupTags" onChange={onChangeGroupTag} className={stylesModal.inputLineTag} type="text" />
             <span
               className={stylesModal.explainText}
             >
@@ -67,19 +193,19 @@ function ClubProfileSettingModal({ clubData }:IClubProfileSettingModal) {
 
           <div className={stylesModal.groupNameContainer}>
             <span className={styles.modalText}>그룹 이름</span>
-            <input onChange={() => {}} className={stylesModal.inputLineGroupName} type="text" />
+            <input ref={groupNameRef} id="groupName" onChange={onChangeGroupName} className={stylesModal.inputLineGroupName} type="text" />
           </div>
 
           <div className={stylesModal.introduceContainer}>
             <span className={styles.modalText}>소개글</span>
-            <textarea onChange={() => {}} className={stylesModal.inputBoxIntro} />
+            <textarea ref={groupIntroRef} id="groupIntroduce" onChange={onChangeGroupIntroduce} className={stylesModal.inputBoxIntro} />
             <span className={stylesModal.explainText}>띄어쓰기 포함 한글 130글자, 영어 150글자까지 가능합니다.</span>
           </div>
 
         </div>
 
       </div>
-      {/* <button onClick={() => {}} type="submit" className={stylesModal.unActive}>완료</button> */}
+      <button type="submit" onClick={onClickSettingButton} className={active ? styles.active : styles.unActive}>완료</button>
     </div>
   );
 }
@@ -191,10 +317,10 @@ function DashBoard() {
 function ProfileSetting() {
   const router = useRouter();
   const [clubData, setClubData] = useState<ClubDataModal | null>(null);
+  const clubId = router.query.id;
 
   // 마운트될 때 클럽 데이터 받아오기
   useEffect(() => {
-    const clubId = router.query.id;
     if (clubId !== undefined) {
       axios.get(`${SERVER_API}/clubs/${clubId}/info`, {
         headers: {
@@ -202,7 +328,6 @@ function ProfileSetting() {
         },
       })
         .then((res) => {
-          console.log(res.data.data);
           if (res.status === 200 && res.data.data !== undefined) {
             setClubData(res.data.data);
           }
@@ -223,7 +348,8 @@ function ProfileSetting() {
       <div className={styles.profileSettingContainer}>
         {
           clubData !== null
-            ? <ClubProfileSettingModal clubData={clubData} />
+          // eslint-disable-next-line max-len
+            ? <ClubProfileSettingModal id={clubId as string} clubData={clubData} setClubData={setClubData} />
             : null
         }
       </div>
@@ -274,8 +400,7 @@ function AdminPage() {
   };
 
   useEffect(() => {
-    // console.log(menu);
-    // typeof humbnail === string | null | ''
+
   }, [menu]);
 
   return (

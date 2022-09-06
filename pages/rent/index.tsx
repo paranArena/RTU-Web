@@ -104,6 +104,8 @@ function RentPage() {
 
       { selectedRentType['fixed-term'] ? (
         <AlertModal
+          top={30}
+          type="alert"
           onClickEvent={() => {
             setSelectedRentType({
               'fixed-term': false,

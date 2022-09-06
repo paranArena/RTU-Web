@@ -15,6 +15,8 @@ export interface IRentItemCurrentInfo {
 }
 
 export interface IAlertModal {
+  type : 'alert' | 'info';
+  top : 10 | 30;
   titleText : string | null;
   contentText? : string | null;
   onClickEvent : React.MouseEventHandler<HTMLElement>;
