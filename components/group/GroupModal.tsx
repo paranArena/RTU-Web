@@ -1,21 +1,73 @@
 import React, { useEffect, useState } from 'react';
 import styles from 'styles/group/main/GroupModal.module.css';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 import { GroupModalHome, GroupModalRent } from './GroupModalTabView';
-import { JoinButton } from '../common/Button';
+import { ClubDataModal } from '../../globalInterface';
+import { SERVER_API } from '../../config';
+import AlertModal from '../common/AlertModal';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-interface GroupModalProps {
-  groupName: string
-  tagsList: string[]
-  introduce: string
-  memberNumber: number
-  membership: string
+interface IGroupModal {
+  clubData : ClubDataModal
 }
 
-// eslint-disable-next-line no-irregular-whitespace
-//　{groupName, tagList, introduce, memberNumber, membership} : GroupModalProps
-function GroupModal() {
+function GroupModal({ clubData }: IGroupModal) {
   const [currentTab, setCurrentTab] = useState<string>('HOME');
+  const [show, setShow] = useState(false);
+  const [role, setRole] = useState('NONE');
+  const [alert, setAlert] = useState<boolean>(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log('');
+    console.log('clubData.hashtags typeof: ', typeof clubData.hashtags);
+    console.log('clubData : ', clubData);
+  }, []);
+
+  const onClickJoinEventButton = (e : React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    axios({
+      method: 'post',
+      // eslint-disable-next-line react/destructuring-assignment
+      url: `${SERVER_API}/clubs/${clubData.id}/requests/join`,
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          setRole('WAIT');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    if (role === 'NONE' || role === 'WAIT') {
+      setShow(true);
+    } else {
+      setShow(false);
+    }
+  }, [role]);
+
+  const onClickCancelEventButton = (e : React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    axios({
+      method: 'delete',
+      // eslint-disable-next-line react/destructuring-assignment
+      url: `${SERVER_API}/clubs/${clubData.id}/requests/join/cancel`,
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    })
+      .then((res) => {
+        // console.log('cancel : ', res);
+        if (res.status === 200) {
+          setRole('NONE');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const [tabStyles, setTabStyles] = useState({
     home: {
@@ -35,6 +87,39 @@ function GroupModal() {
       current: false,
     },
   });
+
+  useEffect(() => {
+    // eslint-disable-next-line react/destructuring-assignment
+    axios.get(`${SERVER_API}/members/my/clubs/${clubData.id}/role`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    }).then((res) => {
+      if (res.status === 200) {
+        setRole(res.data.data.clubRole);
+      }
+    })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  // club notification all
+  // GET searchNotificationsAll
+  useEffect(() => {
+    // eslint-disable-next-line react/destructuring-assignment
+    axios.get(`${SERVER_API}/clubs/${clubData.id}/notifications/search/all`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    })
+      .then((res) => {
+        console.log('search notification : ', res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   useEffect(() => {
     if (currentTab === 'HOME') {
@@ -116,21 +201,7 @@ function GroupModal() {
     }
   }, [currentTab]);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [groupTagList, setGroupTagList] = useState<string[]>([
-    '#테니스',
-    '#운동',
-    '#tennis',
-  ]);
-  const groupName = 'REN2U';
-  const introduce = '안녕하세요. REN2U입니다. 아주대학교 렌탈 서비스 플랫폼안녕하세요. REN2U입니다. 아주대학교 렌탈 서비스 플랫폼안녕하세요. REN2U입니다. 아주대학교 렌탈 서비스 플랫폼안녕하세요. REN2U입니다. 아주대학교 렌탈 서비스 ';
   const memberNumber = 9;
-
-  const [requestState, setRequestState] = useState<boolean>(false);
-
-  useEffect(() => {
-
-  }, [requestState]);
 
   return (
     <div className={styles.outerContainer}>
@@ -143,7 +214,7 @@ function GroupModal() {
             {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
             <img
               className={styles.groupInfoImage}
-              src="/images/tennis.jpeg"
+              src={clubData.thumbnailPath}
               alt="group image"
             />
           </div>
@@ -151,7 +222,8 @@ function GroupModal() {
             {/* div 3 */}
             <div className={styles.groupInfoInnerContainer}>
               {/* div 4 */}
-              <h1 className={styles.groupName}>{groupName}</h1>
+              {/* eslint-disable-next-line react/destructuring-assignment */}
+              <h1 className={styles.groupName}>{clubData.name}</h1>
               <span className={styles.groupMemberNumber}>
                 일반회원 &nbsp; 멤버 &nbsp;
                 {memberNumber}
@@ -160,26 +232,31 @@ function GroupModal() {
             </div>
             <div>
               {/* div 4 */}
-              <span className={styles.groupInfoIntroduce}>{introduce}</span>
+              {/* eslint-disable-next-line react/destructuring-assignment */}
+              <span className={styles.groupInfoIntroduce}>{clubData.introduction}</span>
             </div>
           </div>
           <div className={styles.groupInfoTagContainer}>
             {/* div 3 */}
-            {groupTagList.map((tag) => (
-              <span>{tag}</span>
-            ))}
+            {/* eslint-disable-next-line react/destructuring-assignment */}
+            {
+              // eslint-disable-next-line react/destructuring-assignment
+               clubData.hashtags.map((tag) => (
+                 <span key={tag}>{tag}</span>
+               ))
+            }
           </div>
         </div>
-
-        <JoinButton requestFlag={requestState} setRequestFlag={setRequestState} />
-
+        { show
+          ? <button type="submit" onClick={role === 'WAIT' ? onClickCancelEventButton : onClickJoinEventButton} className={role === 'NONE' ? styles.joinButton : styles.requestButton}>{role === 'NONE' ? '가입요청' : '요청완료'}</button>
+          : null}
       </section>
       <section
         className={`${styles.groupContentContainer} ${styles.groupHome}`}
       >
         {/* div 2 */}
         {/* eslint-disable-next-line no-nested-ternary,max-len */}
-        { tabStyles.home.current ? <GroupModalHome /> : tabStyles.rent.current ? <GroupModalRent /> : null }
+        { tabStyles.home.current ? <GroupModalHome show={(role === 'WAIT' || role === 'NONE')} /> : tabStyles.rent.current ? <GroupModalRent clubData={clubData} /> : null }
       </section>
       <section className={`${styles.groupMenuContainer}`}>
         {/* div 2 */}
@@ -213,13 +290,39 @@ function GroupModal() {
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
             <li
               className={tabStyles.admin.style}
-              onClick={() => setCurrentTab('관리자')}
+              onClick={() => {
+                console.log('관리자 클릭');
+                if (role === 'OWNER' || role === 'ADMIN') {
+                  setCurrentTab('관리자');
+                  router.push({
+                    pathname: '/admin',
+                    query: {
+                      // eslint-disable-next-line react/destructuring-assignment
+                      id: clubData.id,
+                    },
+                  });
+                } else {
+                  console.log('else');
+                  setCurrentTab('관리자');
+                  setAlert(true);
+                }
+              }}
             >
               관리자
             </li>
           </ul>
         </nav>
       </section>
+      {
+        alert ? (
+          <AlertModal
+            titleText="관리자 권한이 필요합니다!"
+            onClickEvent={() => {
+              setAlert(false); setCurrentTab('HOME');
+            }}
+          />
+        ) : null
+      }
     </div>
   );
 }

@@ -1,31 +1,33 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import styles from 'styles/common/Button.module.css';
 
-interface ButtonProps {
-  requestFlag : boolean;
-  setRequestFlag : Dispatch<SetStateAction<boolean>>;
-}
-
-interface RegisterButtonProps {
-  buttonCSS : boolean;
-}
+// interface ButtonProps {
+//   requestFlag : boolean;
+//   onCickEvent : any;
+//   id : number;
+// }
+//
+// interface RegisterButtonProps {
+//   buttonCSS : boolean;
+// }
 
 interface CommonButtonProps {
   text : string;
   onClickEvent : React.MouseEventHandler<HTMLButtonElement>;
 }
-
-function JoinButton({ requestFlag, setRequestFlag }:ButtonProps) {
-  return (
-    <button
-      onClick={() => { setRequestFlag(!requestFlag); }}
-      className={requestFlag ? styles.requestButton : styles.joinButton}
-      type="submit"
-    >
-      { requestFlag ? '요청완료' : '가입요청'}
-    </button>
-  );
-}
+//
+// function JoinButton({ requestFlag, onCickEvent, id }:ButtonProps) {
+//   return (
+//     <button
+//       id={id}
+//       onClick={onCickEvent}
+//       className={requestFlag ? styles.requestButton : styles.joinButton}
+//       type="submit"
+//     >
+//       { requestFlag ? '요청완료' : '가입요청'}
+//     </button>
+//   );
+// }
 
 // function RequestButton({ requestFlag, setRequestFlag }:ButtonProps) {
 //   return (
@@ -39,33 +41,10 @@ function JoinButton({ requestFlag, setRequestFlag }:ButtonProps) {
 //   );
 // }
 
-function RegisteredButton({ buttonCSS } :RegisterButtonProps) {
-  if (buttonCSS !== false) {
-    return (
-      <button
-        className={styles.active}
-        onClick={() => { }}
-        type="submit"
-      >
-        등록하기
-      </button>
-    );
-  }
-  return (
-    <button
-      className={styles.unActive}
-      onClick={() => { }}
-      type="submit"
-    >
-      등록하기
-    </button>
-  );
-}
-
 function CommonButton({ text, onClickEvent }:CommonButtonProps) {
   return (
     <button className={styles.commonButton} type="submit" onClick={onClickEvent}>{text}</button>
   );
 }
 
-export { JoinButton, RegisteredButton, CommonButton };
+export { CommonButton };

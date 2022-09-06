@@ -1,9 +1,10 @@
 import React from 'react';
 
 export interface IAddGroup {
-  groupName: string ;
-  tags: string;
-  introduce: string;
+  name: string ;
+  thumbnail : string;
+  hashtags: string | string[];
+  introduction: string;
 }
 
 export interface IRentItemCurrentInfo {
@@ -15,6 +16,24 @@ export interface IRentItemCurrentInfo {
 
 export interface IAlertModal {
   titleText : string | null;
-  contentText : string | null;
+  contentText? : string | null;
   onClickEvent : React.MouseEventHandler<HTMLElement>;
+}
+
+export interface ClubDataModal {
+  id : number;
+  clubRole : string;
+  hashtags : string[];
+  introduction : string;
+  name : string;
+  thumbnailPath : string;
+}
+
+export interface RentalItemModal {
+  clubId : number;
+  name : string;
+  id : number;
+  maxQuantity : number;
+  quantity : number;
+  thumbnailPath : string;
 }

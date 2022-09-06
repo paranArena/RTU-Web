@@ -5,123 +5,159 @@ import styles from 'styles/pages/SearchResult.module.css';
 import SearchResultGroupCard from 'components/group/SearchResultGroupCard';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import SearchCardContainer from 'components/group/SearchCardContainer';
 import { SERVER_API } from '../../config';
+import { ClubDataModal } from '../../globalInterface';
 
 interface ClubSearchProps {
-  isSearched : boolean;
+  isSearched: boolean;
 }
 
-interface ClubDataModal {
-  id : number;
-  clubRole : string;
-  hashtags : string[];
-  introduction : string;
-  name : string;
-  thumbnailPath : string;
+async function SearchRequest(query : string) {
+  const result = [];
+  let flag = true;
+
+  // 전체 클럽 검색
+  if (query === '') {
+    await axios.get(`${SERVER_API}/clubs/search/all`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          // console.log('전체 클럽 검색 : ', res.data.data);
+          res.data.data.forEach((item) => {
+            result.push(item);
+          });
+        } else {
+          flag = false;
+        }
+      })
+      .catch((err) => { console.log(err); });
+  } else {
+    console.log('not all');
+    // 쿼리가 있는 경우 | 검색하는 인풋이 있는 경우
+    // 이름 검색 무조건 한개만 결과 나옴.
+    await axios.get(`${SERVER_API}/clubs/search?name=${query}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    }).then((res) => {
+      if (res.status === 200 && res.data.data !== undefined) {
+        // console.log('이름으로 검색 : ', res.data.data);
+        result.push(res.data.data);
+      } else {
+        flag = false;
+      }
+    })
+      .catch((err) => {
+        console.log(err);
+        flag = false;
+      });
+
+    // 태그 검색 결과 여러개 나올 수 있음.
+    await axios.get(`${SERVER_API}/clubs/search?hashtag=${query}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    }).then((res) => {
+      if (res.status === 200) {
+        // console.log('태그로 검색 : ', res.data.data);
+        if (res.data.data !== undefined) {
+          res.data.data.forEach((item) => {
+            result.push(item);
+          });
+        } else {
+          // console.log('res.data.data === undefined : ', res.data);
+        }
+        if (res.data.data !== undefined && res.data.data.length >= 1) {
+          res.data.data.forEach((item) => {
+            result.push(item);
+          });
+        } else {
+          const tmp = result;
+          // result = res.data.data;
+          result.push(tmp[0]);
+        }
+      } else {
+        flag = false;
+      }
+    })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  if (result[0] !== undefined) {
+    const newArray = result.filter((item, i) => (
+      result.findIndex((item2, j) => item.id === item2.id) === i
+    ));
+    return flag ? newArray : null;
+  }
+
+  return null;
 }
 
 function SearchResult({ isSearched } : ClubSearchProps) {
-  const [clubs, setClubs] = useState<ClubDataModal[]>([]);
-  const [clubData, setClubData] = useState<null | ClubDataModal>(null);
+  const [clubs, setClubs] = useState<ClubDataModal[] | null>(null);
+  const [clubData, setClubData] = useState<any>(null);
   const [query, setQuery] = useState<string | string[]>('');
   const router = useRouter();
+  // const [isClick, setIsClick] = useState<boolean>(false);
 
   useEffect(() => {
-    setQuery(router.query.name);
-  }, [router.query.name]);
+    setQuery(router.query.input);
+  }, [router.query.input]);
 
   useEffect(() => {
-    if (query !== '') {
-      axios.get(`${SERVER_API}/clubs/search?name=${query}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      }).then((res) => {
-        setClubData(res.data.data);
-        console.log(res.data.data);
-      })
-        .catch((err) => {
-          console.log(err);
-          setClubData(null);
-        });
+    console.log('QUERY : ', query);
+    async function fetchRequestSearch() {
+      const searchResult = await SearchRequest(query as string);
+      if (searchResult === null) {
+        setClubs(null);
+      } else {
+        setClubs(searchResult);
+      }
     }
-    // FIXME:: Below deps should be fixed
-  }, [isSearched, query]);
+
+    if (query !== undefined) {
+      fetchRequestSearch();
+    }
+  }, [query]);
 
   useEffect(() => {
-    console.log('useEffect Query : ', query);
-    console.log('clubData : ', clubData);
-  }, [query, clubData]);
+    if (clubs !== null) {
+      clubs.forEach((item) => (
+        <SearchResultGroupCard
+          name={item.name}
+          hashtags={item.hashtags}
+          clubRole={item.clubRole}
+          id={item.id}
+          introduction={item.introduction}
+          thumbnailPath={item.thumbnailPath}
+          // isClicked={isClick}
+          // setIsClicked={setIsClick}
+        />
+      ));
 
-  useEffect(() => {
-    axios.get(
-      `${SERVER_API}/clubs/search/all`,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      },
-    )
-      .then((res) => {
-        if (res.status === 200) {
-          console.log(res.data.data);
-          setClubs(res.data.data);
-          console.log(clubs);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+      console.log('clubData : ', clubData);
+    }
+  }, [query, clubData, clubs]);
 
   return (
     <div className={styles.outerContainer}>
-
       <div className={styles.searchResultContainer}>
         <h3>검색된 결과</h3>
         {
-              query === undefined ? (
-                <div className={styles.innerContainer}>
+          clubs !== null
+            ? (
+              <SearchCardContainer render={clubs} />
+            )
+            : null
 
-                  {
+        }
 
-                  clubs.map(
-                    (club) => (
-                      <SearchResultGroupCard
-                        name={club.name}
-                        hashtags={club.hashtags}
-                        clubRole={club.clubRole}
-                        id={club.id}
-                        introduction={club.introduction}
-                        thumbnailPath={club.thumbnailPath}
-                      />
-                    ),
-                  )
-
-          }
-                </div>
-              )
-
-                : (
-                  <div className={styles.innerContainer}>
-
-                    {
-              clubData
-              && (
-              <SearchResultGroupCard
-                name={clubData.name}
-                hashtags={clubData.hashtags}
-                clubRole={clubData.clubRole}
-                id={clubData.id}
-                introduction={clubData.introduction}
-                thumbnailPath={clubData.thumbnailPath}
-              />
-              )
-}
-                  </div>
-                )
-
-          }
       </div>
     </div>
   );

@@ -1,12 +1,13 @@
 .alertModalContainer{
-    width : 50vw;
+    width : 600px;
     height : 270px;
 
     position: fixed;
     z-index: 999;
 
-    top : 15vw;
-    right : 25vw;
+    top : 40vh;
+    left: 50%;
+    transform: translate(-50%, 0);
 
     background: #F8F9FA;
     box-shadow: 0 0 9px 3px rgba(0, 0, 0, 0.3);
