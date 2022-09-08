@@ -3,7 +3,7 @@ import styles from 'styles/common/AlertModal.module.css';
 import { IAlertModal } from '../../globalInterface';
 
 function AlertModal({
-  type, titleText, contentText, onClickEvent, top,
+  type, titleText, contentText, onClickEvent, top, button, onClickButtonEvent,
 } : IAlertModal) {
   return (
     <div className={top === 10 ? styles.alertModalContainer : styles.alertModalContainer_30}>
@@ -18,6 +18,16 @@ function AlertModal({
         { titleText !== null ? <span className={styles.titleText}>{titleText}</span> : null}
         {contentText !== null ? <span>{contentText}</span> : null}
       </div>
+
+      {
+            button
+              ? (
+                <div className={styles.buttonContainer}>
+                  <button type="submit" onClick={onClickButtonEvent !== undefined ? onClickButtonEvent : () => { alert('버튼'); }} className={styles.button}>예</button>
+                </div>
+              )
+              : null
+        }
     </div>
   );
 }

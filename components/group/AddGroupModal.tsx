@@ -1,5 +1,5 @@
 import React, {
-  Dispatch, SetStateAction, useEffect, useState,
+  Dispatch, SetStateAction, useEffect, useRef, useState,
 } from 'react';
 import styles from 'styles/group/AddGroupModal.module.css';
 import axios from 'axios';
@@ -50,6 +50,8 @@ function AddGroupModal({
   const [imgSrc, setImgSrc] = useState<string>('');
   const [imgData, setImgData] = useState<any>(null);
   const [isAlertModal, setIsAlertModal] = useState<number | null>(null);
+
+  const fileRef = useRef();
 
   useEffect(() => {
     console.log('uE');
@@ -119,10 +121,18 @@ function AddGroupModal({
       data.append('hashtags', '');
     }
 
+    console.log(imgData);
+    console.log('new Blob() : ', new Blob());
     // if (imgData === null) {
     //   data.append('thumbnail', null);
     // } else {
+    // FIXME:: 이미지 업로드 안하면 에러남
+    // if (imgData === '') {
     data.append('thumbnail', imgData);
+    // } else {
+    //   data.append('thumbnail', imgSrc);
+    // }
+
     // }
 
     axios.post(`${SERVER_API}/clubs`, data, {
@@ -136,6 +146,7 @@ function AddGroupModal({
         console.log(res);
         if (res.status === 200) {
           setIsAlertModal(res.status);
+          history.back();
         }
       })
       .catch((err) => {
@@ -146,6 +157,8 @@ function AddGroupModal({
         } else {
           setIsAlertModal(null);
         }
+
+        console.log(err);
       });
   };
 
@@ -157,7 +170,9 @@ function AddGroupModal({
       return () => URL.revokeObjectURL(objectUrl);
     }
     setImgSrc('/images/defaultImg.png');
-    setImgData(null);
+    // setImgData(null);
+    setImgData(e.target.files[0]);
+    console.log('e.target.files[0] : ', e.target.files[0]);
   };
 
   return (
@@ -175,7 +190,7 @@ function AddGroupModal({
             >
               사진 추가
             </label>
-            <input id="file-upload" style={{ display: 'none' }} type="file" onChange={onChangeImg} />
+            <input ref={fileRef} id="file-upload" style={{ display: 'none' }} type="file" onChange={onChangeImg} />
           </div>
 
           <div>

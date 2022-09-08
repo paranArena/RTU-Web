@@ -1,6 +1,6 @@
 .outerContainer{
     width : 100vw;
-    height : auto;
+    height : 100vh;
 
     display: flex;
     flex-direction: column;
@@ -10,7 +10,8 @@
 .innerContainer{
     margin-top : 19.9090909091vh;
     width : 80.2083333333%;
-    height : 50%;
+    height : auto;
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,16 +24,16 @@
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid #F1F3F5;
-    padding-bottom : 0.813rem;
+    padding-bottom :10px;
     padding-left: 10px;
     padding-right: 10px;
 
     font-style: normal;
     font-weight: 700;
     font-size: 1.5rem;
-    line-height: 22px;
+
     color: #000000;
-    margin-bottom : 2.5454545455vh;
+    margin-bottom : 10px;
 }
 
 .likeContainer{
@@ -44,13 +45,47 @@
     align-items: center;
 }
 
-.groupContainer{
-    width : 100%;
-    display: grid;
-    /*grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));*/
-    grid-template-columns: repeat(6, 1fr);
-    grid-auto-flow: row;
+@media ( max-width: 1079px) {
+    .groupContainer{
+        width : 100%;
+        display: grid;
+        /*grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));*/
+        grid-template-columns: repeat(3,1fr);
+        grid-auto-flow: row;
+    }
 }
+
+@media (min-width : 1080px) and (max-width:1300px){
+    .groupContainer{
+        width : 100%;
+        display: grid;
+        /*grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));*/
+        grid-template-columns: repeat(4,1fr);
+        grid-auto-flow: row;
+    }
+}
+
+@media (max-width : 1500px) and (min-width : 1350px) {
+    .groupContainer{
+        width : 100%;
+        display: grid;
+        /*grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));*/
+        grid-template-columns: repeat(5,1fr);
+        grid-auto-flow: row;
+    }
+}
+
+@media (min-width : 1720px) {
+    .groupContainer{
+        width : 100%;
+        display: grid;
+        /*grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));*/
+        grid-template-columns: repeat(6,1fr);
+        grid-auto-flow: row;
+    }
+}
+
+
 
 
 .joinedContainer{

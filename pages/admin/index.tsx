@@ -8,6 +8,9 @@ import { useRouter } from 'next/router';
 import { SERVER_API } from '../../config';
 import { ClubDataModal } from '../../globalInterface';
 import { ParseTag } from '../../components/group/AddGroupModal';
+import Notice from './tab/notice';
+import MemberManageTab from './tab/member';
+import AlertModal from '../../components/common/AlertModal';
 
 interface IClubProfileSettingModal {
   id : string;
@@ -40,6 +43,7 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
   const groupNameRef = useRef();
   const groupIntroRef = useRef();
   const groupTagRef = useRef();
+  const imgRef = useRef();
 
   // 처음 마운트될 때
   useEffect(() => {
@@ -49,6 +53,8 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
       groupNameRef.current.value = settingClubData.name;
       // @ts-ignore
       groupIntroRef.current.value = settingClubData.introduction;
+      // @ts-ignore
+      imgRef.current.src = settingClubData.thumbnailPath;
 
       if (Array.isArray(settingClubData.hashtags) && settingClubData.hashtags.length > 0) {
         // @ts-ignore
@@ -155,6 +161,7 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
           <div className={styles.imageUploaderContainer}>
             {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
             <img
+              ref={imgRef}
               className={stylesModal.groupImage}
               src={imgSrc === ''
                 ? '/images/defaultImg.png'
@@ -329,6 +336,7 @@ function ProfileSetting() {
       })
         .then((res) => {
           if (res.status === 200 && res.data.data !== undefined) {
+            console.log(res.data.data);
             setClubData(res.data.data);
           }
         })
@@ -380,6 +388,9 @@ const menuDefault:IMenuTabState = {
 
 function AdminPage() {
   const [menu, setMenu] = useState<IMenuTabState>({ ...menuDefault, dashBoard: true });
+  const [showDeleteAlert, setShowDeleteAlert] = useState<boolean>(false);
+  const [clubId, setClubId] = useState('');
+
   const onClickMenu = (e : React.MouseEvent<HTMLHeadingElement>) => {
     e.preventDefault();
     if (e.currentTarget.id === 'dashBoard') {
@@ -397,6 +408,33 @@ function AdminPage() {
     } else if (e.currentTarget.id === 'rentalActive') {
       setMenu({ ...menuDefault, rentalActive: true });
     }
+  };
+
+  useEffect(() => {
+    const url = window.location.search;
+    setClubId(url.slice(url.search('=') + 1));
+  }, []);
+
+  const onClickDeleteClub = (e : React.MouseEvent) => {
+    e.preventDefault();
+
+    axios(
+      {
+        method: 'delete',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        url: `${SERVER_API}/clubs/${clubId}`,
+      },
+    ).then((res) => {
+      if (res.status === 200) {
+        setShowDeleteAlert(false);
+        alert('클럽이 성공적으로 삭제되었습니다.');
+        window.location.assign('/main');
+      }
+    }).catch((err) => {
+      console.log(err);
+    });
   };
 
   useEffect(() => {
@@ -472,15 +510,54 @@ function AdminPage() {
                 // TODO Toggle Button 구현 참고
                https://velog.io/@whljm1003/React-toggle-switch-%EA%B8%B0%EB%8A%A5 */}
           </div>
+
+          {/* eslint-disable-next-line max-len */}
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
+          <h4
+            onClick={() => {
+              setShowDeleteAlert(true);
+            }}
+            className={styles.clubDeleteButton}
+          >
+            {' '}
+            클럽 삭제
+          </h4>
+
+          { showDeleteAlert ? <AlertModal type="alert" top={30} titleText="클럽을 삭제하시겠습니까?" contentText="한 번 삭제하면 복구가 불가능합니다. 정말 삭제하시겠습니까?" onClickEvent={() => { setShowDeleteAlert(false); }} button onClickButtonEvent={onClickDeleteClub} /> : null}
+
+          {/* eslint-disable-next-line max-len */}
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+          <div
+            onClick={() => {
+              window.history.back();
+            }}
+            className={styles.closeButtonContainer}
+          >
+            <img src="/icons/나가기 버튼.png" alt="관리자 페이지 나가기 버튼" />
+            <h4 className={styles.closeButton}>나가기</h4>
+          </div>
         </div>
-        {/* TODO 나가기 버튼 */}
       </div>
 
       <div className={styles.rightOuterContainer}>
         <div className={styles.rightInnerContainer}>
           {/* TODO:: DashBoard */}
           {
-            menu.dashBoard ? <DashBoard /> : <ProfileSetting />
+            // eslint-disable-next-line no-nested-ternary
+            menu.dashBoard
+              ? <DashBoard />
+            // eslint-disable-next-line no-nested-ternary
+              : menu.profileSetting
+                ? <ProfileSetting />
+              // eslint-disable-next-line no-nested-ternary
+                : menu.notice
+                  ? <Notice />
+                // eslint-disable-next-line no-nested-ternary
+                  : menu.HR
+                    ? <MemberManageTab clubId={clubId} />
+                    : menu.event
+                      ? <div>준비중</div>
+                      : null
           }
         </div>
       </div>

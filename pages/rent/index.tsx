@@ -174,7 +174,8 @@ function RentPage() {
               <div className={styles.rentItemInfoContainer}>
                 <div className={styles.rentTitleContainer}>
                   <h1 className={styles.groupName}>REN2U</h1>
-                  <h3 className={styles.rentItemClassification}>디지털기기 &gt; 가상기기</h3>
+                  {/* 나중에 추가 될 카테고리 기능 */}
+                  {/* <h3 className={styles.rentItemClassification}>디지털기기 &gt; 가상기기</h3> */}
                 </div>
 
                 <h1 className={styles.rentItemName}>VR기기</h1>

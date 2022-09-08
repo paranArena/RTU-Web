@@ -1,0 +1,285 @@
+.memberManageTabContainer{
+    width : 100%;
+    height : 100%;
+
+    background-color: navajowhite;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.ManageTabSection{
+    width : 43%;
+    height : 90%;
+
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(73, 80, 87, 0.15);
+    border-radius: 20px;
+    padding: 20px 10px 10px;
+
+    overflow : scroll;
+
+}
+
+.titleContainer{
+    width : 100%;
+    min-height : 30px;
+    max-height : 30px;
+    height : 10%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+
+    text-align: center;
+
+    color: #000000;
+}
+
+.selectButtonContainer{
+    width : 100%;
+    min-height : 25px;
+    max-height : 25px;
+    height : 5%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+
+    border-bottom: 2px solid #F8F9FA;
+}
+
+.icon{
+    width : 22px;
+    height : 22px;
+}
+
+.iconWithPadding{
+    width : 22px;
+    height : 22px;
+    padding:4px;
+}
+
+.selectDivContainer{
+    width : auto;
+    height : 100%;
+
+    display: flex;
+    align-items: center;
+
+    margin-right : 20px;
+}
+
+.memberListContainer{
+    width : 100%;
+    height : auto;
+    overflow : scroll;
+}
+
+/* MemberListCard CSS */
+.memberListCardContainer{
+    width : 100%;
+    height : 100px;
+
+    overflow: scroll;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    border-bottom: 2px solid #F1F3F5;
+}
+
+.memberListCardLeftSection{
+    width : 40%;
+    height : 100%;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.profileImageContainer{
+    width : 100px;
+    height : 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right : 10px;
+}
+
+.profileImage{
+    width : 80px;
+    height :80px;
+    border-radius: 50%;
+}
+
+.memberInfoContainer{
+    max-width : 200px;
+    min-width : 150px;
+    width : calc(100% - 100px);
+    height : 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.memberName{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.6528px;
+
+    color: #000000;
+    margin-bottom : 6px;
+}
+
+.memberMajor{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.6528px;
+
+    color: #868E96;
+}
+
+.application3Section{
+    width :60%;
+    height : 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.buttonContainer{
+    min-width :100px;
+    max-width: 100px;
+    height :40px;
+    margin-right:15px;
+}
+
+.button{
+    width : 100%;
+    height : 100%;
+
+    background: #FFFFFF;
+    border: 2px solid #1E2F97;
+    box-shadow: 0 0 7px rgba(30, 47, 151, 0.3);
+    border-radius: 27px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    text-align: center;
+
+    color: #1E2F97;
+}
+
+.button:hover{
+    width : 100%;
+    height : 100%;
+
+    color: #FFFFFF;
+    border: 2px solid #1E2F97;
+    box-shadow: 0 0 7px rgba(30, 47, 151, 0.3);
+    border-radius: 27px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    text-align: center;
+
+    background-color: #1E2F97;
+}
+
+.memberRentalContainer{
+    min-width : 50px;
+    max-width : 120px;
+    width : 20%;
+    height : 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right : 20px;
+}
+
+.memberRentalContainer span{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.6426px;
+
+    color: #1E2F97;
+}
+
+.requestResultContainer{
+    margin-right : 20px;
+    width : 40px;
+    height : 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.requestResultContainer span{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.6528px;
+
+    color: #868E96;
+}
+
+.deleteButton{
+    min-width : 100px;
+    height : 50px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    color: #F90000;
+
+    background: #FFFFFF;
+    border: 2px solid #F90000;
+    box-shadow: 0 0 8px rgba(30, 47, 151, 0.3);
+    border-radius: 32px;
+}
+
+.deleteButton:hover{
+    color: #FFFFFF;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+
+    background: #FF0F00;
+    border: 2px solid #F90000;
+    box-shadow: 0 0 8px rgba(30, 47, 151, 0.3);
+    border-radius: 32px;
+}

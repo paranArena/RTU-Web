@@ -1,0 +1,283 @@
+.noticeContainer{
+    width : 100%;
+    height : 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(73, 80, 87, 0.15);
+    border-radius: 20px;
+}
+
+.noticeTitleContainer{
+    width : 100%;
+    height : 32px;
+}
+
+.noticeTitle{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+
+    text-align: center;
+
+    color: #000000;
+}
+
+.addNoticeButtonContainer{
+    width : 100%;
+    height : 30px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    color: #000000;
+
+    border-bottom: 2px solid #F1F3F5;
+}
+
+.icon{
+    padding : 5px;
+    width :30px;
+    height : 30px;
+}
+
+.noticeListContainer{
+    width : 100%;
+    min-height : 500px;
+    max-height : 720px;
+    height : 90%;
+
+    overflow: scroll;
+}
+
+.noticePageNationContainer{
+    width : 100%;
+    height : 24px;
+}
+
+.createNoticeModalContainer{
+    width : 100%;
+    height : 100%;
+}
+
+/* 공지사항 글쓰기 모달 css */
+.createNoticeModalOuterContainer{
+    width : 100%;
+    height : 100%;
+    padding : 50px 100px 50px 100px;
+
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(73, 80, 87, 0.15);
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.createNoticeModalInnerContainer{
+    width : 100%;
+    height : 100%;
+}
+
+.noticeTitleAndSubmitButtonContainer{
+    width : 100%;
+    height :54px;
+
+    display : flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.noticeStyleButtonContainer{
+    margin-top : 5px;
+    width : 100%;
+    height : 40px;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.noticeContentContainer{
+    width : 100%;
+    height : 80% ;
+}
+
+.noticeContent{
+    width : 100%;
+    height : 100%;
+
+    padding : 15px;
+
+    background: #FDFEFE;
+    border : none;
+    box-shadow: inset 0 0 10px 2px rgba(173, 181, 189, 0.3);
+    border-radius: 20px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+
+    color: #868E96;
+}
+
+.noticeContent:focus{
+    border : 1px solid var(--primary);
+    outline-color: var(--primary);
+}
+
+.noticeTitleInput{
+    width : 80%;
+    border : none;
+    height : 50px;
+
+    padding :0;
+    border-bottom: 2px solid #F1F3F5;
+    text-align: start;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+}
+
+.noticeTitleInput:focus{
+    outline : none;
+}
+
+.submitButtonUnActive{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+
+    text-align: center;
+
+    color: #1E2F97;
+
+    background: #FFFFFF;
+    border: 1px solid #1E2F97;
+    box-shadow: 0 0 4px rgba(30, 47, 151, 0.35);
+    border-radius: 30px;
+
+    width : 20%;
+    height : 80%;
+    padding : 0;
+}
+
+.submitButtonActive{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+
+    text-align: center;
+
+    color: white;
+
+    background: #1E2F97;
+    border: 1px solid #1E2F97;
+    box-shadow: 0 0 4px rgba(30, 47, 151, 0.3);
+    border-radius: 30px;
+
+    width : 20%;
+    height : 80%;
+    padding : 0;
+}
+
+.buttonIcon{
+    width : auto;
+    height : 30px;
+}
+
+/* noticeItem */
+.noticeItemContainer{
+    width : 100%;
+    height : 80px;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.noticeItem1Section{
+    width : 65%;
+    height : 100%;
+
+    padding-right : 10px;
+    padding-left : 10px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.noticeItem2Section{
+    width : 35%;
+    height : 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+.noticeIdContainer{
+    width : 10%;
+    height : 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.noticeIdContainer span{
+    width : 22px;
+    height : 22px;
+}
+
+.noticeItemTitleContainer{
+    padding-left : 20px;
+    width : 90%;
+    height : 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.newIcon{
+    padding : 12px;
+    width : 46px;
+    height : 46px;
+}
+
+.viewsContainer{
+    width : 30px;
+    height : 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.noticeModalInnerContainer{
+    width : 100%;
+    height : 100%;
+
+    padding : 5%;
+}

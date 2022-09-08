@@ -113,6 +113,8 @@ function SearchResult({ isSearched } : ISearchResult) {
   // const [isClick, setIsClick] = useState<boolean>(false);
 
   useEffect(() => {
+    console.log('localStorage : ', localStorage);
+
     setQuery(router.query.input);
     console.log(isSearched);
   }, [router.query.input]);

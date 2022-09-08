@@ -1,6 +1,7 @@
 .groupContainer{
-    width : auto;
-    height : 32vh;
+    min-width : 260px;
+    min-height : 210px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,12 +24,21 @@
 }
 
 .groupRepresentativeImage{
-    /*width : 12.5rem;*/
-    /*height: 12.5rem;*/
-    width : 76.9230769231%;
-    height :60.6060606061%;
+
+    width : 200px;
+    height :200px;
     border-radius: 20px;
     margin: 1.75em 1.875em 1em;
 }
 
+.groupImageContainer{
+
+}
+
+.groupTagContainer{
+    min-width : 200px;
+    height : 36px;
+
+    overflow: hidden;
+}
 

@@ -258,6 +258,7 @@ function GroupModal({ clubData }: IGroupModal) {
         {/* eslint-disable-next-line no-nested-ternary,max-len */}
         { tabStyles.home.current ? <GroupModalHome show={(role === 'WAIT' || role === 'NONE')} /> : tabStyles.rent.current ? <GroupModalRent clubData={clubData} /> : null }
       </section>
+
       <section className={`${styles.groupMenuContainer}`}>
         {/* div 2 */}
         <nav>

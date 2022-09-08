@@ -110,6 +110,7 @@ function RegisterModal({
 
   // Password  표시 event
   const onClickCheckedPassword = () => {
+    console.log(isCheckedPassword);
     if (!isCheckedPassword.visible) {
       setIsCheckedPassword({
         visible: true,
@@ -158,6 +159,8 @@ function RegisterModal({
 
   /* 완료 버튼 활성화 이벤트 함수 */
   useEffect(() => {
+    console.log("signupProps.email !== '' : ", signupProps.email !== '');
+    console.log('(signupProps.email.search(rexIDCheck)) > -1 : ', (signupProps.email.search(rexIDCheck)) > -1);
     const flag = (signupProps.email !== '')
         && (signupProps.password !== '')
         && (signupProps.name !== '')
@@ -167,6 +170,7 @@ function RegisterModal({
     && ((signupProps.email.search(rexIDCheck)) > -1)
     && ((signupProps.phoneNumber.search(rexPhoneNumber)) > -1)
     && (signupProps.password.length >= 8);
+
     if (flag) {
       console.log('set true flag : ', flag);
       setIsActive(true);
@@ -291,7 +295,8 @@ function RegisterModal({
             className={styles.commonInputTag}
             type={isCheckedPassword.type}
           />
-          {isCheckedPassword ? (
+
+          { isCheckedPassword.visible ? (
             <Image
               width={20}
               height={20}
@@ -450,9 +455,6 @@ function RegisterModal({
         ) : (
           <button
             type="submit"
-            onClick={() => {
-              alert('완료버튼 활성화 안됨.');
-            }}
             className={styles.submitButton}
           >
             완료

@@ -62,6 +62,10 @@ function Login() {
     }
   };
 
+  useEffect(() => {
+    console.log('localStorage : ', localStorage);
+  }, []);
+
   const onClickToggleModal = useCallback(() => {
     setIsRegisterOpen(!isRegisterOpen);
   }, [isRegisterOpen]);

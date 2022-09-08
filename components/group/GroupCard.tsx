@@ -30,14 +30,19 @@ function GroupCard({
   // eslint-disable-next-line max-len
   // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
     <div className={styles.groupContainer} onClick={onClickGroupCard}>
-      {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
-      <img className={styles.groupRepresentativeImage} src={url} alt="Group representative Image" />
+      <div className={styles.groupImageContainer}>
+        {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
+        <img className={styles.groupRepresentativeImage} src={url} alt="Group representative Image" />
+      </div>
       {/* 즐겨찾기 버튼 넣을 곳 */}
       {/* { like ? null : null } */}
       <span className={styles.groupNameText}>{groupName}</span>
-      {
+      <div className={styles.groupTagContainer}>
+        {
           tagList.map((tag) => (<Tag tag={tag} />))
         }
+      </div>
+
     </div>
 
   );

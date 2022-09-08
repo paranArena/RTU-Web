@@ -19,6 +19,8 @@ export interface IAlertModal {
   top : 10 | 30;
   titleText : string | null;
   contentText? : string | null;
+  button? : boolean;
+  onClickButtonEvent? :React.MouseEventHandler<HTMLButtonElement>;
   onClickEvent : React.MouseEventHandler<HTMLElement>;
 }
 
@@ -38,4 +40,14 @@ export interface RentalItemModal {
   maxQuantity : number;
   quantity : number;
   thumbnailPath : string;
+}
+
+export interface IClubMember {
+  id : number;
+  email : string;
+  name : string;
+  phoneNumber : string;
+  studentId : string;
+  major : string;
+  clubRole : 'USER' | 'OWNER' | 'WAIT' | 'ADMIN' | 'NONE';
 }

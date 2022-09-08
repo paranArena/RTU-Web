@@ -48,8 +48,16 @@
     font-size: 18px;
 
     color: #ADB5BD;
-
 }
+
+ .disabled:hover{
+     margin : 30px 0;
+     font-style: normal;
+     font-weight: 500;
+     font-size: 18px;
+
+     color: white;
+ }
 
 .topTitleContainer h1{
     font-style: normal;
@@ -78,7 +86,7 @@
     bottom : 0;
     right : 0;
 
-    padding : 50px 60px;
+    padding : 40px 50px;
 
     width : calc(100% - 300px);
     height : calc(100% - 100px);
@@ -93,6 +101,48 @@
 
     border-radius: 20px;
 }
+
+.closeButton{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    /*letter-spacing: -0.408px;*/
+
+    color: #F8F9FA;
+}
+
+.closeButtonContainer{
+    position: fixed;
+    bottom : 50px;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.closeButtonContainer img{
+    width : 30px;
+    height : 30px;
+
+    margin-right : 8px;
+}
+
+.clubDeleteButton{
+    margin : 30px 0;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+
+    color: red;
+}
+
+.clubDeleteButton:hover{
+    color: white;
+}
+
 
 /*.leftInnerContainer{*/
 /*    width : 100%;*/
@@ -191,9 +241,6 @@
     width : 80%;
     height : 90%;
 
-
-    max-height : 550px;
-    min-height : 500px;
     background: #FFFFFF;
     backdrop-filter: blur(10px);
     border-radius: 25px;
@@ -328,3 +375,4 @@
 
     color: var(--primary);
 }
+

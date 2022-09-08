@@ -97,10 +97,18 @@ interface IGroupModalHome {
 }
 
 function GroupModalHome({ show } : IGroupModalHome) {
-  useEffect(() => {
-    // eslint-disable-next-line react/destructuring-assignment,react/prop-types
-    console.log('group home : ', show);
-  }, []);
+  const queryString = window.location.search;
+  const clubId = queryString.slice(queryString.search('=') + 1);
+
+  // useEffect(() => {
+  //   axios.get(`${SERVER_API}/clubs/${clubId}/notifications`)
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
 
   return (
     <div className={styles.groupHomeContainer}>

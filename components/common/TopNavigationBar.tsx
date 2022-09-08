@@ -5,6 +5,7 @@ import React, {
 } from 'react';
 import { useRouter } from 'next/router';
 import styles from 'styles/common/TopNavigation.module.css';
+import { SERVER_API } from '../../config';
 
 interface TopNavigationBarProps {
   setIsSearched : Dispatch<SetStateAction<boolean>>;
@@ -122,6 +123,21 @@ function TopNavigationBar({ setIsSearched, isSearched } :TopNavigationBarProps) 
 
           <li className={current.mypage ? styles.currentNavItem : styles.navItem}>
             <Link href="/mypage">마이페이지</Link>
+          </li>
+
+          <li
+            onClick={() => {
+              console.log('localStorage : ', localStorage.getItem('token'));
+              localStorage.removeItem('token');
+              alert('로그아웃 되었습니다.');
+              console.log('');
+              console.log('logout : ');
+              console.log(localStorage.getItem('token'));
+              router.push('/');
+            }}
+            className={styles.navItem}
+          >
+            로그아웃
           </li>
 
         </ul>
