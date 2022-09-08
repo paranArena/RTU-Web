@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from 'styles/admin/member.module.css';
 import axios from 'axios';
 import { SERVER_API } from '../../../config';
-import AlertModal from '../../../components/common/AlertModal';
+import AlertModal from '../../common/AlertModal';
 import { IClubMember } from '../../../globalInterface';
 
 interface IMemberListCard {

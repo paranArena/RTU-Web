@@ -8,8 +8,8 @@ import { useRouter } from 'next/router';
 import { SERVER_API } from '../../config';
 import { ClubDataModal } from '../../globalInterface';
 import { ParseTag } from '../../components/group/AddGroupModal';
-import Notice from './tab/notice';
-import MemberManageTab from './tab/member';
+import Notice from '../../components/admin/tab/notice';
+import MemberManageTab from '../../components/admin/tab/member';
 import AlertModal from '../../components/common/AlertModal';
 
 interface IClubProfileSettingModal {
