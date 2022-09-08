@@ -5,7 +5,6 @@ import React, {
 } from 'react';
 import { useRouter } from 'next/router';
 import styles from 'styles/common/TopNavigation.module.css';
-import { SERVER_API } from '../../config';
 
 interface TopNavigationBarProps {
   setIsSearched : Dispatch<SetStateAction<boolean>>;
@@ -125,6 +124,8 @@ function TopNavigationBar({ setIsSearched, isSearched } :TopNavigationBarProps) 
             <Link href="/mypage">마이페이지</Link>
           </li>
 
+          {/* eslint-disable-next-line max-len */}
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
           <li
             onClick={() => {
               console.log('localStorage : ', localStorage.getItem('token'));

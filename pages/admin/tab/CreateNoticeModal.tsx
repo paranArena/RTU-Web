@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styles from 'styles/admin/notice.module.css';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import FormData from 'form-data';
 import axios from 'axios';
-import { useRouter } from 'next/router';
 import { SERVER_API } from '../../../config';
 
 function CreateNoticeModal() {

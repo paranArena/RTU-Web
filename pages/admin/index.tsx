@@ -141,6 +141,7 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
       });
   };
 
+  // eslint-disable-next-line consistent-return
   const onChangeImg = (e) => {
     if (e.target.files.length > 0) {
       const objectUrl = URL.createObjectURL(e.target.files[0]);

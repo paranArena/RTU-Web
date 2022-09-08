@@ -6,7 +6,6 @@ import axios from 'axios';
 import AlertModal from 'components/common/AlertModal';
 import { IAddGroup } from '../../globalInterface';
 import { SERVER_API } from '../../config';
-import group from '../../pages/group';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 interface addGroupModal {
@@ -146,7 +145,7 @@ function AddGroupModal({
         console.log(res);
         if (res.status === 200) {
           setIsAlertModal(res.status);
-          history.back();
+          window.history.back();
         }
       })
       .catch((err) => {
@@ -162,6 +161,7 @@ function AddGroupModal({
       });
   };
 
+  // eslint-disable-next-line consistent-return
   const onChangeImg = (e) => {
     if (e.target.files.length > 0) {
       const objectUrl = URL.createObjectURL(e.target.files[0]);

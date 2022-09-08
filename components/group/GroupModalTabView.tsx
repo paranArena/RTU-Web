@@ -97,8 +97,8 @@ interface IGroupModalHome {
 }
 
 function GroupModalHome({ show } : IGroupModalHome) {
-  const queryString = window.location.search;
-  const clubId = queryString.slice(queryString.search('=') + 1);
+  // const queryString = window.location.search;
+  // const clubId = queryString.slice(queryString.search('=') + 1);
 
   // useEffect(() => {
   //   axios.get(`${SERVER_API}/clubs/${clubId}/notifications`)
