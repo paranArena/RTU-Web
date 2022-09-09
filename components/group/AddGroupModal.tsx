@@ -120,14 +120,12 @@ function AddGroupModal({
       data.append('hashtags', '');
     }
 
-    console.log(imgData);
-    console.log('new Blob() : ', new Blob());
     // if (imgData === null) {
     //   data.append('thumbnail', null);
     // } else {
     // FIXME:: 이미지 업로드 안하면 에러남
     // if (imgData === '') {
-    data.append('thumbnail', imgData);
+    data.append('thumbnail', '');
     // } else {
     //   data.append('thumbnail', imgSrc);
     // }

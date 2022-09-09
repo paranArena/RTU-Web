@@ -238,16 +238,18 @@ function MemberManageTab({ clubId } : IMemberManageTab) {
           {/*  title  */}
           멤버 관리
         </div>
+
+        {/* FIXME:: 다음에 추가될 기능 */}
         <div className={styles.selectButtonContainer}>
-          {/* 버튼 */}
-          <div className={styles.selectDivContainer}>
-            <img className={styles.icon} src="/icons/추가하기.png" alt="등록하기" />
-            <span>등록하기</span>
-          </div>
-          <div className={styles.selectDivContainer}>
-            <img className={styles.iconWithPadding} src="/icons/선택.png" alt="선택" />
-            <span>선택</span>
-          </div>
+          {/* /!* 버튼 *!/ */}
+          {/* <div className={styles.selectDivContainer}> */}
+          {/*  <img className={styles.icon} src="/icons/추가하기.png" alt="등록하기" /> */}
+          {/*  <span>등록하기</span> */}
+          {/* </div> */}
+          {/* <div className={styles.selectDivContainer}> */}
+          {/*  <img className={styles.iconWithPadding} src="/icons/선택.png" alt="선택" /> */}
+          {/*  <span>선택</span> */}
+          {/* </div> */}
         </div>
 
         <div className={styles.memberListContainer}>

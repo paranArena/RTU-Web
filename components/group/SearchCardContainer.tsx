@@ -4,6 +4,7 @@ import SearchResultGroupCard from './SearchResultGroupCard';
 import { ClubDataModal } from '../../globalInterface';
 
 interface SearchCardContainerProps {
+  // render : ClubData[];
   render : ClubDataModal[];
 }
 
@@ -14,6 +15,7 @@ function SearchCardContainer({ render }:SearchCardContainerProps) {
         {
             render.map((item) => {
               console.log(item);
+              console.log(item.name, 'thumbnailPath : ', item.thumbnailPath);
               return (
                 <SearchResultGroupCard
                   name={item.name}

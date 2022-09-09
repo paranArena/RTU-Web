@@ -1,0 +1,1330 @@
+.ProductManageModal{
+    width : 100%;
+    height : 100%;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.Section{
+    margin-right :25px;
+    width : 50vw;
+    height : 100%;
+
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(73, 80, 87, 0.15);
+    border-radius: 20px;
+}
+
+.Section2{
+    margin-left : 25px;
+    width : 50vw;
+    height : 100%;
+
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(73, 80, 87, 0.15);
+    border-radius: 20px;
+}
+
+.InnerModalContainer{
+    padding : 15px;
+    width : 100%;
+    height : 100%;
+
+    overflow-y: hidden;
+
+}
+
+.TitleContainer{
+    width : 100%;
+    height : 75px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.TitleContainer h1{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+
+    text-align: center;
+
+    color: #000000;
+}
+
+
+.rentalNavContainer{
+    width : 100%;
+    height : 45px;
+}
+
+.rentalNavigation{
+    width : 100%;
+    height : 100%;
+}
+
+.rentalNavigation ul{
+    width : 100%;
+    height : 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.rentalNavigation ul li{
+    width : 30%;
+    height : 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.current{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    color: #1E2F97;
+    text-align: center;
+    letter-spacing: -0.408px;
+
+    border-bottom: 2px solid #1E2F97;
+}
+
+.notCurrent{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    color: #868E96;
+    text-align: center;
+    letter-spacing: -0.408px;
+
+    border-bottom: 2px solid #F8F9FA;
+}
+
+.outerContainer{
+    height : calc(100% - 120px);
+    width : 100%;
+}
+
+.innerContainer{
+    width : 100%;
+    height : 100%;
+
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.ClubProductItemRightContainer{
+    width : 45%;
+    height : 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+
+/* Product Item Container */
+.ProductItemContainer{
+    width : 100%;
+    min-height : 100px;
+
+    display: flex;
+    flex-direction: row;
+
+    border-bottom: 2px solid #F8F9FA;
+}
+
+.ProductInfoContainer{
+    width : 55%;
+    height : 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.ProductImageContainer{
+    width : 70px;
+    height : 70px;
+    border-radius: 11px;
+}
+
+.ProductImageContainer img{
+    width : 100%;
+    height : 100%;
+    border-radius: 11px;
+}
+
+.quantityRound1{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width : 24px;
+    height : 24px;
+    border-radius: 50px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+
+    text-align: center;
+    letter-spacing: -0.408px;
+
+    color: #000000;
+
+    background-color: #FFB800;
+}
+
+.quantityRound2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width : 24px;
+    height : 24px;
+    border-radius: 50px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+
+    text-align: center;
+    letter-spacing: -0.408px;
+
+    color: #000000;
+
+    background-color:#2CA900 ;
+}
+
+.ProductInfoTextContainer{
+    width : calc(100% - 90px);
+    height : 100%;
+    padding-left : 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+.reserveNfifoQuantityContainer{
+    width : 60px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.productName{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.6426px;
+
+    color: #000000;
+}
+
+.productLender{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.6426px;
+
+    color: #000000;
+}
+
+.productRentalDate{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.6426px;
+
+    color: #868E96;
+}
+
+.pickupOuterContainer{
+    width : 20%;
+    height : 100%;
+}
+
+.pickupInnerContainer{
+    width : 100%;
+    height : 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.pickUpText{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.6426px;
+
+    color: #000000;
+}
+
+.reserveTimeText{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.6426px;
+
+    color: #000000;
+}
+
+.fifoTimeText{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.6426px;
+
+    color: #EB1808;
+}
+
+.reserveButtonContainer{
+    width : 25%;
+    height : 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reserveButton{
+    width : 100px;
+    height : 40px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+
+    color: #1E2F97;
+
+    background: #FFFFFF;
+    border: 1.5px solid #1E2F97;
+    box-shadow: 0 0 7px rgba(30, 47, 151, 0.3);
+    border-radius: 27px;
+}
+
+.reserveButton:hover{
+    background: #1E2F97;
+    border: 1.5px solid #1E2F97;
+    box-shadow: 0 0 7px rgba(30, 47, 151, 0.3);
+    border-radius: 27px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.icon{
+    width : 24px;
+    height : 24px;
+}
+
+.productManageOuterContainer{
+    width : 45%;
+    height : 100%;
+}
+
+
+.productManageInnerContainer{
+    width:100%;
+    height : 100%;
+
+    display: flex;
+    align-items: center;
+
+}
+
+.modifyTextContainer{
+    width : 20%;
+    height : 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modifyTextContainer span{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.6426px;
+
+    color: #000000;
+}
+
+.quantityOuterContainer{
+    width : 30%;
+    height : 100%;
+
+}
+
+.quantityInnerContainer{
+    width : 100%;
+    height : 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.leftQuantity{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.6426px;
+
+    color: #000000;
+}
+
+.quantity{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.6426px;
+
+    color: #000000;
+}
+
+.toggleButtonOuterContainer{
+    width : 50%;
+    height : 100%;
+
+}
+
+.toggleButtonInnerContainer{
+    width : 90%;
+    height : 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.toggleSwitch {
+    width: 70px;
+    margin: 32px;
+    height: 30px;
+    display: block;
+    position: relative;
+    border-radius: 2rem;
+    background: #868E96;
+    box-shadow: 0 0 1rem 3px rgba(0 0 0 / 15%);
+    cursor: pointer;
+}
+
+.toggleSwitch .toggleButton {
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    top: 50%;
+    left: .2rem;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background: white;
+}
+
+/* 체크박스가 체크되면 변경 이벤트 */
+.toggle:checked ~ .toggleSwitch {
+    background: #FFB800;
+}
+
+.toggle:checked ~ .toggleSwitch .toggleButton {
+    left: calc(100% - 28px);
+    background: #fff;
+}
+
+.toggleSwitch, .toggleButton {
+    transition: all 0.2s ease-in;
+}
+
+
+.addProductAndSelectButtonOuterContainer{
+    width : 100%;
+    height : 30px;
+    border-bottom: 2px solid #F8F9FA;
+
+}
+
+.addProductAndSelectButtonInnerContainer{
+    width :100%;
+    height : 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.addProductAndSelectContainer{
+    width : 160px;
+    height : 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.addProductContainer{
+    width : 90px;
+    height : 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.addProductContainer span{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #000000;
+}
+
+.selectContainer{
+    width : 70px;
+    height : 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.selectContainer span{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #000000;
+}
+
+.AddProductModalContainer{
+    width : 100%;
+    height : 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(73, 80, 87, 0.15);
+    border-radius: 20px;
+}
+
+.AddProductSection1N2Container{
+    width : 100%;
+    height : 90%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.AddProductSection1{
+    width : 42%;
+    height : 90%;
+}
+
+.ModalTitleContainer{
+    width : 100%;
+    height : 35px;
+
+    margin-top : 15px;
+    margin-bottom : 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.ModalTitleContainer h1{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+
+    text-align: center;
+
+    color: #000000;
+}
+
+.ProductRegistrationInputContainer{
+    width : 100%;
+    height : calc(100% - 35px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.QuantityInputContainer{
+    width : 100%;
+    height : 45%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.QuantityInputContainer h1{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+
+    color: #000000;
+}
+
+.QuantityNDateInputInnerContainer{
+    width : 100%;
+    height : 120px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.QuantityContainer{
+    width : 50%;
+    min-width : 200px;
+    height : 85px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.DateContainer{
+    width : 50%;
+    min-width : 200px;
+    height : 85px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.fifoContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.reserveContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.DateInputInnerContainer{
+    width : 100%;
+    height : 120px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.NumberInput{
+    width : 80px;
+    height : 100%;
+    text-align: center;
+    font-size : 20px;
+    border : none;
+    border-bottom: 1px solid #DEE2E6;
+    background-color: transparent;
+}
+
+.NumberInput:focus{
+    outline-color: var(--primary);
+    border : 1px solid var(--primary)
+}
+
+.subTitle{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+
+    letter-spacing: -0.408px;
+
+    color: #495057;
+}
+
+.AddProductSection2{
+    width : 42%;
+    height : 90%;
+}
+
+.AddProductSection3{
+    width : 100%;
+    height : 10%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.submitButtonUnActive{
+    width : 130px;
+    height : 50px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    text-align: center;
+
+    color: #1E2F97;
+    background: #FFFFFF;
+    border: 1px solid #1E2F97;
+    box-shadow: 0 0 4px rgba(30, 47, 151, 0.3);
+    border-radius: 30px;
+}
+
+.buttonContainer{
+    min-width : 200px;
+    height : 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.submitButtonActive{
+    width : 130px;
+    height : 50px;
+
+    background: #1E2F97;
+    border: 1px solid #1E2F97;
+    box-shadow: 0 0 4px rgba(30, 47, 151, 0.3);
+    border-radius: 30px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 33px;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.beforeButton{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    text-align: center;
+
+    color: #495057;
+}
+
+.beforeButton:hover{
+    color: white;
+
+}
+
+
+
+.contour{
+    width : 1px;
+    height : 90%;
+
+    background-color:#F1F2F3; ;
+}
+
+.text{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+
+    color: #000000;
+}
+
+.LocationInputContainer{
+    width : 100%;
+    height : 45%;
+}
+
+.LocationInputContainer h1{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+
+    margin-bottom : 15px;
+
+    color: #000000;
+}
+
+.location2addressContainer{
+    width : 100%;
+    height : 70%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.locationMapContainer{
+    width : 50%;
+    height : 85px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.addressContainer{
+    width : 50%;
+    height : 85px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.mapButton{
+    width : 180px;
+    height : 40px;
+    background: #F1F2F3;
+    border-radius: 9px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    color: #000000;
+}
+
+
+.addressInput{
+    width : 100%;
+    font-size : 20px;
+    height : 32px;
+    border : none;
+    border-bottom: 1px solid #DEE2E6;
+    padding-left: 10px;
+}
+
+.cautionContainer{
+    width : 100%;
+    height : 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.cautionTextArea{
+    width : 100%;
+    height : 300px;
+
+    margin-top :10px;
+    padding : 10px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+
+    color: #000000;
+
+    background: #FFFFFF;
+    box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+}
+
+.productImageListContainer{
+    margin-top : 10px;
+    min-width : 335px;
+    width : 55%;
+    height : 100px;
+}
+
+.productImageListInnerContainer{
+    width : 100%;
+    height : 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.productImg{
+    width : 80px;
+    height : 80px;
+    border-radius: 7px;
+
+}
+
+.AddImgButton{
+    width : 180px;
+    height : 40px;
+    background: #F1F2F3;
+    border-radius: 9px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    color: #000000;
+}
+
+
+.ImageInputContainer{
+    width : 100%;
+    height : 20%;
+    min-height :200px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+}
+
+.imgText{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    margin-left : 15px;
+    letter-spacing: -0.408px;
+
+    color: #000000;
+}
+
+
+.ImageInputContainer h1{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+
+    color: #000000;
+}
+
+.inputStyle{
+    min-width: 300px;
+    max-width : 300px;
+    height : 30px;
+
+    border : none;
+    border-bottom: 1px solid #DEE2E6;
+    padding-left: 10px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+
+    color: #000000;
+}
+
+.inputStyle:focus{
+    outline-color: var(--primary);
+}
+
+.underText{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: -0.408px;
+
+    color: #868E96;
+}
+
+.productPriceContainer{
+    width : 70%;
+    height : 85px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.priceOuterContainer{
+    display: flex;
+    flex-direction: row;
+
+}
+
+.priceInnerContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.checkContainer{
+    width : 70px;
+    height : 24px;
+
+    margin-left : 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.categoryOuterContainer{
+    margin-top : 10px;
+    width : 100%;
+    height : 90%;
+}
+
+.categoryInnerContainer{
+    width : 60%;
+    height : 100%;
+
+    background: #FFFFFF;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;}
+
+.categoryFirst{
+    height : 7.1428571429%;
+    border-bottom:1px solid #DEE2E6;
+
+    display: flex;
+    align-items: center;
+
+    padding-left : 20px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+
+    text-align: center;
+    letter-spacing: -0.408px;
+
+    color: #000000;
+    border-radius: 8px 8px 0 0;
+}
+
+.categoryFirst:hover{
+    background: #E9ECEF;
+}
+
+.categoryFirstSelect{
+    height : 7.1428571429%;
+    border-bottom:1px solid #DEE2E6;
+
+    display: flex;
+    align-items: center;
+    background: #E9ECEF;
+
+    padding-left : 20px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+
+    text-align: center;
+    letter-spacing: -0.408px;
+
+    color: #000000;
+    border-radius: 8px 8px 0 0;
+}
+
+.categoryLast:hover{
+    background: #E9ECEF;
+}
+
+.categoryLastSelect{
+    height : 7.1428571429%;
+    border-bottom:1px solid #DEE2E6;
+
+    display: flex;
+    align-items: center;
+
+    padding-left : 20px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+
+    text-align: center;
+    letter-spacing: -0.408px;
+
+    color: #000000;
+    border-radius:0 0 8px 8px ;
+    background: #E9ECEF;
+}
+.categorySelect{
+    height : 7.1428571429%;
+    border-bottom:1px solid #DEE2E6;
+
+    display: flex;
+    align-items: center;
+
+    padding-left : 20px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+
+    text-align: center;
+    letter-spacing: -0.408px;
+
+    color: #000000;
+    background: #E9ECEF;
+}
+
+.categoryLast{
+    height : 7.1428571429%;
+    border-bottom:1px solid #DEE2E6;
+
+    display: flex;
+    align-items: center;
+
+    padding-left : 20px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+
+    text-align: center;
+    letter-spacing: -0.408px;
+
+    color: #000000;
+    border-radius:  0 0 8px 8px;
+}
+
+.category{
+    height : 7.1428571429%;
+    border-bottom:1px solid #DEE2E6;
+
+    display: flex;
+    align-items: center;
+
+    padding-left : 20px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+
+    text-align: center;
+    letter-spacing: -0.408px;
+
+    color: #000000;
+}
+
+.category:hover{
+    background: #E9ECEF;
+}
+
+.mapModalOuterContainer{
+    position: absolute;
+    right : 15%;
+
+    z-index: 999;
+    min-width : 900px;
+    width : 70%;
+    min-height : 720px;
+    height : 70%;
+    background: #F8F9FA;
+    box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mapModalInnerContainer{
+    width : 90%;
+    height : 90%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.mapModalTopContainer{
+    width : 100%;
+    height : 30px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.titleContainer{
+    width : 100%;
+    height : 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.titleContainer h1{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+}
+
+.closeIcon{
+    margin : 5px;
+    width : 24px;
+    height : 24px;
+}
+
+.MapComponentContainer{
+    width : 100%;
+    height : 90%;
+}
+
+.mapContainer{
+    width : 90%;
+    height : 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.mapNSelectLocationNameContainer{
+    width : 90%;
+    min-height : 450px;
+    height : 80%;
+}
+
+.MapButtonContainer{
+    width : 90%;
+    height : 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mapSubmitButton{
+    width : 170px;
+    height : 60px;
+    background: #1E2F97;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 38px;
+    /* identical to box height */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #FFFFFF;
+
+    box-shadow: 0 0 4px rgba(30, 47, 151, 0.35);
+    border-radius: 30px;
+}
+
+.disabled{
+    width : 180px;
+    height : 40px;
+    background: #F1F2F3;
+    border-radius: 9px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    color: white;
+}
+
+.locationNameContainer{
+    width : 100%;
+    height : 25px;
+    margin-top : 10px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+
+    color: #000000;
+    display: flex;
+    align-items: center;
+}
+
+.productImgUpload{
+
+}
+
+.AddImgButton input[type="file"] {  /* 파일 필드 숨기기 */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip:rect(0,0,0,0);
+    border: 0;
+}

@@ -75,7 +75,7 @@ function RegisterModal({
 }: ShowProps): React.ReactElement<ShowProps> {
   // 회원가입 필드 변수
   const [signupProps, setSignUpProps] = useState<SignUpProps>(defaultSignUpProps);
-  const [checkPassword, setCheckPassword] = useState<string | null>(null);
+  const [checkPassword, setCheckPassword] = useState<string>('');
 
   // event 처리용 변수
   const [isOverlap, setIsOverlap] = useState<OverlapProps>({ flag: false, overlap: '' }); // 이메일 중복확인
@@ -89,6 +89,7 @@ function RegisterModal({
     visible: false,
     type: 'password',
   });
+
   // eslint-disable-next-line max-len
   const [isCheckedPasswordCheck, setIsCheckedPasswordCheck] = useState<{
     visible: boolean
@@ -147,16 +148,6 @@ function RegisterModal({
     }
   }, [signupProps]);
 
-  useEffect(() => {
-    // console.log(isCheckedPasswordCheck);
-    // console.log(isCheckedPassword);
-  }, [isCheckedPasswordCheck, isCheckedPassword]);
-
-  useEffect(() => {
-    // console.log(signupProps.password);
-    // console.log(checkPassword);
-  }, [signupProps, checkPassword]);
-
   /* 완료 버튼 활성화 이벤트 함수 */
   useEffect(() => {
     console.log("signupProps.email !== '' : ", signupProps.email !== '');
@@ -185,14 +176,22 @@ function RegisterModal({
   }, [isActive]);
 
   useEffect(() => {
-    if (signupProps.password !== null || checkPassword !== null) {
+    console.log('password : ::', signupProps.password);
+    if (signupProps.password !== '' && checkPassword !== '') {
+      console.log('if1');
       if (signupProps.password === checkPassword) {
+        console.log('if2');
         setIsCorrectPW(true);
       } else {
+        console.log('if3');
         setIsCorrectPW(false);
       }
+    } else {
+      setIsCorrectPW(null);
     }
-  }, [signupProps, isCorrectPW]);
+
+    console.log(isCorrectPW);
+  }, [signupProps.password, checkPassword, isCorrectPW]);
 
   // 회원가입 모달 창 닫기 버튼 이벤트
   const onClickCloseModal = useCallback(() => {
@@ -202,19 +201,20 @@ function RegisterModal({
   // 이메일 중복확인 버튼 이벤트
   const onClickOverlapButton = () => {
     /* 백엔드로 중복된 이메일 있는지 요청 */
-    // TODO email 중복 확인
     if (signupProps.email === '' || signupProps.email === null) {
       alert('형식이 올바르지 않음.');
     } else {
       const params = (signupProps.email).concat('@ajou.ac.kr');
-
+      console.log('중복확인버튼');
       axios
         .get(
-          `${SERVER_API}/members/:${params}/exists`,
+          `${SERVER_API}/members/${params}/exists`,
         )
         .then((res) => {
           if (res.data) {
             // 중복되는 이메일 존재
+            console.log('이메일 중복', res.data);
+            alert('중복된 이메일입니다.');
             setIsOverlap({ ...isOverlap, flag: false });
           } else {
             // 중복되는 이메일이 존재하지 않음.
@@ -283,6 +283,7 @@ function RegisterModal({
           <label>Password</label>
           {/* eslint-disable-next-line max-len */}
           <input
+            placeholder="8자 이상입력해주세요."
             minLength={8}
             maxLength={30}
             onChange={(e: React.FormEvent<HTMLInputElement>) => {
@@ -320,6 +321,7 @@ function RegisterModal({
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label>Password 확인</label>
           <input
+            placeholder="8자 이상입력해주세요."
             minLength={8}
             maxLength={30}
             onChange={(e: React.FormEvent<HTMLInputElement>) => {
@@ -429,25 +431,7 @@ function RegisterModal({
         { isActive ? (
           <button
             type="submit"
-            onClick={() => {
-              let Email = signupProps.email;
-              Email = Email.concat('@ajou.ac.kr');
-
-              axios.post(`${SERVER_API}/signup`, {
-                email: Email,
-                password: signupProps.password,
-                name: signupProps.name,
-                phoneNumber: signupProps.phoneNumber,
-                studentId: signupProps.studentId,
-                major: signupProps.major,
-              })
-                .then((res) => {
-                  console.log('res : ', res);
-                })
-                .catch((error) => {
-                  console.log(error);
-                });
-            }}
+            onClick={() => { setIsCert(true); }}
             className={styles.submitButtonActive}
           >
             완료
@@ -467,3 +451,24 @@ function RegisterModal({
 }
 
 export default RegisterModal;
+
+// TODO:: 회원가입 요청
+// () => {
+//   let Email = signupProps.email;
+//   Email = Email.concat('@ajou.ac.kr');
+//
+//   axios.post(`${SERVER_API}/signup`, {
+//     email: Email,
+//     password: signupProps.password,
+//     name: signupProps.name,
+//     phoneNumber: signupProps.phoneNumber,
+//     studentId: signupProps.studentId,
+//     major: signupProps.major,
+//   })
+//       .then((res) => {
+//         console.log('res : ', res);
+//       })
+//       .catch((error) => {
+//         console.log(error);
+//       });
+// }

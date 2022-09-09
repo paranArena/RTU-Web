@@ -2,27 +2,54 @@ import React, { useEffect, useState } from 'react';
 import styles from 'styles/group/main/GroupModal.module.css';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { GroupModalHome, GroupModalRent } from './GroupModalTabView';
-import { ClubDataModal } from '../../globalInterface';
+// eslint-disable-next-line import/no-cycle
+import { GroupModalHome, GroupModalNotice, GroupModalRent } from './GroupModalTabView';
 import { SERVER_API } from '../../config';
 import AlertModal from '../common/AlertModal';
 
+export interface ClubData {
+  id : number;
+  clubRole : string;
+  hashtags : string[];
+  introduction : string;
+  name : string;
+  // FIXME:
+  thumbnailPath : string;
+}
+
 interface IGroupModal {
-  clubData : ClubDataModal
+  clubData : ClubData
 }
 
 function GroupModal({ clubData }: IGroupModal) {
   const [currentTab, setCurrentTab] = useState<string>('HOME');
   const [show, setShow] = useState(false);
   const [role, setRole] = useState('NONE');
-  const [alert, setAlert] = useState<boolean>(false);
+  const [Alert, setAlert] = useState<boolean>(false);
+
   const router = useRouter();
 
-  useEffect(() => {
-    console.log('');
-    console.log('clubData.hashtags typeof: ', typeof clubData.hashtags);
-    console.log('clubData : ', clubData);
-  }, []);
+  const onClickLeaveButtonEvent = (e:React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    axios.delete(
+      `${SERVER_API}/clubs/${clubData.id}/requests/leave`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+
+        },
+      },
+    ).then((res) => {
+      console.log(res);
+      alert('탈퇴 성공');
+      window.history.back();
+    })
+      .catch((err) => {
+        console.log(err);
+        alert('탈퇴 실패');
+      });
+  };
 
   const onClickJoinEventButton = (e : React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -43,7 +70,7 @@ function GroupModal({ clubData }: IGroupModal) {
   };
 
   useEffect(() => {
-    if (role === 'NONE' || role === 'WAIT') {
+    if (role === 'NONE' || role === 'WAIT' || role === 'USER') {
       setShow(true);
     } else {
       setShow(false);
@@ -99,23 +126,6 @@ function GroupModal({ clubData }: IGroupModal) {
         setRole(res.data.data.clubRole);
       }
     })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  // club notification all
-  // GET searchNotificationsAll
-  useEffect(() => {
-    // eslint-disable-next-line react/destructuring-assignment
-    axios.get(`${SERVER_API}/clubs/${clubData.id}/notifications/search/all`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    })
-      .then((res) => {
-        console.log('search notification : ', res);
-      })
       .catch((err) => {
         console.log(err);
       });
@@ -202,6 +212,7 @@ function GroupModal({ clubData }: IGroupModal) {
   }, [currentTab]);
 
   const memberNumber = 9;
+  console.log('GroupModal : ', clubData);
 
   return (
     <div className={styles.outerContainer}>
@@ -248,17 +259,38 @@ function GroupModal({ clubData }: IGroupModal) {
           </div>
         </div>
         { show
-          ? <button type="submit" onClick={role === 'WAIT' ? onClickCancelEventButton : onClickJoinEventButton} className={role === 'NONE' ? styles.joinButton : styles.requestButton}>{role === 'NONE' ? '가입요청' : '요청완료'}</button>
+          ? (
+            <button
+              type="submit"
+              onClick={role === 'WAIT' ? onClickCancelEventButton : role === 'USER' ? onClickLeaveButtonEvent : onClickJoinEventButton}
+              className={role === 'NONE' ? styles.joinButton : role === 'USER' ? styles.clubLeaveButton : styles.requestButton}
+            >
+              {/* eslint-disable-next-line no-nested-ternary */}
+              {role === 'NONE' ? '가입요청' : role === 'USER' ? '탈퇴하기' : '요청완료'}
+            </button>
+          )
           : null}
       </section>
+
+      {/* Content section */}
       <section
         className={`${styles.groupContentContainer} ${styles.groupHome}`}
       >
         {/* div 2 */}
         {/* eslint-disable-next-line no-nested-ternary,max-len */}
-        { tabStyles.home.current ? <GroupModalHome show={(role === 'WAIT' || role === 'NONE')} /> : tabStyles.rent.current ? <GroupModalRent clubData={clubData} /> : null }
+        { tabStyles.home.current
+          ? <GroupModalHome clubId={clubData.id} show={(role === 'WAIT' || role === 'NONE')} />
+        // eslint-disable-next-line no-nested-ternary
+          : tabStyles.rent.current
+            ? <GroupModalRent clubData={clubData} show={(role === 'WAIT' || role === 'NONE')} />
+            : tabStyles.notice.current
+            // TODO:: 지금
+              ? <GroupModalNotice clubId={clubData.id} show={(role === 'WAIT' || role === 'NONE')} />
+              : null}
+
       </section>
 
+      {/* nav tab section */}
       <section className={`${styles.groupMenuContainer}`}>
         {/* div 2 */}
         <nav>
@@ -315,7 +347,7 @@ function GroupModal({ clubData }: IGroupModal) {
         </nav>
       </section>
       {
-        alert ? (
+        Alert ? (
           <AlertModal
             top={30}
             type="alert"

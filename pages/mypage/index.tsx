@@ -1,5 +1,5 @@
 import styles from 'styles/pages/MyPage.module.css';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { SERVER_API } from '../../config';
 
@@ -34,31 +34,31 @@ const defaultUserInfo :IUserInfo = {
   authorities: [],
 };
 
+interface IMenuTabState {
+  profile: boolean;
+  alarm: boolean;
+  notice: boolean;
+  TermsOfService: boolean;
+  logout: boolean;
+
+}
+
+const menuDefault:IMenuTabState = {
+  profile: false,
+  alarm: false,
+  notice: false,
+  TermsOfService: false,
+  logout: false,
+
+};
+
 function MyPage() {
+  const [menu, setMenu] = useState<IMenuTabState>({ ...menuDefault, profile: true });
   const [userInfo, setUserInfo] = useState<IUserInfo>(defaultUserInfo);
-  const [myClubs, setMyClubs] = useState('');
-
-  // 클럽 조회 버튼 이벤트
-  const onClickGetMyClub = (e : React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
-    axios.get(`${SERVER_API}/members/my/clubs`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    })
-      .then((res) => {
-        if (res.status === 200) {
-          console.log(res.data.data);
-          setMyClubs(res.data.data);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   useEffect(() => {
+    setMenu(menuDefault);
+
     axios.get(`${SERVER_API}/members/my/info`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -80,35 +80,81 @@ function MyPage() {
   }, [userInfo]);
 
   return (
-    <div className={styles.myPageConatiner}>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <h1>{userInfo.name}</h1>
-      <h1>{userInfo.email}</h1>
-      <h1>{userInfo.id}</h1>
-      <h1>{userInfo.major}</h1>
-      <h1>{userInfo.phoneNumber}</h1>
-      <h1>{userInfo.studentId}</h1>
-      <h1>{userInfo.activated}</h1>
-      <button onClick={onClickGetMyClub} type="submit">내가 가입한 클럽 조회</button>
-      <h1>
-        내가 가입한 클럽 :
-        {myClubs}
-      </h1>
+    <div className={styles.outerContainer}>
+      <div className={styles.leftContainer}>
+        <div className={styles.topTitleContainer}>
+          <h1>Ren2U</h1>
+          <h3>마이페이지</h3>
+        </div>
 
+        <div className={styles.menuTabContainer}>
+          {/* eslint-disable-next-line max-len */}
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
+          <h4
+            id="profile"
+            onClick={() => {}}
+            className={menu.profile ? styles.current : styles.disabled}
+          >
+            프로필 확인
+          </h4>
+          {/* eslint-disable-next-line max-len */}
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
+          <h4
+            id="alarm"
+            onClick={() => {}}
+            className={menu.alarm ? styles.current : styles.disabled}
+          >
+            알람
+          </h4>
+          {/* eslint-disable-next-line max-len */}
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
+          <h4
+            id="notice"
+            onClick={() => {}}
+            className={menu.notice ? styles.current : styles.disabled}
+          >
+            공지사항
+          </h4>
+          {/* eslint-disable-next-line max-len */}
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
+          <h4
+            id="TermsOfService"
+            onClick={() => {}}
+            className={menu.TermsOfService ? styles.current : styles.disabled}
+          >
+            이용약관
+          </h4>
+          {/* eslint-disable-next-line max-len */}
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
+          <h4
+            id="logout"
+            onClick={() => {}}
+            className={menu.logout ? styles.current : styles.disabled}
+          >
+            로그아웃
+          </h4>
+
+          {/* eslint-disable-next-line max-len */}
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+          <div
+            onClick={() => {
+              window.history.back();
+            }}
+            className={styles.closeButtonContainer}
+          >
+            <img src="/icons/나가기 버튼.png" alt="관리자 페이지 나가기 버튼" />
+            <h4 className={styles.closeButton}>나가기</h4>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.rightOuterContainer}>
+        <div className={styles.rightInnerContainer}>
+          {
+
+          }
+        </div>
+      </div>
     </div>
   );
 }

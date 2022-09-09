@@ -38,6 +38,7 @@
     align-items: center;
     justify-content: flex-end;
 
+
     color: #000000;
 
     border-bottom: 2px solid #F1F3F5;
@@ -73,6 +74,8 @@
     width : 100%;
     height : 100%;
     padding : 50px 100px 50px 100px;
+
+    overflow-y: scroll;
 
     background: #FFFFFF;
     box-shadow: 0 0 10px rgba(73, 80, 87, 0.15);
@@ -116,7 +119,7 @@
 
 .noticeContent{
     width : 100%;
-    height : 100%;
+    height : 90%;
 
     padding : 15px;
 
@@ -280,4 +283,201 @@
     height : 100%;
 
     padding : 5%;
+}
+
+.noticeImgUploadContainer{
+    margin-top : 20px;
+    width : 100%;
+    height : auto;
+
+    border-radius : 8px;
+}
+
+.noticeImgContainer{
+    width : 100%;
+    height : 100%;
+    padding : 10px;
+    border-radius : 8px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+}
+
+.Img{
+    min-width : 300px;
+    min-height : 300px;
+    width : 100%;
+    height : 100%;
+
+    padding : 10px;
+    border-radius: 8px;
+}
+
+.Img img {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+.showDetailNoticeContainer{
+    width : 80%;
+    height : 85%;
+
+    position: absolute;
+
+    background: #F8F9FA;
+    box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 25px;
+}
+
+.showDetailNoticeInnerContainer{
+    width : 100%;
+    height : 100%;
+
+    padding : 20px;
+}
+
+.showDetailNoticeTopContainer{
+    width : 100%;
+    height : 50px;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.showDetailNoticeTitleContainer{
+    width : 100%;
+    height : 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.showDetailNoticeTitleContainer h1{
+    font-weight: 500;
+    font-size: 24px;
+
+    text-align: center;
+
+    color: #000000;
+}
+
+.showDetailNoticeCloseButtonContainer{
+    display: flex;
+    align-items: center;
+}
+
+.showDetailNoticeContainerContainer{
+    width : 100%;
+    height : 90%;
+
+    overflow-y: scroll;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.showDetailContentNoImgContainer{
+    width : 95%;
+    height : 95%;
+    padding : 30px;
+
+    background: lightgray;
+    border-radius: 25px;
+}
+
+.showDetailContentContainer{
+    width : 100%;
+    min-height : 48%;
+    padding : 30px;
+
+    background: lightgray;
+    border-radius: 25px;
+}
+
+.showDetailNoticeContentContainer{
+    width : 100%;
+    height : 100%;
+}
+
+
+.showDetailImgContainer{
+    /* 이미지 여러개일때 사용 */
+    width : 100%;
+    height : 47%;
+    margin-top : 40px;
+    /*height : 47%;*/
+    padding : 10px;
+
+    display: flex;
+    flex-direction: row;
+    overflow-y: scroll;
+
+    background: lightgray;
+    border-radius: 25px;
+}
+
+.showDetailNoticeImage{
+    /* 나중에 사진 여러개 일때 css */
+    /*min-width : 290px;*/
+    /*min-height : 290px;*/
+    /*margin-right : 10px;*/
+
+    border-radius: 25px;
+    width : 100%;
+    overflow-y: scroll;
+}
+
+
+.imgMiniContainer{
+    position: fixed;
+    right : 12.5%;
+    bottom : 20%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width : 150px;
+    height : 150px;
+    border-radius: 20px;
+}
+
+.imgMini{
+    width : 150px;
+    height : 150px;
+    border-radius: 20px;
+}
+
+.PictureBig{
+    z-index: 999;
+    position: absolute;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 20px;
+
+    width: 60vw;
+    height : 65vh;
+    background-color: white;
+    box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.3);
+
+}
+
+.pictureInnerContainer{
+
+}
+
+.pictureInnerContainer img{
+    width: 55vw;
+    height : 55vh;
+    min-height : 550px;
+
+    border-radius: 20px;
 }

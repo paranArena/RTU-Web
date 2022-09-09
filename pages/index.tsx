@@ -99,6 +99,7 @@ function Login() {
         ) : null}
         {isCert ? (
           <CertificationModal
+            email={loginData.email}
             setRegisterSuccess={setRegisterSuccess}
             registerSuccess={registerSuccess}
             isOpenRegisterOpen={isRegisterOpen}

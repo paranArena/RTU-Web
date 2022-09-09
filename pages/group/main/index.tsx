@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import GroupModal from 'components/group/GroupModal';
+import GroupModal, { ClubData } from 'components/group/GroupModal';
 import styles from 'styles/group/main/GroupMainPage.module.css';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { SERVER_API } from '../../../config';
-import { ClubDataModal } from '../../../globalInterface';
 
 function GroupMain() {
   const router = useRouter();
-  const [clubData, setClubData] = useState<ClubDataModal | null>(null);
+  const [clubData, setClubData] = useState<ClubData | null>(null);
 
   useEffect(() => {
     if (router !== undefined && router !== null) {

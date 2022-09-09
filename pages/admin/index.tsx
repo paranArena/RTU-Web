@@ -11,6 +11,7 @@ import { ParseTag } from '../../components/group/AddGroupModal';
 import Notice from '../../components/admin/tab/notice';
 import MemberManageTab from '../../components/admin/tab/member';
 import AlertModal from '../../components/common/AlertModal';
+import ProductManageModal from '../../components/admin/tab/product';
 
 interface IClubProfileSettingModal {
   id : string;
@@ -327,6 +328,8 @@ function ProfileSetting() {
   const [clubData, setClubData] = useState<ClubDataModal | null>(null);
   const clubId = router.query.id;
 
+  console.log('clubIDIDDUIDD : ', clubId);
+
   // 마운트될 때 클럽 데이터 받아오기
   useEffect(() => {
     if (clubId !== undefined) {
@@ -556,9 +559,12 @@ function AdminPage() {
                 // eslint-disable-next-line no-nested-ternary
                   : menu.HR
                     ? <MemberManageTab clubId={clubId} />
+                  // eslint-disable-next-line no-nested-ternary
                     : menu.event
                       ? <div>준비중</div>
-                      : null
+                      : menu.rentalItemManage
+                        ? <ProductManageModal clubId={clubId} />
+                        : null
           }
         </div>
       </div>

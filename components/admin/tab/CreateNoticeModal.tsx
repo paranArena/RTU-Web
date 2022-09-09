@@ -8,8 +8,24 @@ import { SERVER_API } from '../../../config';
 function CreateNoticeModal() {
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
-  // const [imgSrc, setImgSrc] = useState<string >('');
-  // TODO:: 사진여러개 업로드하는 방법
+  const [files, setFiles] = useState([]);
+  const [imgURL, setImgURL] = useState([]);
+
+  const handleImgUpload = (e) => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    console.log('e.target.files[0]', file);
+    const url = URL.createObjectURL(file);
+    if (url !== undefined) {
+      const arr = imgURL;
+      arr.push(url);
+      setImgURL(arr);
+      setFiles([...files, { uploadedFile: file }]);
+    }
+  };
+
+  useEffect(() => { console.log(files); }, [files]);
+
   useEffect(() => {
     console.log('title : ', title);
     console.log('content : ', content);
@@ -22,10 +38,16 @@ function CreateNoticeModal() {
       const data = new FormData();
       data.append('title', title);
       data.append('content', content);
+
+      files.forEach((file) => {
+        data.append('image', file.uploadedFile);
+      });
+
       // data.append('image', imgSrc);
 
       const queryString = window.location.search;
       const clubId = queryString.slice(queryString.search('=') + 1);
+
       axios.post(`${SERVER_API}/clubs/${clubId}/notifications`, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -67,6 +89,7 @@ function CreateNoticeModal() {
               <img className={styles.buttonIcon} src="/icons/사진추가.png" alt="imiage upuload button" />
             </label>
             <input
+              onChange={handleImgUpload}
               type="file"
               id="file-upload"
               style={{ display: 'none' }}
@@ -78,6 +101,23 @@ function CreateNoticeModal() {
         <div className={styles.noticeContentContainer}>
           {/* 공지사항 내용 입력  */}
           <textarea onChange={(e) => { setContent(e.currentTarget.value); }} className={styles.noticeContent} placeholder="내용을 입력해주세요." />
+        </div>
+
+        <div className={styles.noticeImgUploadContainer}>
+          <div className={styles.noticeImgContainer}>
+
+            {
+              imgURL.map((url) => {
+                console.log('file');
+                console.log(url.uploadedFile);
+                return (
+                  <div className={styles.Img}>
+                    <img src={url} alt="img1" />
+                  </div>
+                );
+              })
+            }
+          </div>
         </div>
       </div>
 

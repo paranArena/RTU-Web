@@ -4,9 +4,9 @@ import axios from 'axios';
 import Link from 'next/link';
 import GroupCard from '../../components/group/GroupCard';
 import { SERVER_API } from '../../config';
-import { ClubDataModal } from '../../globalInterface';
+import { ClubData } from '../../components/group/GroupModal';
 
-const rendering = (joinedClubList : ClubDataModal[]) => {
+const rendering = (joinedClubList : ClubData[]) => {
   const result = [];
 
   console.log('rendering : ', joinedClubList);
@@ -30,7 +30,7 @@ const rendering = (joinedClubList : ClubDataModal[]) => {
 };
 
 function GroupPage() {
-  const [joinedClubList, setjoinedClubList] = useState<ClubDataModal[] | null>();
+  const [joinedClubList, setjoinedClubList] = useState<ClubData[] | null>();
 
   useEffect(() => {
     axios.get(`${SERVER_API}/members/my/clubs`, {

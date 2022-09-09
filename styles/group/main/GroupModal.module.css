@@ -126,6 +126,7 @@
 
 /* group Content Section */
 .groupContentContainer{
+    min-width : 800px;
     width : 60vw;
     height : 75vh;
     border-radius: 0 25px 25px 25px;
@@ -133,7 +134,8 @@
     background: #FFFFFF;
     backdrop-filter: blur(10px);
 
-    overflow:scroll;
+    overflow-y:scroll;
+    overflow-x: hidden;
 }
 
 .groupHome{
@@ -228,3 +230,21 @@
 
     color: #FFFFFF;
 }
+
+.clubLeaveButton{
+    width: 8.125rem;
+    height: 2.875rem;
+
+    background: #EC0000;
+    border:0.105rem solid #EC0000;
+    box-shadow: 0 0 0.42rem rgba(30, 47, 151, 0.3);
+    border-radius: 1.731rem;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.25rem;
+    line-height: 30px;
+
+    color: #FFFFFF;
+}
+

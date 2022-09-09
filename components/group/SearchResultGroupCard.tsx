@@ -26,6 +26,8 @@ function SearchResultGroupCard({
   const [role, setRole] = useState<string>(clubRole);
   const router = useRouter();
 
+  console.log('imagePath : ', thumbnailPath);
+
   useEffect(() => {
     if (role === 'WAIT') {
       setFlag(true);
@@ -130,13 +132,12 @@ function SearchResultGroupCard({
           "OWNER": 클럽 생성자 (최고 권한)
           "ADMIN": 클럽 관리인
           "USER": 일반유저
+
           "WAIT": 가입 대기자
           "NONE":  가입 신청도 안한 멤버
           */}
 
-          {/*  */}
-
-          { clubRole !== ('OWNER' || 'ADMIN' || 'USER')
+          { (clubRole !== 'OWNER' && clubRole !== 'ADMIN' && clubRole !== 'USER')
             ? <button id="button" name="button" type="submit" onClick={flag ? onClickCancelEventButton : onClickJoinEventButton} className={flag ? styles.requestButton : styles.joinButton}>{flag ? '요청완료' : '가입요청'}</button>
             : <span className={styles.groupPersonnelMembership}>가입된 그룹</span>}
 

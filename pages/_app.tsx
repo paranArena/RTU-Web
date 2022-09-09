@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     console.log('__app.tsx : ', router.pathname);
-    if (router.pathname === '/admin' || router.pathname === '/') {
+    if (router.pathname === '/admin' || router.pathname === '/' || router.pathname === '/mypage') {
       setFlag(false);
     } else {
       setFlag(true);

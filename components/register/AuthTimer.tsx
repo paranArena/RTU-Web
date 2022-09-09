@@ -12,9 +12,18 @@ const AuthContainer = styled.span`
   right: 28%;
 `;
 
-function AuthTimer() {
+interface AuthImer {
+  resetTimer : boolean;
+}
+
+function AuthTimer({ resetTimer } : AuthImer) {
   const [min, setMin] = useState<number>(5);
   const [sec, setSec] = useState<number>(0);
+  useEffect(() => {
+    console.log(resetTimer);
+    setMin(5);
+    setSec(0);
+  }, [resetTimer]);
 
   useEffect(() => {
     // clearInterval(timer);
