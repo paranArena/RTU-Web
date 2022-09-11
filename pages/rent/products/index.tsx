@@ -385,6 +385,7 @@ function RentalProductsPage() {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         }).then((res) => {
+          console.log('대여하기버늩');
           console.log(res);
         }).catch((err) => {
           console.log(err);

@@ -15,7 +15,6 @@ interface ClubSearchProps {
 
 async function SearchRequest(query : string) {
   const result = [];
-  let flag = true;
 
   // 전체 클럽 검색
   if (query === '') {
@@ -30,8 +29,6 @@ async function SearchRequest(query : string) {
           res.data.data.forEach((item) => {
             result.push(item);
           });
-        } else {
-          flag = false;
         }
       })
       .catch((err) => { console.log(err); });
@@ -46,14 +43,12 @@ async function SearchRequest(query : string) {
     }).then((res) => {
       if (res.status === 200 && res.data.data !== undefined) {
         // console.log('이름으로 검색 : ', res.data.data);
+        console.log('이름검색', res.data.data);
         result.push(res.data.data);
-      } else {
-        flag = false;
       }
     })
       .catch((err) => {
         console.log(err);
-        flag = false;
       });
 
     // 태그 검색 결과 여러개 나올 수 있음.
@@ -65,9 +60,12 @@ async function SearchRequest(query : string) {
       if (res.status === 200) {
         // console.log('태그로 검색 : ', res.data.data);
         if (res.data.data !== undefined) {
+          console.log('tag : ', res.data.data);
           res.data.data.forEach((item) => {
             result.push(item);
           });
+
+          console.log('result ', result);
         } else {
           // console.log('res.data.data === undefined : ', res.data);
         }
@@ -80,8 +78,6 @@ async function SearchRequest(query : string) {
           // result = res.data.data;
           result.push(tmp[0]);
         }
-      } else {
-        flag = false;
       }
     })
       .catch((error) => {
@@ -90,11 +86,12 @@ async function SearchRequest(query : string) {
   }
 
   if (result[0] !== undefined) {
+    console.log('result[0]!==undefined');
     const newArray = result.filter((item, i) => (
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       result.findIndex((item2, j) => item.id === item2.id) === i
     ));
-    return flag ? newArray : null;
+    return newArray;
   }
 
   return null;
@@ -123,6 +120,8 @@ function SearchResult({ isSearched } : ISearchResult) {
     console.log('QUERY : ', query);
     async function fetchRequestSearch() {
       const searchResult = await SearchRequest(query as string);
+
+      console.log('searchResult', searchResult);
       if (searchResult === null) {
         setClubs(null);
       } else {

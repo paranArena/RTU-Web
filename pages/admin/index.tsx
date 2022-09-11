@@ -12,6 +12,7 @@ import Notice from '../../components/admin/tab/notice';
 import MemberManageTab from '../../components/admin/tab/member';
 import AlertModal from '../../components/common/AlertModal';
 import ProductManageModal from '../../components/admin/tab/product';
+import AdminRentalModal from '../../components/admin/tab/AdminRentalModal';
 
 interface IClubProfileSettingModal {
   id : string;
@@ -58,8 +59,12 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
     if (groupNameRef.current !== undefined && groupIntroRef.current !== undefined && groupTagRef.current !== undefined) {
       // @ts-ignore
       groupNameRef.current.value = settingClubData.name;
+      setName(settingClubData.name);
+
       // @ts-ignore
       groupIntroRef.current.value = settingClubData.introduction;
+      setIntroduction(settingClubData.introduction);
+
       // @ts-ignore
       imgRef.current.src = settingClubData.thumbnailPath;
 
@@ -79,13 +84,18 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
   }, [settingClubData, active]);
 
   const onChangeGroupName = (e) => {
+    console.log('onChangeGroupName');
     e.preventDefault();
     setName(e.currentTarget.value);
+    console.log('nanme : ', name);
   };
 
   const onChangeGroupIntroduce = (e) => {
+    console.log('onChangeGroupIntroduce');
+
     e.preventDefault();
     setIntroduction(e.currentTarget.value);
+    console.log('introduction : ', introduction);
   };
 
   const onChangeGroupTag = (e) => {
@@ -98,29 +108,28 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
   const onClickSettingButton = (e : React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     console.log('hashtags : ', clubData.hashtags);
+    console.log('name : ', name);
+    console.log('introduction : ', introduction);
 
     const data = new FormData();
     if (name !== clubData.name) {
       data.append('name', name);
+    } else {
+      data.append('name', clubData.name);
     }
 
-    if (introduction !== clubData.introduction) {
-      data.append('introduction', introduction);
-    }
+    data.append('introduction', introduction);
 
     if (hashTag !== '') {
       const hashTagArr = ParseTag(hashTag);
       hashTagArr.forEach((tag) => {
         data.append('hashtags', tag);
       });
+    } else {
+      clubData.hashtags.forEach((tag) => {
+        data.append('hashtags', tag);
+      });
     }
-    // else if (clubData.hashtags.length !== 0) {
-    //   clubData.hashtags.forEach((tag) => {
-    //     data.append('hashtags', tag);
-    //   });
-    // }
-
-    console.log('hashtags : ', clubData.hashtags);
 
     // if (imgData === null) {
     //   data.append('thumbnail', null);
@@ -129,6 +138,7 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
       data.append('thumbnail', imgData);
     }
     // }
+    console.log('imgData ', imgData);
 
     // TODO:: BACKEND API 아직 완성 안됨. 구현해야 함.
     axios.put(`${SERVER_API}/clubs/${id}/info`, data, {
@@ -143,7 +153,7 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
         if (res.status === 200) {
           console.log(res);
           alert('클럽 프로필 수정 완료');
-          window.location.reload();
+          // window.location.reload();
         }
       })
       .catch((error) => {
@@ -403,6 +413,12 @@ function AdminPage() {
   const [showDeleteAlert, setShowDeleteAlert] = useState<boolean>(false);
   const [clubId, setClubId] = useState('');
 
+  // 관리자가 미가입자 렌탈 기록용
+  const [viewAdminRental, setViewAdminRental] = useState({
+    view: false,
+    productId: 0,
+  });
+
   const onClickMenu = (e : React.MouseEvent<HTMLHeadingElement>) => {
     e.preventDefault();
     if (e.currentTarget.id === 'dashBoard') {
@@ -553,26 +569,43 @@ function AdminPage() {
 
       <div className={styles.rightOuterContainer}>
         <div className={styles.rightInnerContainer}>
+          {
+            viewAdminRental.view
+            // eslint-disable-next-line max-len
+              ? <AdminRentalModal viewAdminRental={viewAdminRental} setViewAdminRental={setViewAdminRental} />
+              : null
+          }
           {/* TODO:: DashBoard */}
           {
-            // eslint-disable-next-line no-nested-ternary
             menu.dashBoard
               ? <DashBoard />
-            // eslint-disable-next-line no-nested-ternary
-              : menu.profileSetting
-                ? <ProfileSetting />
-              // eslint-disable-next-line no-nested-ternary
-                : menu.notice
-                  ? <Notice />
-                // eslint-disable-next-line no-nested-ternary
-                  : menu.HR
-                    ? <MemberManageTab clubId={clubId} />
-                  // eslint-disable-next-line no-nested-ternary
-                    : menu.event
-                      ? <div>준비중</div>
-                      : menu.rentalItemManage
-                        ? <ProductManageModal clubId={clubId} />
-                        : null
+              : null
+          }
+          {
+            menu.profileSetting
+              ? <ProfileSetting />
+              : null
+          }
+          {
+            menu.notice
+              ? <Notice />
+              : null
+          }
+          {
+            menu.HR
+              ? <MemberManageTab clubId={clubId} />
+              : null
+          }
+          {
+            menu.event
+              ? <div>준비중</div>
+              : null
+          }
+          {
+            menu.rentalItemManage
+            // eslint-disable-next-line max-len
+              ? <ProductManageModal viewAdminRental={viewAdminRental} setViewAdminRental={setViewAdminRental} clubId={clubId} />
+              : null
           }
         </div>
       </div>

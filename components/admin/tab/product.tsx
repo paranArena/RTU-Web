@@ -34,6 +34,11 @@ const TabDefault:ITab = {
 
 interface ProductManageModalProps {
   clubId : string;
+  setViewAdminRental : Dispatch<SetStateAction<{ view:boolean, productId:number }>>;
+  viewAdminRental : {
+    view : boolean;
+    productId : number;
+  }
 }
 
 interface IProduct {
@@ -60,7 +65,7 @@ interface ClubProductItemProps {
   itemId : number;
   setClickItemId : Dispatch<SetStateAction<number>>;
   setShowAddProduct :Dispatch<SetStateAction<string>>;
-  setAdminRental:Dispatch<SetStateAction<boolean>>;
+  setViewAdminRental:Dispatch<SetStateAction<{ view : boolean, productId : number }>>;
 }
 
 function ReturnItemCard({
@@ -284,13 +289,13 @@ function RentalItemCard({
 }
 
 function ClubProductItem({
-  imagePath, name, max, setShowAddProduct, setClickItemId, itemId, setAdminRental,
+  imagePath, name, max, setShowAddProduct, setClickItemId, itemId, setViewAdminRental,
 }:ClubProductItemProps) {
   // const [onOff, setOnOff] = useState(true);
 
   const EventRentalModal = (e : React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    setAdminRental(true);
+    setViewAdminRental({ view: true, productId: itemId });
   };
 
   const EventDeleteButton = (e : React.MouseEvent<HTMLElement>) => {
@@ -1257,14 +1262,13 @@ interface IReturnInfo {
   thumbnailPath : string;
 }
 
-function ProductManageModal({ clubId }:ProductManageModalProps) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars,max-len
+function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:ProductManageModalProps) {
   const [tab, setTab] = useState<ITab>(TabDefault);
   // eslint-disable-next-line max-len
   const [productList, setProductList] = useState<{ left: number; max: number; imagePath: string; name: string; clubId: number; id: number; category: string } []>([defaultProduct]);
   const [showAddProduct, setShowAddProduct] = useState<string>('');
   const [clickedItem, setClickedItem] = useState(0);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [adminRental, setAdminRental] = useState(false); // 관리자가 대신 렌탈해주는 모달
 
   // 대여 관리 :: 예약
   const [reserveList, setReserveList] = useState<IReserveList[]>([]);
@@ -1313,8 +1317,6 @@ function ProductManageModal({ clubId }:ProductManageModalProps) {
 
             setReserveList(reserve);
             setRentalList(rental);
-            console.log('RENTAL LIST : ', rentalList);
-            console.log('RESERVE LIST : ', reserveList);
           }
         }
       }).catch((err) => {
@@ -1500,7 +1502,7 @@ function ProductManageModal({ clubId }:ProductManageModalProps) {
                   console.log('item : ', item);
                   return (
                   // eslint-disable-next-line max-len
-                    <ClubProductItem setAdminRental={setAdminRental} setClickItemId={setClickedItem} itemId={item.id} setShowAddProduct={setShowAddProduct} max={item.max} name={item.name} imagePath={item.imagePath} />
+                    <ClubProductItem setViewAdminRental={setViewAdminRental} setClickItemId={setClickedItem} itemId={item.id} setShowAddProduct={setShowAddProduct} max={item.max} name={item.name} imagePath={item.imagePath} />
                   );
                 })
               }
