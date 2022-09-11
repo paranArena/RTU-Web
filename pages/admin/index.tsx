@@ -136,6 +136,8 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
     // } else {
     if (imgData !== null) {
       data.append('thumbnail', imgData);
+    } else {
+      data.append('thumbnail', null);
     }
     // }
     console.log('imgData ', imgData);

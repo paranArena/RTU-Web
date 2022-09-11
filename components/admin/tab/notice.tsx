@@ -26,6 +26,7 @@ function NoticeItem({
   notice,
   setShowDetail,
   setNoticeId,
+
 } : NoticeProps) {
   const date = new Date(Date.parse(notice.createdAt));
   const noticeDate = `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`;
@@ -209,26 +210,32 @@ function Notice() {
   const [showDetail, setShowDetail] = useState(false);
   const [noticeId, setNoticeId] = useState(0);
 
-  useEffect(() => {
-    axios.get(`${SERVER_API}/clubs/${clubId}/notifications/search/all`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    })
-      .then((res) => {
-        if (res.status === 200) {
-          setNotificationList(res.data.data);
-          console.log(res.data.data);
-        }
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log('err.response : ', err.response);
-        console.log('err.response.data : ', err.response.data);
-      });
+  const [mount, setMount] = useState(0);
 
-    notificationList.map((notice) => console.log(notice));
-  }, []);
+  useEffect(() => {
+    if (mount === 1) {
+      setMount(1);
+    } else {
+      axios.get(`${SERVER_API}/clubs/${clubId}/notifications/search/all`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      })
+        .then((res) => {
+          if (res.status === 200) {
+            if (Array.isArray(res.data.data)) {
+              setNotificationList(res.data.data.sort((a, b) => b.id - a.id));
+            }
+            console.log('mount : ', notificationList);
+          }
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log('err.response : ', err.response);
+          console.log('err.response.data : ', err.response.data);
+        });
+    }
+  }, [mount]);
 
   if (showCreateNoticeModal === false) {
     return (
@@ -257,6 +264,7 @@ function Notice() {
           <div className={styles.noticeListContainer}>
             {/* 공지사항 리스트 보여주기 */}
             {
+              // eslint-disable-next-line max-len
                       notificationList !== undefined ? notificationList.map((notice) => (
                         // eslint-disable-next-line max-len
                         <NoticeItem notice={notice} setShowDetail={setShowDetail} setNoticeId={setNoticeId} />

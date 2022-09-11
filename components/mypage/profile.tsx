@@ -84,6 +84,8 @@ function ProfileModal() {
   const [userRentalInfo, setUserRentalInfo] = useState<IRentalInfo[]>([]);
   const [showQuitAlert, setShowQuitAlert] = useState(false);
 
+  const [totlaRent, setTotalRent] = useState(0);
+
   const EventQuitService = (e :React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
@@ -138,7 +140,8 @@ function ProfileModal() {
     })
       .then((res) => {
         setUserRentalInfo(res.data.data);
-        console.log('RentalInfo : ', userRentalInfo);
+        setTotalRent(res.data.data.length);
+        console.log(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -193,7 +196,7 @@ function ProfileModal() {
                 <div className={styles.profileUserRentalHistoryContainer}>
 
                   <div className={styles.profileUserRentalHistoryCountContainer}>
-                    <span className={styles.profileModalCountText}>50</span>
+                    <span className={styles.profileModalCountText}>{totlaRent}</span>
                     <span className={styles.profileModalGrayText}>총 대여횟수</span>
                   </div>
 

@@ -4,9 +4,129 @@ import React, {
 import styles from 'styles/admin/product.module.css';
 import axios from 'axios';
 import router from 'next/router';
+import { IoReloadCircleOutline } from 'react-icons/io5';
 import { SERVER_API } from '../../../config';
 import { MapComponent } from '../../../pages/rent/products';
 
+const rentalLocation = [
+  {
+    key: 1, text: '우리집', latitude: 37.27206960304626, longitude: 127.04518368153681,
+  },
+  {
+    key: 2, text: '팔달관', latitude: 37.28450648122086, longitude: 127.04445813482072,
+  },
+  {
+    key: 3, text: '산학원', latitude: 37.2865287947272, longitude: 127.04586045518012,
+  },
+  {
+    key: 4, text: '성호관', latitude: 37.28292491589741, longitude: 127.04509714010233,
+  },
+  {
+    key: 5, text: '신학생회관', latitude: 37.28450648122086, longitude: 127.04445813482072,
+  },
+  {
+    key: 6, text: '구학생회관', latitude: 37.28450648122086, longitude: 127.04445813482072,
+  },
+  {
+    key: 7, text: '중앙도서관', longitude: 127.0441154519935, latitude: 37.28182601788163,
+  },
+  {
+    key: 8, text: '다산관', longitude: 127.0477894351656, latitude: 37.28301171091047,
+  },
+  {
+    key: 9, text: '율곡관', longitude: 127.04632865694208, latitude: 37.282223882292996,
+  },
+  {
+    key: 10, text: '일신관', longitude: 127.04699244720311, latitude: 37.284327547055774,
+  },
+  {
+    key: 11, text: '광교관', longitude: 127.04652517394291, latitude: 37.285474303640235,
+  },
+  {
+    key: 12, text: '남제관', longitude: 127.04583925992465, latitude: 37.284073455720765,
+  },
+  {
+    key: 13, text: '연암관', longitude: 127.04762543753087, latitude: 37.28223463065516,
+  },
+  {
+    key: 14, text: '홍재관', longitude: 127.04779700355395, latitude: 37.281606086555804,
+  },
+  {
+    key: 15, text: '송재관', longitude: 127.04713969712915, latitude: 37.2808562347841,
+  },
+  {
+    key: 16, text: '텔레토비동산', longitude: 127.04563998294971, latitude: 37.28086583289586,
+  },
+  {
+    key: 17, text: '체육관', longitude: 127.04538573803057, latitude: 37.27997840665075,
+  },
+  {
+    key: 18, text: '서관', longitude: 127.04254630177627, latitude: 37.283718774671826,
+  },
+  {
+    key: 19, text: '동관', longitude: 127.04367402616057, latitude: 37.28384450943755,
+  },
+  {
+    key: 20, text: '원천정보관', longitude: 127.0437414663352, latitude: 37.28346604811299,
+  },
+  {
+    key: 21, text: '원천관', longitude: 127.04332677170262, latitude: 37.28297062908177,
+  },
+  {
+    key: 22, text: '국제학사', longitude: 127.04725490433565, latitude: 37.28476895165975,
+  },
+  {
+    key: 23, text: '제1학생회관', longitude: 127.04542176834845, latitude: 37.28364337050268,
+  },
+  {
+    key: 24, text: '제2학생회관', longitude: 127.04597130194553, latitude: 37.283321036875265,
+  },
+  {
+    key: 25, text: '성호관', longitude: 127.0451816942208, latitude: 37.28289334728198,
+  },
+  {
+    key: 26, text: '팔달관', longitude: 127.04435375458354, latitude: 37.28438488011573,
+  },
+  {
+    key: 27, text: '노천극장', latitude: 127.04552497016576, longitude: 37.28180746340893,
+  },
+  {
+    key: 28, text: '화공실험동', latitude: 127.04274627899989, longitude: 37.283398833738055,
+  },
+  {
+    key: 29, text: '에너지센터', latitude: 127.0426329171173, longitude: 37.28234015353003,
+  },
+  {
+    key: 30, text: '종합설계동', latitude: 127.04229562623287, longitude: 37.284124332085746,
+  },
+  {
+    key: 31, text: '토목실험동', latitude: 127.04353613257712, longitude: 37.28426804858332,
+  },
+  {
+    key: 32, text: '대운동장', latitude: 127.04438531963036, longitude: 37.28052842015183,
+  },
+  {
+    key: 33, text: '아주대학교병원', latitude: 127.04742352794702, longitude: 37.27943698400659,
+  },
+  {
+    key: 34, text: '화홍관', latitude: 127.0463473685448, longitude: 37.28515450460402,
+  },
+  {
+    key: 35, text: '약학관', latitude: 127.0484236537713, longitude: 37.282887560277246,
+  },
+  {
+    key: 36, text: '산학협력원', latitude: 127.04575615861087, longitude: 37.286506292757494,
+  },
+  {
+    key: 37, text: '학생군사교육단', latitude: 127.04493216318889, longitude: 37.285195597006805,
+  },
+  {
+    key: 38, text: '아주대학교정문', latitude: 127.0436887872692, longitude: 37.280118706245126,
+  },
+  {
+    key: 39, text: '대형지반연구실험동', latitude: 127.04272695015163, longitude: 37.28411516679311,
+  },
+];
 interface ITab {
   reserve: boolean;
   rental: boolean;
@@ -134,7 +254,7 @@ function ReturnItemCard({
   let passedDate;
   if (expDate !== null) {
     const exp = new Date(expDate.concat('z'));
-    const Return = new Date();
+    const Return = new Date(returnDate.concat('z'));
     passedDate = (Return.getTime() - exp.getTime()) / (1000 * 3600 * 24);
     if (passedDate >= 1) {
       flag = 'overdue';
@@ -576,126 +696,6 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
   const category = ['게임/취미', '공부할 때', '도서', '디지털기기', '비오는 날', '생활용품', '스포츠/레저', '의류', '주방용 기구', '춥거나, 더울 때', '피크닉', '행사'];
   // const [donation, setDonation] = useState(false);
   const [showMap, setShowMap] = useState(false);
-
-  const rentalLocation = [
-    {
-      key: 1, text: '우리집', latitude: 37.27206960304626, longitude: 127.04518368153681,
-    },
-    {
-      key: 2, text: '팔달관', latitude: 37.28450648122086, longitude: 127.04445813482072,
-    },
-    {
-      key: 3, text: '산학원', latitude: 37.2865287947272, longitude: 127.04586045518012,
-    },
-    {
-      key: 4, text: '성호관', latitude: 37.28292491589741, longitude: 127.04509714010233,
-    },
-    {
-      key: 5, text: '신학생회관', latitude: 37.28450648122086, longitude: 127.04445813482072,
-    },
-    {
-      key: 6, text: '구학생회관', latitude: 37.28450648122086, longitude: 127.04445813482072,
-    },
-    {
-      key: 7, text: '중앙도서관', longitude: 127.0441154519935, latitude: 37.28182601788163,
-    },
-    {
-      key: 8, text: '다산관', longitude: 127.0477894351656, latitude: 37.28301171091047,
-    },
-    {
-      key: 9, text: '율곡관', longitude: 127.04632865694208, latitude: 37.282223882292996,
-    },
-    {
-      key: 10, text: '일신관', longitude: 127.04699244720311, latitude: 37.284327547055774,
-    },
-    {
-      key: 11, text: '광교관', longitude: 127.04652517394291, latitude: 37.285474303640235,
-    },
-    {
-      key: 12, text: '남제관', longitude: 127.04583925992465, latitude: 37.284073455720765,
-    },
-    {
-      key: 13, text: '연암관', longitude: 127.04762543753087, latitude: 37.28223463065516,
-    },
-    {
-      key: 14, text: '홍재관', longitude: 127.04779700355395, latitude: 37.281606086555804,
-    },
-    {
-      key: 15, text: '송재관', longitude: 127.04713969712915, latitude: 37.2808562347841,
-    },
-    {
-      key: 16, text: '텔레토비동산', longitude: 127.04563998294971, latitude: 37.28086583289586,
-    },
-    {
-      key: 17, text: '체육관', longitude: 127.04538573803057, latitude: 37.27997840665075,
-    },
-    {
-      key: 18, text: '서관', longitude: 127.04254630177627, latitude: 37.283718774671826,
-    },
-    {
-      key: 19, text: '동관', longitude: 127.04367402616057, latitude: 37.28384450943755,
-    },
-    {
-      key: 20, text: '원천정보관', longitude: 127.0437414663352, latitude: 37.28346604811299,
-    },
-    {
-      key: 21, text: '원천관', longitude: 127.04332677170262, latitude: 37.28297062908177,
-    },
-    {
-      key: 22, text: '국제학사', longitude: 127.04725490433565, latitude: 37.28476895165975,
-    },
-    {
-      key: 23, text: '제1학생회관', longitude: 127.04542176834845, latitude: 37.28364337050268,
-    },
-    {
-      key: 24, text: '제2학생회관', longitude: 127.04597130194553, latitude: 37.283321036875265,
-    },
-    {
-      key: 25, text: '성호관', longitude: 127.0451816942208, latitude: 37.28289334728198,
-    },
-    {
-      key: 26, text: '팔달관', longitude: 127.04435375458354, latitude: 37.28438488011573,
-    },
-    {
-      key: 27, text: '노천극장', latitude: 127.04552497016576, longitude: 37.28180746340893,
-    },
-    {
-      key: 28, text: '화공실험동', latitude: 127.04274627899989, longitude: 37.283398833738055,
-    },
-    {
-      key: 29, text: '에너지센터', latitude: 127.0426329171173, longitude: 37.28234015353003,
-    },
-    {
-      key: 30, text: '종합설계동', latitude: 127.04229562623287, longitude: 37.284124332085746,
-    },
-    {
-      key: 31, text: '토목실험동', latitude: 127.04353613257712, longitude: 37.28426804858332,
-    },
-    {
-      key: 32, text: '대운동장', latitude: 127.04438531963036, longitude: 37.28052842015183,
-    },
-    {
-      key: 33, text: '아주대학교병원', latitude: 127.04742352794702, longitude: 37.27943698400659,
-    },
-    {
-      key: 34, text: '화홍관', latitude: 127.0463473685448, longitude: 37.28515450460402,
-    },
-    {
-      key: 35, text: '약학관', latitude: 127.0484236537713, longitude: 37.282887560277246,
-    },
-    {
-      key: 36, text: '산학협력원', latitude: 127.04575615861087, longitude: 37.286506292757494,
-    },
-    {
-      key: 37, text: '학생군사교육단', latitude: 127.04493216318889, longitude: 37.285195597006805,
-    },
-    {
-      key: 38, text: '아주대학교정문', latitude: 127.0436887872692, longitude: 37.280118706245126,
-    },
-    {
-      key: 39, text: '대형지반연구실험동', latitude: 127.04272695015163, longitude: 37.28411516679311,
-    },
-  ];
 
   const [mapIndex, setMapIndex] = useState(0);
   const [submitActive, setSubmitActive] = useState(false);
@@ -1369,6 +1369,9 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
           <div className={styles.TitleContainer}>
             {/* 타이틀 */}
             <h1>대여 관리</h1>
+            <div>
+              <IoReloadCircleOutline onClick={() => { window.location.reload(); }} size={30} />
+            </div>
           </div>
 
           <div className={styles.rentalNavContainer}>

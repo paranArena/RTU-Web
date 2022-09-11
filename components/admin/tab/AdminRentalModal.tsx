@@ -48,6 +48,8 @@ function NumberingRentalItem({
 }:NumberingRentalItemProps) {
   const [viewDate, setViewDate] = useState('');
 
+  console.log('rentalInfo', item.rentalInfo);
+
   useEffect(() => {
     let exp;
     let rent;
@@ -80,7 +82,7 @@ function NumberingRentalItem({
       view = (view.concat('~')).concat(view2);
       setViewDate(view);
     }
-  }, []);
+  }, [item.rentalInfo]);
 
   return (
     <div className={styles.NumberingRentalItemContainer}>
@@ -222,18 +224,27 @@ function AdminRentalModal({ viewAdminRental, setViewAdminRental }:AdminRentalMod
             });
           }
           console.log(res);
+          window.location.reload();
         })
         .catch((err) => {
-          alert(err.response.data.errors[0].message);
+          if (err.response.data.code === 'SAME_STUDENTID_EXIST') {
+            alert(err.response.data.message);
+          } else {
+            console.log(err);
+            alert('오류');
+          }
           setRentView({
             view: false,
             id: 0,
             type: '',
           });
           console.log(err);
+          window.location.reload();
         });
     } else {
       console.log('반납');
+      console.log('club id : ', clubID);
+      console.log('item id : ', itemId);
       axios.put(`${SERVER_API}/clubs/${clubID}/rentals/${itemId}/return/admin`, body, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -247,15 +258,20 @@ function AdminRentalModal({ viewAdminRental, setViewAdminRental }:AdminRentalMod
             id: 0,
             type: '',
           });
+          window.location.reload();
         }
       })
         .catch((err) => {
           console.log(err);
           if (err.response.data.code === 'MEMBER_NOT_FOUND') {
             alert('해당 학번 또는 이름의 멤버를 찾을 수 없습니다.');
+          } else if (err.response.data.code === 'SAME_STUDENTID_EXIST') {
+            alert(err.response.data.message);
           } else {
-            alert(err.response.data.errors[0].message);
+            console.log(err);
+            alert('오류');
           }
+          window.location.reload();
         });
     }
   };

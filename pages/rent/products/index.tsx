@@ -155,7 +155,14 @@ function RentalProductsPage() {
 
   const onClickRentApply = async (e : React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const currentLocation:unknown = await getLocation();
+    const [currentLocation] = await Promise.all([getLocation()]);
+
+    console.log('currentLocation');
+    console.log('currentLocation');
+
+    console.log('currentLocation');
+
+    console.log(currentLocation);
     const crrLocation:any = currentLocation;
     let crrlatitude = 0;
     if (crrLocation.latitude !== undefined) {
@@ -166,12 +173,16 @@ function RentalProductsPage() {
     if (crrLocation.longtitude !== undefined) {
       crrlongitude = crrLocation.longitude;
     }
-    console.log('currentLocation', currentLocation);
-    console.log('127.04518368153681 ', ' 37.27206960304626');
+
+    console.log('currentLocation : ', currentLocation);
 
     // eslint-disable-next-line max-len
     // measure(currentLocation.latitude, currentLocation.longitude, myRentals.location.latitude, myRentals.location.longitude
-    if (measure(crrlatitude, crrlongitude, 37.27206960304626, 127.04518368153681) <= 30) {
+
+    // eslint-disable-next-line max-len
+    // console.log((measure(37.27206960304626, 127.04518368153681, currentLocation.latitude, currentLocation.longitude)));
+    // eslint-disable-next-line max-len
+    if (measure(37.27206960304626, 127.04518368153681, crrlatitude, crrlongitude) <= 30) {
       if (!Array.isArray(myRentals)) {
         const { clubId } = myRentals;
         const { id } = myRentals;
@@ -455,6 +466,7 @@ function RentalProductsPage() {
 
     let crrlongitude = 0;
     if (crrLocation.longtitude !== undefined) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       crrlongitude = crrLocation.longitude;
     }
     // eslint-disable-next-line max-len

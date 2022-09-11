@@ -261,7 +261,7 @@ function MemberManageTab({ clubId } : IMemberManageTab) {
                 name={member.name}
                 id={member.id}
                 major={member.major}
-                studentId={member.studentId.slice(2, 4)}
+                studentId={member.studentId}
                 type="member"
                 //  !! 원래는 렌탈중인지 표시하기 위한 props 이지만 프로토 타입에서는 회원 삭제 버튼을 넣기 위한 용도로 사용
                 rental
