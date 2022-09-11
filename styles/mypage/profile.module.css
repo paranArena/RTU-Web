@@ -1,0 +1,436 @@
+.profileModalTabContainer{
+    width :100%;
+    height :100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.profileModalOuterContainer{
+    width : 70%;
+    height : 80%;
+
+    box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 25px;
+
+    padding:20px 50px 50px 50px;
+}
+
+.profileModalInnerContainer{
+    width : 100%;
+    height : 100%;
+}
+
+.profileModalTitleContainer{
+    width : 100%;
+    height : 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profileModalTitleContainer h1{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+}
+
+.profileModalSectionContainer{
+    width : 100%;
+    height: calc( 100% - 45px);
+
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profileModalLeftSection{
+    width : 48%;
+    height : 100%;
+}
+
+.profileModalRightSection{
+    width : 48%;
+    height : 100%;
+}
+.userProfileImgContainer{
+    width : 100%;
+    height : 45%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profileImgStyles{
+    width : 200px;
+    height : 200px;
+
+    border-radius: 50%;
+
+    border : 0.1px solid lightgray;
+}
+
+
+.profileModalUserTextInfoOuterContainer{
+    width : 100%;
+    height : 55%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+
+.profileModalUserStudentIntoContainer{
+    width : 100%;
+    height : 65px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.profileModalUserMajorText{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+
+    text-align: center;
+    letter-spacing: -0.610093px;
+
+    color: #868E96;
+
+}
+
+.profileModalUserNameText{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+
+    text-align: center;
+    letter-spacing: -0.610093px;
+
+    color: #000000;
+}
+
+.profileUserRentalHistoryContainer{
+    width : 100%;
+    height : 40%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+
+}
+
+.profileUserRentalHistoryCountContainer{
+    width :50%;
+    height : 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.profileUserRentalHistoryReturnCountContainer{
+    width :50%;
+    height : 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.profileModalCountText{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 44px;
+
+    text-align: center;
+    letter-spacing: -0.610093px;
+
+    color: #000000;
+}
+
+.profileModalGrayText{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: -0.610093px;
+
+    color: #868E96;
+}
+
+.profileModalUserIdNPhoneNumberContainer{
+    width : 100%;
+    height: 40%;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: flex-end;
+
+}
+
+.profileUserModalIDContainer{
+    width: 100%;
+    height : 30%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.profileUserModalPhoneNumberContainer{
+    width: 100%;
+    height : 30%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.profileUserBlackText{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+
+    letter-spacing: -0.610093px;
+
+    color: #000000;
+}
+
+.profileModalRightSectionInnerContainer{
+    width : 100%;
+    height : 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profileModalRentalStateContainer{
+    width : 100%;
+    height : 95%;
+}
+
+.profileModalSecessionContainer{
+    width : 100%;
+    height : 5%;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.profileModalRentalTitleContainer{
+    width : 100%;
+    height : 40px;
+
+    padding : 5px;
+}
+
+.profileModalRentalStateInnerContainer{
+    width: 100%;
+    height : calc(100% - 40px);
+    overflow-y: scroll;
+}
+
+/*  RentalStateInProfileModal  */
+.RentalStateInProfileModalContainer{
+    width : 100%;
+    height : 65px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1.5px solid #F1F3F5;
+}
+
+.RentalInProfileModalInnerContainer{
+    width : 70%;
+    height : 100%;
+}
+
+.RentalStateNameNDateContainer{
+    width : 100%;
+    height : 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.RentalStateContainer{
+    width : 30%;
+    height : 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Alert */
+.QuitAlertContainer{
+    position: absolute;
+    width: 600px;
+    height: 262px;
+
+    background: #F8F9FA;
+    box-shadow: 0 0 9px 3px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+}
+
+.closeButtonContainer{
+    width : 100%;
+    height :50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.closeIcon{
+    width : 50px;
+    height : 50px;
+    padding :15px;
+    margin-top : 10px;
+    margin-right : 5px;
+}
+
+.AlertTextNButtonContainer{
+    width : 100%;
+    height : calc(100% - 100px);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+}
+
+.AlertTextContainer{
+    width : 100%;
+    height : 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.AlertText{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 22px;
+
+    text-align: center;
+
+    color: #000000;
+}
+
+.AlertButtonContainer{
+    width : 75%;
+    height : 35%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+
+.buttonBgWStyle{
+    min-width : 150px;
+    min-height : 50px;
+
+    width : 25%;
+    height : 50%;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+
+    color: #1E2F97;
+
+    background: #FFFFFF;
+    border: 2px solid #1E2F97;
+    box-shadow: 0 0 8px rgba(30, 47, 151, 0.3);
+    border-radius: 33px;
+}
+
+.buttonBgWStyle:hover{
+    color: #FFFFFF;
+
+    background: #868E96;
+    border: 2px solid #868E96;
+    box-shadow: 0 0 8px rgba(30, 47, 151, 0.3);
+    border-radius: 33px;
+}
+
+.buttonBgBStyle{
+    min-width : 150px;
+    min-height : 50px;
+
+    width : 25%;
+    height : 50%;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+
+    color: #FFFFFF;
+
+    background: #1E2F97;
+    border: 2px solid #1E2F97;
+    box-shadow: 0 0 8px rgba(30, 47, 151, 0.3);
+    border-radius: 33px;
+}
+
+.buttonBgBStyle:hover{
+    color: white;
+
+    background: red;
+    border: 2px solid red;
+    box-shadow: 0 0 8px rgba(30, 47, 151, 0.3);
+    border-radius: 33px;
+}
+
+.quitText{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+
+    letter-spacing: -0.610093px;
+
+    color: #000000;
+}
+
+.quitText:hover{
+    color : red;
+}

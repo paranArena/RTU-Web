@@ -43,7 +43,7 @@ function RentItemCurrentInfo({ rentItem, itemName } :RentItemCurrentInfoProps) {
           {
               rentItem.rentalInfo === null
                 ? '대여가능'
-                : `~ ${`${new Date((Date.parse(rentItem.rentalInfo.rentDate))).getMonth()}/${new Date((Date.parse(rentItem.rentalInfo.rentDate))).getDate()}`}`
+                : `~ ${`${new Date((Date.parse(rentItem.rentalInfo.rentDate))).getMonth() + 1}/${new Date((Date.parse(rentItem.rentalInfo.rentDate))).getDate()}`}`
             }
         </span>
       </div>

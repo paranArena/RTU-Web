@@ -5,6 +5,7 @@ import styles from 'styles/main/CertificationModal.module.css';
 import axios from 'axios';
 import AuthTimer from './AuthTimer';
 import { SERVER_API } from '../../config';
+import { SignUpProps } from '../../pages';
 
 interface Props {
   email: string;
@@ -14,6 +15,7 @@ interface Props {
   setIsCert: Dispatch<SetStateAction<boolean>>;
   registerSuccess: boolean;
   setRegisterSuccess: Dispatch<SetStateAction<boolean>>;
+  signupProps : SignUpProps;
 }
 
 function CertificationModal({
@@ -25,6 +27,7 @@ function CertificationModal({
   isOpenRegisterOpen,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setRegisterSuccess,
+  signupProps,
   setIsOpenRegisterOpen,
 }: Props): React.ReactElement {
   const [isActive, setIsActive] = useState<boolean>(false); // 완료버튼 활성화
@@ -32,23 +35,57 @@ function CertificationModal({
   const [isNotCorrect, setIsNotCorrect] = useState<boolean>(false);
   const [reSend, setReSend] = useState<boolean>(false);
   const [resetTimer, setResetTimer] = useState(false);
+  const [one, setOne] = useState(0);
 
   useEffect(() => {
-    axios.post(`${SERVER_API}/members/email/requestCode`, { email })
-      .then((res) => {
-        console.log(res);
-      }).catch((err) => {
-        console.log(err);
-      });
+    if (one === 1) {
+      let Email = signupProps.email;
+      console.log('signupProps.email : ', signupProps.email);
+      Email = Email.concat('@ajou.ac.kr');
+
+      axios.post(`${SERVER_API}/signup`, {
+        email: Email,
+        password: signupProps.password,
+        name: signupProps.name,
+        phoneNumber: signupProps.phoneNumber,
+        studentId: signupProps.studentId,
+        major: signupProps.major,
+      })
+        .then((res) => {
+          console.log('res : ', res);
+        })
+        .catch((error) => {
+          alert(error.response.data.message);
+          setIsCert(false);
+        });
+
+      axios.post(`${SERVER_API}/members/email/requestCode`, { email })
+        .then((res) => {
+          console.log(res);
+        }).catch((err) => {
+          console.log(err);
+        });
+      console.log('one : ', one);
+    } else if (one === 0) {
+      setOne(1);
+    }
+  }, [one]);
+
+  useEffect(() => {
+    console.log('CertificationModal : ', email);
   }, []);
 
   const onCLickSubmit = () => {
     // TODO:: 인증번호 verify 잘 안됨.
+    console.log('email : ', email);
     axios.post(`${SERVER_API}/members/email/verifyCode`, {
       email,
       code: certNumber.toString(),
     }).then((res) => {
       console.log(res);
+      if (res.status === 200) {
+        setRegisterSuccess(true);
+      }
     }).catch((err) => {
       if (err.response.data.code === 'WRONG_VERIFICATION_CODE') {
         setIsNotCorrect(true);

@@ -34,7 +34,11 @@ function stringToTag(tagList : string[]) {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSettingModal) {
   const [active, setActive] = useState<boolean>(true);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [settingClubData, setSettingClubData] = useState<ClubDataModal>(clubData);
+  const [hashTag, setHashTag] = useState('');
+  const [introduction, setIntroduction] = useState('');
+  const [name, setName] = useState('');
 
   // 그룹 프로필 이미지 처리용 데이터
   const [imgSrc, setImgSrc] = useState<string>('');
@@ -48,6 +52,8 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
 
   // 처음 마운트될 때
   useEffect(() => {
+    // eslint-disable-next-line max-len
+    console.log('처음 마운트 : ', clubData);
     // eslint-disable-next-line max-len
     if (groupNameRef.current !== undefined && groupIntroRef.current !== undefined && groupTagRef.current !== undefined) {
       // @ts-ignore
@@ -74,53 +80,54 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
 
   const onChangeGroupName = (e) => {
     e.preventDefault();
-    setSettingClubData({
-      ...settingClubData,
-      name: e.currentTarget.value,
-    });
+    setName(e.currentTarget.value);
   };
 
   const onChangeGroupIntroduce = (e) => {
     e.preventDefault();
-    setSettingClubData({
-      ...settingClubData,
-      introduction: e.currentTarget.value,
-    });
+    setIntroduction(e.currentTarget.value);
   };
 
   const onChangeGroupTag = (e) => {
     e.preventDefault();
-    setSettingClubData({
-      ...settingClubData,
-      hashtags: e.currentTarget.value,
-    });
+    console.log(e.currentTarget.value);
+    setHashTag(e.currentTarget.value);
+    console.log(hashTag);
   };
 
   const onClickSettingButton = (e : React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
-    if (typeof clubData.hashtags === 'string') {
-      setClubData({ ...clubData, hashtags: ParseTag(clubData.hashtags) });
-    }
+    console.log('hashtags : ', clubData.hashtags);
 
     const data = new FormData();
-    data.append('name', clubData.name);
-    data.append('introduction', clubData.introduction);
+    if (name !== clubData.name) {
+      data.append('name', name);
+    }
 
-    if (typeof clubData.hashtags === 'object') {
-      console.log("typeof groupForm.hashtags === 'object'");
-      clubData.hashtags.forEach((tag) => {
-        console.log('tag : ', tag);
+    if (introduction !== clubData.introduction) {
+      data.append('introduction', introduction);
+    }
+
+    if (hashTag !== '') {
+      const hashTagArr = ParseTag(hashTag);
+      hashTagArr.forEach((tag) => {
         data.append('hashtags', tag);
       });
-    } else {
-      data.append('hashtags', '');
     }
+    // else if (clubData.hashtags.length !== 0) {
+    //   clubData.hashtags.forEach((tag) => {
+    //     data.append('hashtags', tag);
+    //   });
+    // }
+
+    console.log('hashtags : ', clubData.hashtags);
 
     // if (imgData === null) {
     //   data.append('thumbnail', null);
     // } else {
-    data.append('thumbnail', imgData);
+    if (imgData !== null) {
+      data.append('thumbnail', imgData);
+    }
     // }
 
     // TODO:: BACKEND API 아직 완성 안됨. 구현해야 함.
@@ -135,6 +142,8 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
         console.log(res);
         if (res.status === 200) {
           console.log(res);
+          alert('클럽 프로필 수정 완료');
+          window.location.reload();
         }
       })
       .catch((error) => {
@@ -328,8 +337,6 @@ function ProfileSetting() {
   const [clubData, setClubData] = useState<ClubDataModal | null>(null);
   const clubId = router.query.id;
 
-  console.log('clubIDIDDUIDD : ', clubId);
-
   // 마운트될 때 클럽 데이터 받아오기
   useEffect(() => {
     if (clubId !== undefined) {
@@ -340,7 +347,6 @@ function ProfileSetting() {
       })
         .then((res) => {
           if (res.status === 200 && res.data.data !== undefined) {
-            console.log(res.data.data);
             setClubData(res.data.data);
           }
         })
@@ -348,6 +354,8 @@ function ProfileSetting() {
           console.log(err);
         });
     }
+
+    console.log(clubData);
   }, []);
 
   // 클럽 데이터 받아오면 받아온 정보 기반으로 프로필 수정 modal 띄우기 위한 준비

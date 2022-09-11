@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 import styles from 'styles/admin/product.module.css';
 import axios from 'axios';
+import router from 'next/router';
 import { SERVER_API } from '../../../config';
 import { MapComponent } from '../../../pages/rent/products';
 
@@ -10,6 +11,19 @@ interface ITab {
   reserve: boolean;
   rental: boolean;
   return: boolean;
+}
+
+// search club rental all api interface
+interface IReserveList {
+  clubId : number;
+  clubName : string;
+  id : number;
+  imagePath : string;
+  memberName : string;
+  name : string;
+  numbering : number;
+  rentalInfo :RentalInfo;
+  rentalPolicy : 'FIFO' | 'RESERVE';
 }
 
 const TabDefault:ITab = {
@@ -33,16 +47,12 @@ interface IProduct {
   left? : number;
   // eslint-disable-next-line react/require-default-props
   max? : number;
-  // eslint-disable-next-line react/no-unused-prop-types
   rentalPolicy : 'FIFO' | 'RESERVE';
-  // eslint-disable-next-line react/no-unused-prop-types
   memberName : string;
-  // eslint-disable-next-line react/no-unused-prop-types
   rentDate : string;
 }
 
 // 물품관리
-
 interface ClubProductItemProps {
   imagePath : string;
   name : string;
@@ -50,12 +60,255 @@ interface ClubProductItemProps {
   itemId : number;
   setClickItemId : Dispatch<SetStateAction<number>>;
   setShowAddProduct :Dispatch<SetStateAction<string>>;
+  setAdminRental:Dispatch<SetStateAction<boolean>>;
+}
+
+function ReturnItemCard({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  id,
+  expDate,
+  memberName,
+  numbering,
+  productName,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  rentalStatus,
+  rentDate,
+  thumbnailPath,
+  returnDate,
+}:IReturnInfo) {
+  let Year;
+  let Month;
+  let Day;
+  let ExpDateString;
+
+  console.log(expDate);
+  if (expDate !== null) {
+    console.log('expDate !== null');
+    const expireDate = new Date(expDate.concat('z'));
+    console.log('expireDate : ', expireDate);
+    Year = expireDate.getFullYear().toString();
+    Month = (expireDate.getMonth() + 1).toString();
+    Day = expireDate.getDate().toString();
+
+    Year = Year.concat('.');
+    Month = Month.concat('.');
+
+    ExpDateString = (Year.concat(Month)).concat(Day).toString();
+  }
+
+  const RentDate = new Date(rentDate.concat('z'));
+
+  Year = RentDate.getFullYear().toString();
+  Month = (RentDate.getMonth() + 1).toString();
+  Day = RentDate.getDate().toString();
+
+  Year = Year.concat('.');
+  Month = Month.concat('.');
+
+  const RentDateString = (Year.concat(Month)).concat(Day).toString();
+
+  const ReturnDate = new Date(returnDate.concat('z'));
+
+  Year = ReturnDate.getFullYear().toString();
+  Month = (ReturnDate.getMonth() + 1).toString();
+  Day = ReturnDate.getDate().toString();
+
+  Year = Year.concat('.');
+  Month = Month.concat('.');
+
+  const ReturnDateString = Month.concat(Day);
+
+  let ViewDateString;
+  if (ExpDateString === undefined) {
+    ViewDateString = (RentDateString.concat('~'));
+  } else {
+    ViewDateString = (RentDateString.concat('~')).concat(ExpDateString);
+  }
+
+  let flag = 'return';
+  let passedDate;
+  if (expDate !== null) {
+    const exp = new Date(expDate.concat('z'));
+    const Return = new Date();
+    passedDate = (Return.getTime() - exp.getTime()) / (1000 * 3600 * 24);
+    if (passedDate >= 1) {
+      flag = 'overdue';
+      passedDate = Math.ceil(passedDate);
+    }
+  }
+
+  if (expDate !== null && returnDate === null) {
+    flag = 'non-return';
+  }
+
+  if (expDate === null) {
+    flag = 'rate';
+  }
+
+  return (
+    <div className={styles.RentalItemCardOuterContainer}>
+      <div className={styles.RentalItemCardInnerContainer}>
+        <div className={styles.RentalItemLeftContainer}>
+          <div className={styles.RentalItemImageContainer}>
+            <img
+              className={styles.RentalItemImage}
+              src={thumbnailPath === null ? '/images/defaultImg.png' : thumbnailPath}
+              alt="rental item"
+            />
+          </div>
+
+          <div className={styles.RentalItemTextInfoContainer}>
+            <span className={styles.RentalItemProductName}>{(productName.concat('-0')).concat(numbering.toString())}</span>
+            <span className={styles.RentalItemMemberName}>{memberName}</span>
+            <span className={styles.RentalItemRentalDate}>{ViewDateString}</span>
+          </div>
+
+        </div>
+
+        {/* TODO:: 후기 버튼 나중에 추가할 것 */}
+        {/* <span>후기</span> */}
+
+        <div className={styles.RentalItemRightContainer}>
+          {/*
+            1. expDate보다 returnDate가 늦으면 n일늦음✅
+            2. expDate null => 예약시간에 맞춰서 오지 못함 ( 대여확정을 못함 ) ✅
+            3. expDate 존재 returnDate === null => 미반납✅
+            4. expDate >= returnDate => 반납완료 RentalItemReturnDateTitle ✅
+          */}
+
+          {
+            flag === 'rate' ? (
+              <span className={styles.redText}>
+                예약 시간 늦음
+              </span>
+            )
+              : null
+          }
+
+          {
+            flag === 'return'
+              ? (
+                <span className={styles.RentalItemReturnDateTitle}>
+                  반납 완료
+                </span>
+              )
+              : null
+          }
+
+          {
+            flag === 'non-return'
+              ? (
+                <span className={styles.redText}>
+                  미반납
+                </span>
+              )
+              : null
+          }
+
+          {
+            flag === 'overdue'
+              ? (
+                <span className={styles.redText}>
+                  {passedDate}
+                  일 늦음
+                </span>
+              )
+              : null
+          }
+
+          <span className={styles.RentalItemReturnDate}>{ReturnDateString}</span>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+// RentalItemCard
+function RentalItemCard({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  clubId, clubName, id,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  imagePath, memberName, name, numbering, rentalInfo, rentalPolicy,
+}:IReserveList) {
+  const RentDate = new Date(rentalInfo.rentDate.concat('z'));
+  const ExpDate = new Date(rentalInfo.expDate.concat('z'));
+
+  let Year = RentDate.getFullYear().toString();
+  let Month = RentDate.getMonth().toString();
+  let Day = RentDate.getDate().toString();
+
+  Year = Year.concat('.');
+  Month = Month.concat('.');
+
+  const RentDateString = (Year.concat(Month)).concat(Day).toString();
+
+  Year = ExpDate.getFullYear().toString();
+  Month = ExpDate.getMonth().toString();
+  Day = ExpDate.getDate().toString();
+
+  Year = Year.concat('.');
+  Month = Month.concat('.');
+
+  const ExpDateString = (Year.concat(Month)).concat(Day).toString();
+  const ReturnDate = Month.concat('.').concat(Day);
+
+  return (
+    <div className={styles.RentalItemCardOuterContainer}>
+      <div className={styles.RentalItemCardInnerContainer}>
+        <div className={styles.RentalItemLeftContainer}>
+          <div className={styles.RentalItemImageContainer}>
+            <img
+              className={styles.RentalItemImage}
+              src={imagePath === null ? '/images/defaultImg.png' : imagePath}
+              alt="rental item"
+            />
+          </div>
+
+          <div className={styles.RentalItemTextInfoContainer}>
+            <span className={styles.RentalItemProductName}>{name.concat('-0').concat(numbering.toString())}</span>
+            <span className={styles.RentalItemMemberName}>{memberName}</span>
+            <span className={styles.RentalItemRentalDate}>{RentDateString.concat('~').concat(ExpDateString)}</span>
+          </div>
+
+        </div>
+
+        <div className={styles.RentalItemRightContainer}>
+          <span className={styles.RentalItemReturnDateTitle}>반납예정</span>
+          <span className={styles.RentalItemReturnDate}>{ReturnDate}</span>
+        </div>
+
+      </div>
+    </div>
+  );
 }
 
 function ClubProductItem({
-  imagePath, name, max, setShowAddProduct, setClickItemId, itemId,
+  imagePath, name, max, setShowAddProduct, setClickItemId, itemId, setAdminRental,
 }:ClubProductItemProps) {
   // const [onOff, setOnOff] = useState(true);
+
+  const EventRentalModal = (e : React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    setAdminRental(true);
+  };
+
+  const EventDeleteButton = (e : React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    console.log(router.query.id);
+    axios.delete(`${SERVER_API}/clubs/${router.query.id}/products/${itemId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    }).then((res) => {
+      console.log(res);
+      if (res.status === 200) {
+        alert('물품 삭제 성공');
+        window.location.reload();
+      }
+    })
+      .catch((err) => { console.log(err); });
+  };
 
   return (
     <div className={styles.ProductItemContainer}>
@@ -94,7 +347,14 @@ function ClubProductItem({
         </div>
 
         <div>
-          <span>렌탈</span>
+          {/* eslint-disable-next-line max-len */}
+          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
+          <span onClick={EventRentalModal} className={styles.HoverBlueText}>렌탈</span>
+        </div>
+        <div>
+          {/* eslint-disable-next-line max-len */}
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+          <span onClick={EventDeleteButton} className={styles.deleteText}>삭제</span>
         </div>
 
         {/* <div className={styles.toggleButtonOuterContainer}> */}
@@ -314,6 +574,9 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
 
   const rentalLocation = [
     {
+      key: 1, text: '우리집', latitude: 37.27206960304626, longitude: 127.04518368153681,
+    },
+    {
       key: 2, text: '팔달관', latitude: 37.28450648122086, longitude: 127.04445813482072,
     },
     {
@@ -329,64 +592,64 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
       key: 6, text: '구학생회관', latitude: 37.28450648122086, longitude: 127.04445813482072,
     },
     {
-      key: 7, text: '중앙도서관', latitude: 127.0441154519935, longitude: 37.28182601788163,
+      key: 7, text: '중앙도서관', longitude: 127.0441154519935, latitude: 37.28182601788163,
     },
     {
-      key: 8, text: '다산관', latitude: 127.0477894351656, longitude: 37.28301171091047,
+      key: 8, text: '다산관', longitude: 127.0477894351656, latitude: 37.28301171091047,
     },
     {
-      key: 9, text: '율곡관', latitude: 127.04632865694208, longitude: 37.282223882292996,
+      key: 9, text: '율곡관', longitude: 127.04632865694208, latitude: 37.282223882292996,
     },
     {
-      key: 10, text: '일신관', latitude: 127.04699244720311, longitude: 37.284327547055774,
+      key: 10, text: '일신관', longitude: 127.04699244720311, latitude: 37.284327547055774,
     },
     {
-      key: 11, text: '광교관', latitude: 127.04652517394291, longitude: 37.285474303640235,
+      key: 11, text: '광교관', longitude: 127.04652517394291, latitude: 37.285474303640235,
     },
     {
-      key: 12, text: '남제관', latitude: 127.04583925992465, longitude: 37.284073455720765,
+      key: 12, text: '남제관', longitude: 127.04583925992465, latitude: 37.284073455720765,
     },
     {
-      key: 13, text: '연암관', latitude: 127.04762543753087, longitude: 37.28223463065516,
+      key: 13, text: '연암관', longitude: 127.04762543753087, latitude: 37.28223463065516,
     },
     {
-      key: 14, text: '홍재관', latitude: 127.04779700355395, longitude: 37.281606086555804,
+      key: 14, text: '홍재관', longitude: 127.04779700355395, latitude: 37.281606086555804,
     },
     {
-      key: 15, text: '송재관', latitude: 127.04713969712915, longitude: 37.2808562347841,
+      key: 15, text: '송재관', longitude: 127.04713969712915, latitude: 37.2808562347841,
     },
     {
-      key: 16, text: '텔레토비동산', latitude: 127.04563998294971, longitude: 37.28086583289586,
+      key: 16, text: '텔레토비동산', longitude: 127.04563998294971, latitude: 37.28086583289586,
     },
     {
-      key: 17, text: '체육관', latitude: 127.04538573803057, longitude: 37.27997840665075,
+      key: 17, text: '체육관', longitude: 127.04538573803057, latitude: 37.27997840665075,
     },
     {
-      key: 18, text: '서관', latitude: 127.04254630177627, longitude: 37.283718774671826,
+      key: 18, text: '서관', longitude: 127.04254630177627, latitude: 37.283718774671826,
     },
     {
-      key: 19, text: '동관', latitude: 127.04367402616057, longitude: 37.28384450943755,
+      key: 19, text: '동관', longitude: 127.04367402616057, latitude: 37.28384450943755,
     },
     {
-      key: 20, text: '원천정보관', latitude: 127.0437414663352, longitude: 37.28346604811299,
+      key: 20, text: '원천정보관', longitude: 127.0437414663352, latitude: 37.28346604811299,
     },
     {
-      key: 21, text: '원천관', latitude: 127.04332677170262, longitude: 37.28297062908177,
+      key: 21, text: '원천관', longitude: 127.04332677170262, latitude: 37.28297062908177,
     },
     {
-      key: 22, text: '국제학사', latitude: 127.04725490433565, longitude: 37.28476895165975,
+      key: 22, text: '국제학사', longitude: 127.04725490433565, latitude: 37.28476895165975,
     },
     {
-      key: 23, text: '제1학생회관', latitude: 127.04542176834845, longitude: 37.28364337050268,
+      key: 23, text: '제1학생회관', longitude: 127.04542176834845, latitude: 37.28364337050268,
     },
     {
-      key: 24, text: '제2학생회관', latitude: 127.04597130194553, longitude: 37.283321036875265,
+      key: 24, text: '제2학생회관', longitude: 127.04597130194553, latitude: 37.283321036875265,
     },
     {
-      key: 25, text: '성호관', latitude: 127.0451816942208, longitude: 37.28289334728198,
+      key: 25, text: '성호관', longitude: 127.0451816942208, latitude: 37.28289334728198,
     },
     {
-      key: 26, text: '팔달관', latitude: 127.04435375458354, longitude: 37.28438488011573,
+      key: 26, text: '팔달관', longitude: 127.04435375458354, latitude: 37.28438488011573,
     },
     {
       key: 27, text: '노천극장', latitude: 127.04552497016576, longitude: 37.28180746340893,
@@ -427,8 +690,36 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
     {
       key: 39, text: '대형지반연구실험동', latitude: 127.04272695015163, longitude: 37.28411516679311,
     },
-
   ];
+
+  const [mapIndex, setMapIndex] = useState(0);
+  const [submitActive, setSubmitActive] = useState(false);
+  const [files, setFiles] = useState([]);
+  const [url, setUrl] = useState('');
+
+  const onChangeLocation = (e) => {
+    console.log('dsd', e.currentTarget.value);
+    setProduct({ ...product, locationName: e.currentTarget.value });
+    if (product.locationName !== '') {
+      // eslint-disable-next-line no-plusplus
+      const locationNameTmp = e.currentTarget.value;
+      console.log(locationNameTmp);
+      for (let i = 0; i < rentalLocation.length; i += 1) {
+        if (locationNameTmp.search(rentalLocation[i].text) === 0) {
+          setProduct({
+            // eslint-disable-next-line max-len
+            ...product, locationName: e.currentTarget.value, longitude: rentalLocation[i].longitude, latitude: rentalLocation[i].latitude,
+          });
+          setMapIndex(i);
+          console.log('for : ', product.locationName);
+        }
+      }
+    }
+  };
+
+  useEffect(() => {
+    console.log('submitActive : ', submitActive);
+  }, [submitActive]);
 
   useEffect(() => {
     console.log('MODIFY');
@@ -485,31 +776,6 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
     }
   }, [modiProduct]);
 
-  const [mapIndex, setMapIndex] = useState(0);
-  const [submitActive, setSubmitActive] = useState(false);
-  const [files, setFiles] = useState([]);
-  const [url, setUrl] = useState('');
-
-  const onChangeLocation = (e) => {
-    console.log('dsd', e.currentTarget.value);
-    setProduct({ ...product, locationName: e.currentTarget.value });
-    if (product.locationName !== '') {
-      // eslint-disable-next-line no-plusplus
-      const locationNameTmp = e.currentTarget.value;
-      console.log(locationNameTmp);
-      for (let i = 0; i < rentalLocation.length; i += 1) {
-        if (locationNameTmp.search(rentalLocation[i].text) === 0) {
-          setProduct({
-            // eslint-disable-next-line max-len
-            ...product, locationName: e.currentTarget.value, longitude: rentalLocation[i].longitude, latitude: rentalLocation[i].latitude,
-          });
-          setMapIndex(i);
-          console.log('for : ', product.locationName);
-        }
-      }
-    }
-  };
-
   // imageURL to Blob
   const convertURLtoFile = async (imgURL: string) => {
     const response = await fetch(imgURL);
@@ -524,6 +790,7 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
     e.preventDefault();
     console.log(product);
     console.log(files);
+    console.log('Add');
 
     const clubId = window.location.search.slice(window.location.search.search('=') + 1);
 
@@ -550,8 +817,73 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
       data.append('image', file.uploadedFile);
     });
 
-    // data.append('image', []);
+    if (modiProduct === undefined) {
+      axios.post(`${SERVER_API}/clubs/${clubId}/products`, data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      }).then((res) => {
+        console.log(res);
+        alert('물품 생성 성공');
+        window.location.reload();
+      }).catch((err) => {
+        console.log(err);
+      });
+    } else {
+      console.log('물품 수');
+      // @ts-ignore
+      const imgFile = await convertURLtoFile(modiProduct.imagePath);
+      data.append('image', imgFile);
+      axios.post(`${SERVER_API}/clubs/${clubId}/products/${itemId}`, data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      }).then((res) => {
+        console.log(res);
+        if (res.data.statusCode === 200 && res.data.responseMessage.search('수정') > -1) {
+          alert('물품 생성 성공');
+          window.location.reload();
+        }
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
+  };
 
+  // FIXME 물품 수정
+  const onClickProductUpdate = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    console.log(product);
+    console.log(files);
+
+    const clubId = window.location.search.slice(window.location.search.search('=') + 1);
+
+    const data = new FormData();
+    data.append('name', product.name);
+    data.append('category', product.category);
+    data.append('price', product.price.toString());
+    if (modiProduct === undefined) {
+      for (let i = 0; i < product.rentalFifoCount; i += 1) {
+        data.append('rentalPolicies', 'FIFO');
+      }
+    }
+    data.append('reserveRentalPeriod', product.reserveRentalPeriod.toString());
+    data.append('fifoRentalPeriod', product.fifoRentalPeriod.toString());
+    data.append('locationName', product.locationName);
+    // @ts-ignore
+    data.append('longitude', product.longitude);
+    // @ts-ignore
+    data.append('latitude', product.latitude);
+    data.append('caution', product.caution);
+    console.log('files', files);
+
+    // files.forEach((file) => {
+    //   console.log('file :', file);
+    //   data.append('image', file.uploadedFile);
+    // });
+
+    // data.append('image', null);
+    // data.append('image', []);
     // data.append('image', null);
 
     if (modiProduct === undefined) {
@@ -567,17 +899,22 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
       });
     } else {
       console.log('물품 수');
-      // TODO :: 물품 수정 axios
-
       // @ts-ignore
+      // TODO
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const imgFile = await convertURLtoFile(modiProduct.imagePath);
-      data.append('image', imgFile);
+      // data.append('image', imgFile);
+      // data.append('image', '');
+
       axios.put(`${SERVER_API}/clubs/${clubId}/products/${itemId}`, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       }).then((res) => {
-        console.log(res);
+        if (res.data.statusCode === 200 && res.data.responseMessage.search('수정') > -1) {
+          alert('물품 수정 성공');
+          window.location.reload();
+        }
         // window.location.reload();
       }).catch((err) => {
         console.log(err);
@@ -711,32 +1048,18 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
                 <ul className={styles.categoryInnerContainer}>
                   {/* eslint-disable-next-line max-len */}
                   {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
-                  <li
-                    onClick={(e) => { setProduct({ ...product, category: e.currentTarget.innerHTML }); }}
-                    className={product.category === '가전제품' ? styles.categoryFirstSelect : styles.categoryFirst}
-                  >
-                    가전제품
-                  </li>
+                  <li onClick={(e) => { setProduct({ ...product, category: e.currentTarget.innerHTML }); }} className={product.category === '가전제품' ? styles.categoryFirstSelect : styles.categoryFirst}>가전제품</li>
                   {
                     category.map((item) => (
 
                       // eslint-disable-next-line max-len
-                      // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions
-                      <li
-                        onClick={(e) => { setProduct({ ...product, category: e.currentTarget.innerHTML }); }}
-                        className={product.category === item ? styles.categorySelect : styles.category}
-                      >
-                        {item}
-                      </li>
+                      // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions,max-len
+                      <li onClick={(e) => { setProduct({ ...product, category: e.currentTarget.innerHTML }); }} className={product.category === item ? styles.categorySelect : styles.category}>{item}</li>
                     ))
                   }
-                  {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-                  <li
-                    onClick={(e) => { setProduct({ ...product, category: e.currentTarget.innerHTML }); }}
-                    className={product.category === '기타' ? styles.categoryLastSelect : styles.categoryLast}
-                  >
-                    기타
-                  </li>
+                  {/* eslint-disable-next-line max-len */}
+                  {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
+                  <li onClick={(e) => { setProduct({ ...product, category: e.currentTarget.innerHTML }); }} className={product.category === '기타' ? styles.categoryLastSelect : styles.categoryLast}>기타</li>
                 </ul>
               </div>
             </div>
@@ -896,7 +1219,7 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
           >
             이전
           </span>
-          <button onClick={onClickProductSubmit} className={submitActive ? styles.submitButtonActive : styles.submitButtonUnActive} type="submit">등록</button>
+          <button onClick={ModalType === 'add' ? onClickProductSubmit : onClickProductUpdate} className={submitActive ? styles.submitButtonActive : styles.submitButtonUnActive} type="submit">등록</button>
         </div>
       </section>
     </div>
@@ -922,16 +1245,16 @@ interface RentalInfo {
   rentalStatus : string;
 }
 
-interface IReserveList {
-  clubId : number;
-  clubName : string;
+interface IReturnInfo {
+  expDate : string;
   id : number;
-  imagePath : string;
-  memberName : string;
-  name : string;
   numbering : number;
-  rentalInfo :RentalInfo;
-  rentalPolicy : 'FIFO' | 'RESERVE';
+  memberName : string;
+  productName : string;
+  rentDate : string;
+  rentalStatus : 'DONE' | 'CANCEL';
+  returnDate : string;
+  thumbnailPath : string;
 }
 
 function ProductManageModal({ clubId }:ProductManageModalProps) {
@@ -940,6 +1263,8 @@ function ProductManageModal({ clubId }:ProductManageModalProps) {
   const [productList, setProductList] = useState<{ left: number; max: number; imagePath: string; name: string; clubId: number; id: number; category: string } []>([defaultProduct]);
   const [showAddProduct, setShowAddProduct] = useState<string>('');
   const [clickedItem, setClickedItem] = useState(0);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [adminRental, setAdminRental] = useState(false); // 관리자가 대신 렌탈해주는 모달
 
   // 대여 관리 :: 예약
   const [reserveList, setReserveList] = useState<IReserveList[]>([]);
@@ -949,7 +1274,7 @@ function ProductManageModal({ clubId }:ProductManageModalProps) {
   const [rentalList, setRentalList] = useState<IReserveList[]>([]);
 
   // 대여 관리 :: 반납
-  const [returnList, setReturnList] = useState<IReserveList[]>([]);
+  const [returnList, setReturnList] = useState<IReturnInfo[]>([]);
 
   // 클럽에 등록된 모든 물품
 
@@ -960,7 +1285,6 @@ function ProductManageModal({ clubId }:ProductManageModalProps) {
       },
     }).then((res) => {
       if (res.status === 200) {
-        console.log('All : ', res.data.data);
         setProductList(res.data.data);
       }
     }).catch((err) => {
@@ -975,9 +1299,23 @@ function ProductManageModal({ clubId }:ProductManageModalProps) {
         },
       }).then((res) => {
         if (res.status === 200) {
-          console.log('All : ', res.data.data);
-          setReserveList(res.data.data);
-          console.log('reserve : ', reserveList);
+          console.log('All search : ', res.data.data);
+          const reserve = [];
+          const rental = [];
+          if (Array.isArray(res.data.data)) {
+            res.data.data.forEach((item) => {
+              if (item.rentalInfo.rentalStatus === 'WAIT') {
+                reserve.push(item);
+              } else if (item.rentalInfo.rentalStatus === 'RENT') {
+                rental.push(item);
+              }
+            });
+
+            setReserveList(reserve);
+            setRentalList(rental);
+            console.log('RENTAL LIST : ', rentalList);
+            console.log('RESERVE LIST : ', reserveList);
+          }
         }
       }).catch((err) => {
         console.log(err);
@@ -989,9 +1327,8 @@ function ProductManageModal({ clubId }:ProductManageModalProps) {
         },
       }).then((res) => {
         if (res.status === 200) {
-          console.log('All : ', res.data.data);
           setReturnList(res.data.data);
-          console.log('return : ', returnList);
+          console.log('returnList : ', returnList);
         }
       }).catch((err) => {
         console.log(err);
@@ -999,8 +1336,6 @@ function ProductManageModal({ clubId }:ProductManageModalProps) {
     } else {
     //  rental server 요청
     }
-
-    console.log('rental : ', rentalList);
   }, [tab]);
 
   useEffect(() => {
@@ -1086,6 +1421,41 @@ function ProductManageModal({ clubId }:ProductManageModalProps) {
                   : null
               }
 
+              {
+                tab.rental && rentalList.length > 0
+                  ? rentalList.map((item) => (
+                    <RentalItemCard
+                      clubId={item.clubId}
+                      clubName={item.clubName}
+                      id={item.id}
+                      imagePath={item.imagePath}
+                      memberName={item.memberName}
+                      name={item.name}
+                      numbering={item.numbering}
+                      rentalInfo={item.rentalInfo}
+                      rentalPolicy={item.rentalPolicy}
+                    />
+                  ))
+                  : null
+              }
+
+              {
+                tab.return && rentalList.length > 0
+                  ? returnList.map((item) => (
+                    <ReturnItemCard
+                      expDate={item.expDate}
+                      id={item.id}
+                      numbering={item.numbering}
+                      memberName={item.memberName}
+                      productName={item.productName}
+                      rentDate={item.rentDate}
+                      rentalStatus={item.rentalStatus}
+                      returnDate={item.rentDate}
+                      thumbnailPath={item.thumbnailPath}
+                    />
+                  ))
+                  : null
+              }
             </div>
           </div>
 
@@ -1130,7 +1500,7 @@ function ProductManageModal({ clubId }:ProductManageModalProps) {
                   console.log('item : ', item);
                   return (
                   // eslint-disable-next-line max-len
-                    <ClubProductItem setClickItemId={setClickedItem} itemId={item.id} setShowAddProduct={setShowAddProduct} max={item.max} name={item.name} imagePath={item.imagePath} />
+                    <ClubProductItem setAdminRental={setAdminRental} setClickItemId={setClickedItem} itemId={item.id} setShowAddProduct={setShowAddProduct} max={item.max} name={item.name} imagePath={item.imagePath} />
                   );
                 })
               }

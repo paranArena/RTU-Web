@@ -22,6 +22,7 @@ interface INoticeListItem {
     title:string;
     content:string;
     writeDate:string;
+    imagePath : string;
   }>>;
   id : number;
   clubId:number;
@@ -45,7 +46,7 @@ function NoticeListItem({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [newNotice, setNewNotice] = useState(false);
   const date = new Date(Date.parse(noticeDateCreated));
-  const noticeDate = `${date.getFullYear()}. ${date.getMonth()}. ${date.getDate()}`;
+  const noticeDate = `${date.getFullYear()}. ${date.getMonth() + 1}. ${date.getDate()}`;
 
   useEffect(() => {
     console.log(
@@ -73,12 +74,11 @@ function NoticeListItem({
                 },
         },
       ).then((res) => {
-        console.log(res);
-
         setDetailNotice({
           title: res.data.data.title,
           content: res.data.data.content,
           writeDate: noticeDate,
+          imagePath: res.data.data.imagePath,
         });
       })
         .catch((err) => {
@@ -116,10 +116,10 @@ function NoticeListItem({
             noticeDate
           }
         </span>
-        <div>
-          {/* TODO:: 최신 기준 정해야함. */}
-          {newNotice ? null : <img src="/icons/new 아이콘.png" alt="new" /> }
-        </div>
+        {/* <div> */}
+        {/*  /!* TODO:: 최신 기준 정해야함.  TODO:: 다음에 최신기준 정하고, N 아이콘 추가 *!/ */}
+        {/*  /!*{newNotice ? null : <img src="/icons/new 아이콘.png" alt="new" /> }*!/ */}
+        {/* </div> */}
       </div>
     </li>
   );
@@ -151,6 +151,7 @@ function RentalItem({
   const onClickItem = () => {
     router.push(`/rent/products?clubId=${clubId}&productId=${id}`);
   };
+
   return (
   // eslint-disable-next-line max-len
   // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions
@@ -159,7 +160,7 @@ function RentalItem({
         ? (
           <>
             {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
-            <img className={styles.rentalItemImage} src={thumbnailPath} alt="Rental Item Image" />
+            <img className={styles.rentalItemImage} src={thumbnailPath === null ? '/images/defaultImg.png' : thumbnailPath} alt="Rental Item Image" />
             <h3>{rentalItemName}</h3>
             <span>
               {quantityLeft}
@@ -207,10 +208,12 @@ function GroupModalHome({ show, clubId } : IGroupModalHome) {
     title: '',
     writeDate: '',
     content: '',
+    imagePath: '',
   });
 
   const [clubNotice, setClubNotice] = useState<IClubNotice[]>([]);
   const [rentalProduct, setRentalProduct] = useState<IRentalProduct[]>([]);
+  const [detailNoticeImg, setDetailNoticeImg] = useState(false);
 
   useEffect(() => {
 
@@ -257,11 +260,24 @@ function GroupModalHome({ show, clubId } : IGroupModalHome) {
       });
   }, []);
 
+  console.log('noticeDetail noticeDetail noticeDetail:', noticeDetail);
   return (
     <div className={styles.groupHomeContainer}>
       {
         noticeDetail ? (
           <div className={styles.noticeDetailContainer}>
+            {
+              detailNoticeImg
+                ? (
+              // eslint-disable-next-line max-len
+              // eslint-disable-next-line max-len,jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+                  <div className={styles.detailNoticeImgContainer} onClick={() => { setDetailNoticeImg(false); }}>
+                    <img className={styles.detailNoticeImg} src={detailNotice.imagePath} alt="notice img" />
+                  </div>
+                )
+                : null
+            }
+
             <div className={styles.noticeDetailInnerContainer}>
               <div className={styles.noticeDetailTitleContainer}>
                 <span>{detailNotice.title}</span>
@@ -284,7 +300,17 @@ function GroupModalHome({ show, clubId } : IGroupModalHome) {
               <div className={styles.noticeDetailOuterContainer}>
                 <div className={styles.noticeDetailInnerContainer}>
                   <span className={styles.noticeDetailContent}>{detailNotice.content}</span>
-
+                  {
+                    detailNotice.imagePath
+                      ? (
+                        <div className={styles.noticeImgContainer}>
+                          {/* eslint-disable-next-line max-len */}
+                          {/* eslint-disable-next-line jsx-a11y/img-redundant-alt,jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
+                          <img onClick={() => { setDetailNoticeImg(true); }} className={styles.noticeImg} src={detailNotice.imagePath} alt="image" />
+                        </div>
+                      )
+                      : null
+                  }
                 </div>
               </div>
             </div>
@@ -312,7 +338,7 @@ function GroupModalHome({ show, clubId } : IGroupModalHome) {
             id={notice.id}
             setDetailNotice={setDetailNotice}
             setNoticeDetail={setNoticeDetail}
-            thumbnailPath={'https://picsum.photos/200\n'}
+            thumbnailPath={notice.imagePath}
         // thumbnailPath={notice.imagePath}
             noticeTitle={notice.title}
             noticeContent=""
@@ -358,7 +384,6 @@ interface IGroupModalRent {
 // 그룹 모달 렌탈 탭
 function GroupModalRent({ clubData, show } : IGroupModalRent) {
   const [rentalItem, setRentalItem] = useState<RentalItemModal[] | null>(null);
-  console.log('clubData clubData;', clubData);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const rentItemRendering = () => {
     const result = [];
@@ -368,7 +393,7 @@ function GroupModalRent({ clubData, show } : IGroupModalRent) {
         <RentalItem
           clubId={item.clubId}
           id={item.id}
-          thumbnailPath={(item.imagePath === null || item.imagePath === '') ? '/images/defaultImg.png' : item.imagePath}
+          thumbnailPath={item.imagePath}
           rentalItemName={item.name}
           quantityTotal={item.max}
           quantityLeft={item.left}
@@ -377,10 +402,6 @@ function GroupModalRent({ clubData, show } : IGroupModalRent) {
     }
     return result;
   };
-
-  useEffect(() => {
-    console.log('rentalItem, :', rentalItem);
-  }, [rentalItem]);
 
   // searchClubProductsAll
   useEffect(() => {
@@ -394,7 +415,6 @@ function GroupModalRent({ clubData, show } : IGroupModalRent) {
         if (res.status === 200 && res.data.data !== []) {
           setRentalItem(res.data.data);
         }
-        console.log('rent modal : ', res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -464,8 +484,6 @@ function GroupModalNotice({ clubId, show }:GroupModalNoticeProps) {
     content: '',
   });
 
-  console.log('noticeList : ', noticeList);
-
   useEffect(() => {
     axios.get(`${SERVER_API}/clubs/${clubId}/notifications/search/all`, {
       headers: {
@@ -480,10 +498,6 @@ function GroupModalNotice({ clubId, show }:GroupModalNoticeProps) {
         console.log(err);
       });
   }, []);
-
-  useEffect(() => {
-    console.log(detailNotice);
-  }, [detailNotice]);
 
   return (
     <div className={styles.GroupModalRentalTabContainer}>
@@ -539,7 +553,7 @@ function GroupModalNotice({ clubId, show }:GroupModalNoticeProps) {
                     {
                     noticeList.map((notice) => (
                       <NoticeListItem
-                        thumbnailPath="https://picsum.photos/200"
+                        thumbnailPath={notice.imagePath}
                             // thumbnailPath={notice.imagePath}
                         noticeTitle={notice.title}
                         noticeContent=""

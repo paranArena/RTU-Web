@@ -14,6 +14,24 @@ axios.defaults.withCredentials = true;
 axios.defaults.baseURL = 'http://ec2-15-165-38-225.ap-northeast-2.compute.amazonaws.com:8080/';
 axios.defaults.withCredentials = true;
 
+export interface SignUpProps {
+  email: string
+  password: string
+  name: string
+  major: string
+  studentId: string
+  phoneNumber: string
+}
+
+export const defaultSignUpProps: SignUpProps = {
+  email: '',
+  password: '',
+  name: '',
+  major: '',
+  studentId: '',
+  phoneNumber: '',
+};
+
 declare global {
   interface Window {
     kakao: any;
@@ -30,6 +48,8 @@ function Login() {
   const [wrongVisible, setWrongVisible] = useState<boolean>(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState<boolean>(false);
   const [registerSuccess, setRegisterSuccess] = useState<boolean>(false);
+  const [signupProps, setSignUpProps] = useState<SignUpProps>(defaultSignUpProps);
+
   const router = useRouter();
 
   const [loginData, setLoginData] = useState<LoginDate>({ email: '', password: '' });
@@ -49,18 +69,15 @@ function Login() {
           if (res.status === 200) {
             localStorage.setItem('token', res.data.token);
             router.push('/main');
-          } else {
-            console.log('아디 비버 틀림');
-            console.log('login fail');
           }
         })
-        .catch((err) => {
-          console.log('login error');
-          console.log(SERVER_API);
-          console.log(err);
+        .catch(() => {
+          alert('아이디 또는 비번이 틀렸습니다.');
         });
     }
   };
+
+  useEffect(() => {}, []);
 
   useEffect(() => {
     console.log('localStorage : ', localStorage);
@@ -83,7 +100,9 @@ function Login() {
     currentLoginData.password = e.currentTarget.value;
     setLoginData(currentLoginData);
   };
-  useEffect(() => {}, [isCert]);
+  useEffect(() => {
+    console.log('uE isCert :: loginData : ', loginData);
+  }, [isCert]);
 
   return (
     <div className={styles.container}>
@@ -91,6 +110,8 @@ function Login() {
       <main className={styles.main}>
         {isRegisterOpen ? (
           <RegisterModal
+            signupProps={signupProps}
+            setSignUpProps={setSignUpProps}
             isOpenRegisterOpen={isRegisterOpen}
             setIsOpenRegisterOpen={setIsRegisterOpen}
             isCert={isCert}
@@ -99,13 +120,14 @@ function Login() {
         ) : null}
         {isCert ? (
           <CertificationModal
-            email={loginData.email}
+            email={signupProps.email.concat('@ajou.ac.kr')}
             setRegisterSuccess={setRegisterSuccess}
             registerSuccess={registerSuccess}
             isOpenRegisterOpen={isRegisterOpen}
             setIsOpenRegisterOpen={setIsRegisterOpen}
             isCert={isCert}
             setIsCert={setIsCert}
+            signupProps={signupProps}
           />
         ) : null}
         {/* eslint-disable-next-line max-len */}
@@ -117,7 +139,7 @@ function Login() {
 
           <div className={styles.logoContainer}>
             {/* 로고 넣을 곳 */}
-            로고
+            <img className={styles.logoImg} src="/images/logo/logo_sm.png" alt="Ren2U Logo" />
           </div>
 
           <div className={styles.explainTextContainer}>

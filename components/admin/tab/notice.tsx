@@ -28,7 +28,7 @@ function NoticeItem({
   setNoticeId,
 } : NoticeProps) {
   const date = new Date(Date.parse(notice.createdAt));
-  const noticeDate = `${date.getFullYear()}.${date.getMonth()}.${date.getDate()}`;
+  const noticeDate = `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`;
 
   return (
   // eslint-disable-next-line max-len

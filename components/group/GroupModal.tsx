@@ -253,21 +253,18 @@ function GroupModal({ clubData }: IGroupModal) {
             {
               // eslint-disable-next-line react/destructuring-assignment
                clubData.hashtags.map((tag) => (
-                 <span key={tag}>{tag}</span>
+                 <span key={tag}>
+                   #
+                   {tag}
+                 </span>
                ))
             }
           </div>
         </div>
         { show
           ? (
-            <button
-              type="submit"
-              onClick={role === 'WAIT' ? onClickCancelEventButton : role === 'USER' ? onClickLeaveButtonEvent : onClickJoinEventButton}
-              className={role === 'NONE' ? styles.joinButton : role === 'USER' ? styles.clubLeaveButton : styles.requestButton}
-            >
-              {/* eslint-disable-next-line no-nested-ternary */}
-              {role === 'NONE' ? '가입요청' : role === 'USER' ? '탈퇴하기' : '요청완료'}
-            </button>
+        // eslint-disable-next-line no-nested-ternary
+            <button type="submit" onClick={role === 'WAIT' ? onClickCancelEventButton : role === 'USER' ? onClickLeaveButtonEvent : onClickJoinEventButton} className={role === 'NONE' ? styles.joinButton : role === 'USER' ? styles.clubLeaveButton : styles.requestButton}>{role === 'NONE' ? '가입요청' : role === 'USER' ? '탈퇴하기' : '요청완료'}</button>
           )
           : null}
       </section>

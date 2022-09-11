@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import { KAKAO_API_KEY, SERVER_API } from '../../../config';
 import { Location } from '../../../globalInterface';
+import { getLocation, measure } from '../../../components/common/getCurrentPosition';
 
 // const KAKAO_API_KEY = 'KAKAO_API_KEY';
 
@@ -117,7 +118,7 @@ interface IMyRental {
     expDate : null | string;
     meRental : boolean;
     rentDate : string;
-    rentalStatus : string;
+    rentalStatus : 'WAIT' | 'RENT' | 'RESERVE';
   };
   rentalPolicy : string;
 }
@@ -131,8 +132,20 @@ function RentalProductsPage() {
     'first-come': false,
   });
   const [myRentals, setMyRentals] = useState<IMyRental[] | IMyRental>([]);
-  const [meRentalState, setMeRentalState] = useState(false);
+  const [meRentalState, setMeRentalState] = useState('NONE');
   const [rentalItemData, setRentalItemData] = useState(DefaultrentalItemData);
+  const [expDate, setExpDate] = useState('');
+
+  useEffect(() => {
+    if (meRentalState === 'RENT' && !Array.isArray(myRentals)) {
+      const date = new Date(myRentals.rentalInfo.expDate.concat('z'));
+      console.log('date : ', date);
+      const month = ((date.getMonth() + 1).toString()).concat('월 ');
+      const day = (date.getDate().toString()).concat('일 ');
+      setExpDate(month.concat(day));
+    }
+  }, [meRentalState]);
+
   const router = useRouter();
   // const [rentalDate, setRentalDate] = useState<string>('');
 
@@ -140,27 +153,48 @@ function RentalProductsPage() {
   const [min, setMin] = useState<number>(-1);
   const [sec, setSec] = useState<number>(-1);
 
-  const onClickRentApply = (e : React.MouseEvent<HTMLButtonElement>) => {
+  const onClickRentApply = async (e : React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (!Array.isArray(myRentals)) {
-      const { clubId } = myRentals;
-      const { id } = myRentals;
+    const currentLocation:unknown = await getLocation();
+    const crrLocation:any = currentLocation;
+    let crrlatitude = 0;
+    if (crrLocation.latitude !== undefined) {
+      crrlatitude = crrLocation.latitude;
+    }
 
-      axios({
-        method: 'put',
-        url: `${SERVER_API}/clubs/${clubId}/rentals/${id}/apply`,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      }).then((res) => {
-        // FIXME :: 나중에 위치인증 넣어야함.
-        alert('대여 확정 성공');
-        window.location.reload();
-      })
-        .catch((err) => {
-          console.log(err);
-        });
+    let crrlongitude = 0;
+    if (crrLocation.longtitude !== undefined) {
+      crrlongitude = crrLocation.longitude;
+    }
+    console.log('currentLocation', currentLocation);
+    console.log('127.04518368153681 ', ' 37.27206960304626');
+
+    // eslint-disable-next-line max-len
+    // measure(currentLocation.latitude, currentLocation.longitude, myRentals.location.latitude, myRentals.location.longitude
+    if (measure(crrlatitude, crrlongitude, 37.27206960304626, 127.04518368153681) <= 30) {
+      if (!Array.isArray(myRentals)) {
+        const { clubId } = myRentals;
+        const { id } = myRentals;
+
+        axios({
+          method: 'put',
+          url: `${SERVER_API}/clubs/${clubId}/rentals/${id}/apply`,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        }).then((res) => {
+          // FIXME :: 나중에 위치인증 넣어야함.
+          alert('대여 확정 성공');
+          setMyRentals(myRentals);
+          // window.location.reload();
+        })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    } else {
+      alert('픽업장소에 아직 도달하지 못했습니다.');
     }
   };
 
@@ -236,14 +270,18 @@ function RentalProductsPage() {
     if (min === 0 && min === 0) {
       console.log('min : ', min, ' : sec : ', sec);
       alert('픽업시간이 초과되었습니다.');
-      window.location.reload();
+      router.push('/rent/products');
     }
     return () => clearInterval(timer);
   }, [min, sec]);
 
   useEffect(() => {
     const { clubId, productId } = router.query;
-    if (clubId !== undefined) {
+    console.log('clubId : ', clubId);
+    console.log('productId : ', productId);
+    if (clubId !== undefined && productId !== undefined) {
+      console.log('물품 정보 요청');
+
       axios.get(`${SERVER_API}/clubs/${clubId}/products/${productId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -275,7 +313,7 @@ function RentalProductsPage() {
           console.log(err);
         });
     }
-  }, []);
+  }, [router.query]);
 
   const onClickRentalCancel = (e:React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -301,6 +339,9 @@ function RentalProductsPage() {
   };
 
   const onClickRentButton = (e : React.MouseEvent<HTMLButtonElement>) => {
+    console.log('');
+    console.log('onClickRentButton ');
+
     // submit button
     e.preventDefault();
     if (rentType === '') {
@@ -319,26 +360,39 @@ function RentalProductsPage() {
       });
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { clubId, productId } = router.query;
+      let rentalId = 0;
+      let flag = true;
       rentalItemData.items.sort((a, b) => a.id - b.id);
-      const rentalId = rentalItemData.items[0].id;
+      if (Array.isArray(rentalItemData.items)) {
+        // eslint-disable-next-line consistent-return
+        rentalItemData.items.forEach((item) => {
+          if (item.rentalInfo === null) {
+            rentalId = item.id;
+            flag = true;
+            return false;
+          }
+          flag = false;
+        });
+      } else {
+        console.log('rentalItemData not array : ', rentalItemData);
+      }
 
-      console.log('id L ', rentalId);
-
-      console.log('clubID', clubId);
-      console.log('rentalId', rentalId);
-
-      axios({
-        method: 'post',
-        url: `${SERVER_API}/clubs/${router.query.clubId}/rentals/${rentalId}/request`,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      }).then((res) => {
-        console.log(res);
-      }).catch((err) => {
-        console.log(err);
-      });
+      if (flag) {
+        axios({
+          method: 'post',
+          url: `${SERVER_API}/clubs/${router.query.clubId}/rentals/${rentalId}/request`,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }).then((res) => {
+          console.log(res);
+        }).catch((err) => {
+          console.log(err);
+        });
+      } else {
+        alert('현재 대여 가능한 물품이 존재하지 않습니다.');
+        window.location.reload();
+      }
     }
   };
 
@@ -370,26 +424,69 @@ function RentalProductsPage() {
   useEffect(() => {
     console.log('rentalItemData : ', rentalItemData);
     console.log('Array.isArray(myRentals : ', Array.isArray(myRentals));
-    if (rentalItemData.items[0].id !== 0) {
+    if (Array.isArray(rentalItemData.items) && rentalItemData.items[0].id !== 0) {
       if (Array.isArray(myRentals)) {
-        console.log('if in');
         rentalItemData.items.forEach((item) => {
-          console.log('forEach1 in');
           myRentals.forEach((myRent) => {
-            console.log('forEach2 in');
             if (item.id === myRent.id) {
               console.log('item.id === myRent.id ', item.id === myRent.id);
-              console.log('item.id == myRent.id : ', item.id === myRent.id);
-              setMeRentalState(true);
+              setMeRentalState(item.rentalInfo.rentalStatus);
               setMyRentals(myRent);
             }
           });
         });
       }
+    } else {
+      console.log('rentalItem not array ', rentalItemData);
     }
 
     console.log('나의 렌탈 상황 : ', meRentalState);
   }, [myRentals]);
+
+  const EventReturnButton = async (e : React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const currentLocation:unknown = await getLocation();
+    const crrLocation:any = currentLocation;
+    let crrlatitude = 0;
+    if (crrLocation.latitude !== undefined) {
+      crrlatitude = crrLocation.latitude;
+    }
+
+    let crrlongitude = 0;
+    if (crrLocation.longtitude !== undefined) {
+      crrlongitude = crrLocation.longitude;
+    }
+    // eslint-disable-next-line max-len
+    // measure(currentLocation.latitude, currentLocation.longitude, myRentals.location.latitude, myRentals.location.longitude
+    // eslint-disable-next-line max-len
+    if (measure(crrlatitude, crrlongitude, 37.27206960304626, 127.04518368153681) <= 30) {
+      if (!Array.isArray(myRentals)) {
+        const itemId = myRentals.id;
+
+        axios(
+          {
+            method: 'put',
+            url: `${SERVER_API}/clubs/${router.query.clubId}/rentals/${itemId}/return`,
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          },
+        ).then((res) => {
+          console.log(res);
+          // TODO :: 나중에 위치기반 반납도 설정해야함.
+          if (res.status === 200) {
+            alert('반납이 성공적으로 완료되었습니다.');
+            window.location.reload();
+          }
+        })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    } else {
+      alert('반납장소에 도착하지 못했습니다.');
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -503,43 +600,8 @@ function RentalProductsPage() {
                   </div>
                   {
                       // TODO:: 대여중인경우 버튼 다르게 보이게하기
-                        meRentalState
+                        meRentalState === 'NONE'
                           ? (
-                            <div className={styles.buttonContainer}>
-                              <div className={styles.pickUpTitleContainer}>
-                                <span className={styles.rentDateTitle}>픽업 일정</span>
-                              </div>
-                              <div className={styles.pickLeftTimeContainer}>
-                                <div className={styles.pickLeftTimeInnerContainer}>
-                                  <span>
-                                    확정까지
-                                    {' '}
-                                    {min}
-                                    분
-                                    {' '}
-                                    {sec}
-                                    초
-                                    {' '}
-
-                                    /
-                                    {' '}
-
-                                    {
-                                      !Array.isArray(myRentals)
-                                        ? myRentals.location.name
-                                        : null
-                                    }
-                                  </span>
-                                </div>
-
-                              </div>
-                              <div className={styles.rentCancelNConfirmContainer}>
-                                <button onClick={onClickRentalCancel} className={styles.rentalCancelButton} type="submit">예약취소</button>
-                                <button onClick={onClickRentApply} className={styles.rentalConfirmButton} type="submit">대여확정</button>
-                              </div>
-                            </div>
-                          )
-                          : (
                             <div className={styles.buttonContainer}>
 
                               <div className={styles.selectButtonContainer}>
@@ -566,8 +628,77 @@ function RentalProductsPage() {
 
                               <button onClick={onClickRentButton} className={styles.rentSubmitButton} type="submit">대여하기</button>
                             </div>
-                          )
+                          ) : null
                     }
+
+                  { meRentalState === 'WAIT'
+                    ? (
+                      <div className={styles.buttonContainer}>
+                        <div className={styles.pickUpTitleContainer}>
+                          <span className={styles.rentDateTitle}>픽업 일정</span>
+                        </div>
+                        <div className={styles.pickLeftTimeContainer}>
+                          <div className={styles.pickLeftTimeInnerContainer}>
+                            <span>
+                              확정까지
+                              {' '}
+                              {min}
+                              분
+                              {' '}
+                              {sec}
+                              초
+                              {' '}
+
+                              /
+                              {' '}
+
+                              {
+                                      !Array.isArray(myRentals)
+                                        ? myRentals.location.name
+                                        : null
+                                    }
+                            </span>
+                          </div>
+
+                        </div>
+                        <div className={styles.rentCancelNConfirmContainer}>
+                          <button onClick={onClickRentalCancel} className={styles.rentalCancelButton} type="submit">예약취소</button>
+                          <button onClick={onClickRentApply} className={styles.rentalConfirmButton} type="submit">대여확정</button>
+                        </div>
+                      </div>
+                    ) : null}
+
+                  {meRentalState === 'RENT'
+                    ? (
+                      <div className={styles.buttonContainer}>
+                        <div className={styles.pickUpTitleContainer}>
+                          <span className={styles.rentDateTitle}>반납 일정</span>
+                        </div>
+                        <div className={styles.pickLeftTimeContainer}>
+                          <div className={styles.pickLeftTimeInnerContainer}>
+                            <span>
+                              {
+                                !Array.isArray(myRentals) && expDate !== ''
+                                  ? (
+                                    expDate
+                                  )
+                                  : null
+                              }
+                              {
+                              !Array.isArray(myRentals) && myRentals.location !== undefined
+                                ? myRentals.location.name
+                                : null
+                            }
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className={styles.rentCancelNConfirmContainer}>
+                          <button onClick={EventReturnButton} type="submit" className={styles.returnButton}>반납하기</button>
+                        </div>
+                      </div>
+                    )
+                    : null}
 
                 </div>
 

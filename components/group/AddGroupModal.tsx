@@ -96,6 +96,8 @@ function AddGroupModal({
   const onClickAddClubButton = (e : React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
+    console.log(groupForm);
+
     if (groupForm.name !== '' && groupForm.introduction !== '') {
       setIsButtonActive(true);
     } else {
@@ -106,31 +108,24 @@ function AddGroupModal({
       setGroupForm({ ...groupForm, hashtags: ParseTag(groupForm.hashtags) });
     }
 
+    console.log('parse tag : ', groupForm.hashtags);
+
     const data = new FormData();
     data.append('name', groupForm.name);
     data.append('introduction', groupForm.introduction);
 
-    if (typeof groupForm.hashtags === 'object') {
-      console.log("typeof groupForm.hashtags === 'object'");
+    // FIXME:: 이미지 업로드 안하면 에러남
+    if (Array.isArray(groupForm.hashtags)) {
       groupForm.hashtags.forEach((tag) => {
-        console.log('tag : ', tag);
         data.append('hashtags', tag);
       });
     } else {
       data.append('hashtags', '');
     }
 
-    // if (imgData === null) {
-    //   data.append('thumbnail', null);
-    // } else {
-    // FIXME:: 이미지 업로드 안하면 에러남
-    // if (imgData === '') {
-    data.append('thumbnail', '');
-    // } else {
-    //   data.append('thumbnail', imgSrc);
-    // }
-
-    // }
+    if (imgData !== null) {
+      data.append('thumbnail', imgData);
+    }
 
     axios.post(`${SERVER_API}/clubs`, data, {
       headers: {
@@ -159,18 +154,28 @@ function AddGroupModal({
       });
   };
 
+  useEffect(() => {
+    console.log('imgUrl === imgSrc  : ', imgSrc);
+    console.log('imgData : ', imgData);
+  }, [imgSrc, imgData]);
+
   // eslint-disable-next-line consistent-return
   const onChangeImg = (e) => {
     if (e.target.files.length > 0) {
       const objectUrl = URL.createObjectURL(e.target.files[0]);
       setImgSrc(objectUrl);
       setImgData(e.target.files[0]);
+      console.log('e.target.files[0] : ', e.target.files[0]);
+
       return () => URL.revokeObjectURL(objectUrl);
     }
     setImgSrc('/images/defaultImg.png');
+
     // setImgData(null);
     setImgData(e.target.files[0]);
     console.log('e.target.files[0] : ', e.target.files[0]);
+    console.log('imgUrl === imgSrc  : ', imgSrc);
+    console.log('imgData : ', imgData);
   };
 
   return (

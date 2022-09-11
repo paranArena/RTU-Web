@@ -25,6 +25,7 @@
 .loginSection{
     width:33.59375%;
     height : 100%;
+    /*test*/
 
     background: white;
     display: flex;
@@ -140,9 +141,18 @@
     height : 15.3703703704%;
     width : 100%;
 
-    background-color: lightgray;
+    /*background-color: lightgray;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 
-    margin-bottom : 10%;
+    margin-left : 23%;
+    margin-bottom : 3%;
+}
+
+.logoImg{
+    width : 90px;
+    height : 90px;
 }
 
 .wrongInput{

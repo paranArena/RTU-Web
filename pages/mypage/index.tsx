@@ -1,14 +1,19 @@
 import styles from 'styles/pages/MyPage.module.css';
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { SERVER_API } from '../../config';
+import React, {
+  Dispatch, SetStateAction, useEffect, useState,
+} from 'react';
+// eslint-disable-next-line import/no-cycle
+import router from 'next/router';
+import TermsOfService from 'components/admin/tab/TermsOfService';
+// eslint-disable-next-line import/no-cycle
+import ProfileModal from '../../components/mypage/profile';
 
 interface IClub {
   id : number;
   club : string;
 }
 
-interface IUserInfo {
+export interface IUserInfo {
   id : number;
   email : string;
   name : string;
@@ -21,7 +26,7 @@ interface IUserInfo {
   authorities : [];
 }
 
-const defaultUserInfo :IUserInfo = {
+export const defaultUserInfo :IUserInfo = {
   id: 0,
   email: '',
   name: '',
@@ -36,51 +41,81 @@ const defaultUserInfo :IUserInfo = {
 
 interface IMenuTabState {
   profile: boolean;
-  alarm: boolean;
-  notice: boolean;
+  alarmNnotice: boolean;
   TermsOfService: boolean;
   logout: boolean;
 
 }
 
 const menuDefault:IMenuTabState = {
-  profile: false,
-  alarm: false,
-  notice: false,
+  profile: true,
+  alarmNnotice: false,
   TermsOfService: false,
   logout: false,
-
 };
 
-function MyPage() {
-  const [menu, setMenu] = useState<IMenuTabState>({ ...menuDefault, profile: true });
-  const [userInfo, setUserInfo] = useState<IUserInfo>(defaultUserInfo);
+interface LogoutAlertModalProps {
+  setShowLogoutAlert : Dispatch<SetStateAction<boolean>>;
+}
 
-  useEffect(() => {
-    setMenu(menuDefault);
+export function LogoutAlertModal({ setShowLogoutAlert }:LogoutAlertModalProps) {
+  const EventLogoutButton = (e : React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
 
-    axios.get(`${SERVER_API}/members/my/info`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    })
-      .then((res) => {
-        if (res.status === 200) {
-          console.log('res.data.data : ', res.data.data);
-          setUserInfo(res.data.data);
-        }
-        console.log(res);
-      }).catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  useEffect(() => {
-    console.log('userInfo', userInfo);
-  }, [userInfo]);
+    console.log('localStorage : ', localStorage.getItem('token'));
+    localStorage.removeItem('token');
+    console.log(localStorage.getItem('token'));
+    setShowLogoutAlert(false);
+    router.push('/');
+  };
 
   return (
+    <div className={styles.LogoutModalOuterContainer}>
+      <div className={styles.LogoutModalInnerContainer}>
+        <div className={styles.LogoutAlertModalCloseButtonContainer}>
+          {/* eslint-disable-next-line max-len */}
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
+          <img onClick={() => { setShowLogoutAlert(false); }} className={styles.closeIcon} src="/icons/창닫기 버튼.png" alt="close" />
+        </div>
+
+        <div className={styles.AlertTextNButtonContainer}>
+          <div className={styles.AlertTextContainer}>
+            <span className={styles.AlertText}>로그아웃 하시겠습니까?</span>
+          </div>
+          <div className={styles.AlertButtonContainer}>
+            <button onClick={EventLogoutButton} className={styles.buttonBgBStyle} type="submit">예</button>
+            <button onClick={() => { setShowLogoutAlert(false); }} className={styles.buttonBgWStyle} type="button">아니오</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  );
+}
+
+function MyPage() {
+  const [menu, setMenu] = useState<IMenuTabState>(menuDefault);
+  const [showLogoutAlert, setShowLogoutAlert] = useState(false);
+
+  const EventLogout = (e : React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    setShowLogoutAlert(true);
+  };
+
+  useEffect(() => {
+    console.log('menu : ', menu);
+  }, [menu]);
+
+  // @ts-ignore
+  return (
     <div className={styles.outerContainer}>
+
+      {
+        showLogoutAlert
+          ? <LogoutAlertModal setShowLogoutAlert={setShowLogoutAlert} />
+          : null
+      }
+
       <div className={styles.leftContainer}>
         <div className={styles.topTitleContainer}>
           <h1>Ren2U</h1>
@@ -92,7 +127,14 @@ function MyPage() {
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
           <h4
             id="profile"
-            onClick={() => {}}
+            onClick={() => {
+              setMenu({
+                profile: true,
+                alarmNnotice: false,
+                logout: false,
+                TermsOfService: false,
+              });
+            }}
             className={menu.profile ? styles.current : styles.disabled}
           >
             프로필 확인
@@ -100,26 +142,31 @@ function MyPage() {
           {/* eslint-disable-next-line max-len */}
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
           <h4
-            id="alarm"
-            onClick={() => {}}
-            className={menu.alarm ? styles.current : styles.disabled}
+            id="alarmNnotice"
+            onClick={() => {
+              setMenu({
+                profile: false,
+                alarmNnotice: true,
+                logout: false,
+                TermsOfService: false,
+              });
+            }}
+            className={menu.alarmNnotice ? styles.current : styles.disabled}
           >
-            알람
-          </h4>
-          {/* eslint-disable-next-line max-len */}
-          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
-          <h4
-            id="notice"
-            onClick={() => {}}
-            className={menu.notice ? styles.current : styles.disabled}
-          >
-            공지사항
+            알람 / 공지사항
           </h4>
           {/* eslint-disable-next-line max-len */}
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
           <h4
             id="TermsOfService"
-            onClick={() => {}}
+            onClick={() => {
+              setMenu({
+                profile: false,
+                alarmNnotice: false,
+                logout: false,
+                TermsOfService: true,
+              });
+            }}
             className={menu.TermsOfService ? styles.current : styles.disabled}
           >
             이용약관
@@ -128,7 +175,7 @@ function MyPage() {
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
           <h4
             id="logout"
-            onClick={() => {}}
+            onClick={EventLogout}
             className={menu.logout ? styles.current : styles.disabled}
           >
             로그아웃
@@ -151,8 +198,18 @@ function MyPage() {
       <div className={styles.rightOuterContainer}>
         <div className={styles.rightInnerContainer}>
           {
-
+              menu.profile ? <ProfileModal />
+                : null
           }
+
+          {
+            menu.alarmNnotice ? <div>아직 지원하지 않는 기능입니다.</div> : null
+          }
+
+          {
+            menu.TermsOfService ? <TermsOfService /> : null
+          }
+
         </div>
       </div>
     </div>

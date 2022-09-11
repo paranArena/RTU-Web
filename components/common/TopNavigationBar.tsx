@@ -9,9 +9,11 @@ import styles from 'styles/common/TopNavigation.module.css';
 interface TopNavigationBarProps {
   setIsSearched : Dispatch<SetStateAction<boolean>>;
   isSearched : boolean;
+  setShowLogoutState:Dispatch<SetStateAction<boolean>>;
 }
 
-function TopNavigationBar({ setIsSearched, isSearched } :TopNavigationBarProps) {
+// eslint-disable-next-line max-len
+function TopNavigationBar({ setIsSearched, isSearched, setShowLogoutState } :TopNavigationBarProps) {
   // useEffect(() => {
   //   console.log(setIsSearched, isSearched);
   // }, [setIsSearched, isSearched]);
@@ -128,13 +130,7 @@ function TopNavigationBar({ setIsSearched, isSearched } :TopNavigationBarProps) 
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
           <li
             onClick={() => {
-              console.log('localStorage : ', localStorage.getItem('token'));
-              localStorage.removeItem('token');
-              alert('로그아웃 되었습니다.');
-              console.log('');
-              console.log('logout : ');
-              console.log(localStorage.getItem('token'));
-              router.push('/');
+              setShowLogoutState(true);
             }}
             className={styles.navItem}
           >

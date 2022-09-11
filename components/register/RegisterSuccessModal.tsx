@@ -9,7 +9,7 @@ interface RegisterSuccessModalProps {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,max-len
 function RegisterSuccessModal({ registerSuccess, setRegisterSuccess }: RegisterSuccessModalProps): React.ReactElement {
   const onClickButton = () => {
-    setRegisterSuccess(false);
+    window.location.reload();
   };
 
   return (
