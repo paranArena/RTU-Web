@@ -139,7 +139,7 @@ function Login() {
 
           <div className={styles.logoContainer}>
             {/* 로고 넣을 곳 */}
-            <img className={styles.logoImg} src="/images/logo/logo_sm.png" alt="Ren2U Logo" />
+            <img className={styles.logoImg} src="/images/logo/ren2U_logo.png" alt="Ren2U Logo" />
           </div>
 
           <div className={styles.explainTextContainer}>
