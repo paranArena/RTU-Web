@@ -58,29 +58,38 @@ function NumberingRentalItem({
       let Year;
       let Month;
       let Day;
-      exp = new Date((item.rentalInfo.expDate).concat('z'));
+      let view;
+      if (item.rentalInfo.expDate !== null) {
+        exp = new Date((item.rentalInfo.expDate).concat('z'));
 
-      Year = exp.getFullYear().toString();
-      Month = exp.getMonth().toString();
-      Day = exp.getDate().toString();
+        Year = exp.getFullYear().toString();
+        Month = exp.getMonth().toString();
+        Day = exp.getDate().toString();
 
-      let view = Year.concat('.');
-      view = view.concat(Month);
-      view = view.concat('.');
-      view = view.concat(Day);
+        view = Year.concat('.');
+        view = view.concat(Month);
+        view = view.concat('.');
+        view = view.concat(Day);
+      }
 
-      rent = new Date((item.rentalInfo.rentDate).concat('z'));
-      Year = rent.getFullYear().toString();
-      Month = rent.getMonth().toString();
-      Day = rent.getDate().toString();
+      if (item.rentalInfo.rentDate !== null) {
+        rent = new Date((item.rentalInfo.rentDate).concat('z'));
+        Year = rent.getFullYear().toString();
+        Month = rent.getMonth().toString();
+        Day = rent.getDate().toString();
 
-      let view2 = Year.concat('.');
-      view2 = view2.concat(Month);
-      view2 = view2.concat('.');
-      view2 = view2.concat(Day);
+        let view2 = Year.concat('.');
+        view2 = view2.concat(Month);
+        view2 = view2.concat('.');
+        view2 = view2.concat(Day);
 
-      view = (view.concat('~')).concat(view2);
-      setViewDate(view);
+        if (view !== null && view !== undefined) {
+          view = (view.concat('~')).concat(view2);
+        } else {
+          view = view2;
+        }
+        setViewDate(view);
+      }
     }
   }, [item.rentalInfo]);
 

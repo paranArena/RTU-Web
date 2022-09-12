@@ -98,6 +98,7 @@ function TopNavigationBar({ setIsSearched, isSearched, setShowLogoutState } :Top
                   input: searchInput,
                 },
               });
+              e.currentTarget.value = '';
             }
           }}
           name="input"

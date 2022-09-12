@@ -117,6 +117,7 @@ function AddGroupModal({
     // FIXME:: 이미지 업로드 안하면 에러남
     if (Array.isArray(groupForm.hashtags)) {
       groupForm.hashtags.forEach((tag) => {
+        console.log('form data add tag  : ', tag);
         data.append('hashtags', tag);
       });
     } else {

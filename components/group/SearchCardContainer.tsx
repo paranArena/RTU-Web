@@ -13,21 +13,17 @@ function SearchCardContainer({ render }:SearchCardContainerProps) {
     return (
       <div className={styles.innerContainer}>
         {
-            render.map((item) => {
-              console.log(item);
-              console.log(item.name, 'thumbnailPath : ', item.thumbnailPath);
-              return (
-                <SearchResultGroupCard
-                  name={item.name}
-                  hashtags={item.hashtags}
-                  clubRole={item.clubRole}
-                  id={item.id}
-                  introduction={item.introduction}
-                  thumbnailPath={item.thumbnailPath}
-                  memberNumber={item.clubMemberSize}
-                />
-              );
-            })
+            render.map((item) => (
+              <SearchResultGroupCard
+                name={item.name}
+                hashtags={item.hashtags}
+                clubRole={item.clubRole}
+                id={item.id}
+                introduction={item.introduction}
+                thumbnailPath={item.thumbnailPath}
+                memberNumber={item.clubMemberSize}
+              />
+            ))
           }
       </div>
     );

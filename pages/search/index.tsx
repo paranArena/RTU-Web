@@ -142,14 +142,10 @@ function SearchResult({ isSearched } : ISearchResult) {
   // const [isClick, setIsClick] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log('localStorage : ', localStorage);
-
     setQuery(router.query.input);
-    console.log(isSearched);
   }, [router.query.input]);
 
   useEffect(() => {
-    console.log('QUERY : ', query);
     if (mount === false) {
       setMount(true);
     } else {
@@ -185,13 +181,10 @@ function SearchResult({ isSearched } : ISearchResult) {
           // setIsClicked={setIsClick}
         />
       ));
-
-      console.log('clubData : ', clubData);
     }
   }, [query, clubData, clubs]);
 
   useEffect(() => {
-    console.log('result : ', clubs);
   }, [clubs]);
 
   return (
