@@ -151,9 +151,11 @@ function SearchResultGroupCard({
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
         <div className={styles.tagContainer}>
           {
-            hashtags.map(
-              (tag) => (<Tag tag={tag} />),
-            )
+            Array.isArray(hashtags)
+              ? hashtags.map(
+                (tag) => (<Tag tag={tag} />),
+              )
+              : null
           }
         </div>
         {/* eslint-disable-next-line max-len */}
