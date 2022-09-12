@@ -162,6 +162,7 @@ interface ProductManageModalProps {
 }
 
 interface IProduct {
+  forceUpdate: boolean;
   id : number;
   name: string;
   clubId : number;
@@ -501,6 +502,7 @@ function ClubProductItem({
 }
 
 function ProductItem({
+  forceUpdate,
   id,
   name,
   clubId,
@@ -562,22 +564,16 @@ function ProductItem({
   const rentedTime = new Date(rentDate.concat('z'));
   const current = new Date();
   const pickup = new Date(rentedTime.setMinutes(rentedTime.getMinutes() + 10));
-  const resultM = ((pickup.getTime() - current.getTime()) / (1000 * 60));
+  const remainTime = ((pickup.getTime() - current.getTime()) / (1000));
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const resultS = ((pickup.getTime() - current.getTime()) / (1000));
 
-  let M = Number(resultM.toString().slice(0, resultM.toString().search('.') + 1));
-  let S = Number(resultM.toString().slice(resultM.toString().search('.') + 2).slice(0, 2));
-  console.log('M : ', M);
-  console.log('S : ', S);
-  if (S / 60 >= 1) {
-    M += 1;
-    S -= 60;
+  const M = Math.floor(remainTime / (60));
+  const S = Math.floor(remainTime % (60));
+  let leftTime = M.toString().concat(' : ').concat(S.toString());
+  if ((M < 0) && (S < 0)) {
+    leftTime = '기한 늦음';
   }
-
-  console.log('M : ', M);
-  console.log('S : ', S);
-
+  useEffect(() => {}, [forceUpdate]);
   // setMin(Number(M));
   // setSec(Number(S));
 
@@ -626,9 +622,7 @@ function ProductItem({
           <span className={styles.pickUpText}>픽업</span>
           {/*  */}
           <span className={styles.fifoTimeText}>
-            {
-              M.toString().concat(' : ').concat(S.toString())
-            }
+            {leftTime}
           </span>
         </div>
       </div>
@@ -1279,22 +1273,55 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
 
   // 대여 관리 :: 반납
   const [returnList, setReturnList] = useState<IReturnInfo[]>([]);
-
+  const [forceUpdate, setForceUpdate] = useState<boolean>();
   // 새로고침
   const reload = () => {
-    axios.get(`${SERVER_API}/clubs/${clubId}/products/search/all`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    }).then((res) => {
-      if (res.status === 200) {
-        setProductList(res.data.data);
-      }
-    }).catch((err) => {
-      console.log(err);
-    });
+    console.log('reload');
+    if (tab.reserve || tab.rental) {
+      axios.get(`${SERVER_API}/clubs/${clubId}/rentals/search/all`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      }).then((res) => {
+        if (res.status === 200) {
+          console.log('All search : ', res.data.data);
+          const reserve = [];
+          const rental = [];
+          if (Array.isArray(res.data.data)) {
+            res.data.data.forEach((item) => {
+              if (item.rentalInfo.rentalStatus === 'WAIT') {
+                reserve.push(item);
+              } else if (item.rentalInfo.rentalStatus === 'RENT') {
+                rental.push(item);
+              }
+            });
+            setReserveList(reserve);
+            setRentalList(rental);
+          }
+        }
+      }).catch((err) => {
+        console.log(err);
+      });
+    } else if (tab.return) {
+      axios.get(`${SERVER_API}/clubs/${clubId}/rentals/history/search/all`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      }).then((res) => {
+        if (res.status === 200) {
+          setReturnList(res.data.data);
+          console.log('returnList : ', returnList);
+        }
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
   };
-
+  useEffect(() => {
+    console.log('ReserveList:', reserveList);
+    console.log('RentalList:', rentalList);
+    console.log('ReturnList:', returnList);
+  }, [reserveList, rentalList, returnList]);
   // 클럽에 등록된 모든 물품
 
   useEffect(() => {
@@ -1363,7 +1390,30 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
 
   }, [clickedItem]);
 
-  console.log(reserveList);
+  const [mount, setMount] = useState(false);
+
+  useEffect(() => {
+    setForceUpdate(true);
+    // clearInterval(timer);
+    if (mount === false) {
+      setMount(true);
+    } else {
+      setInterval(() => {
+        console.log('timer-prev', forceUpdate);
+        if (forceUpdate === true) {
+          setForceUpdate(() => {
+            console.log('timer', forceUpdate);
+            return false;
+          });
+        } else {
+          setForceUpdate(() => {
+            console.log('timer', forceUpdate);
+            return true;
+          });
+        }
+      }, 1000);
+    }
+  }, [mount]);
 
   if (showAddProduct === 'add') {
     return (
@@ -1429,6 +1479,7 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
                 tab.reserve && reserveList.length > 0
                   ? reserveList.map((item) => (
                     <ProductItem
+                      forceUpdate={forceUpdate}
                       id={item.id}
                       name={item.name}
                       clubId={item.clubId}
