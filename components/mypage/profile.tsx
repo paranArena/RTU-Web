@@ -84,7 +84,7 @@ function ProfileModal() {
   const [userRentalInfo, setUserRentalInfo] = useState<IRentalInfo[]>([]);
   const [showQuitAlert, setShowQuitAlert] = useState(false);
 
-  // const [totlaRent, setTotalRent] = useState(0);
+  // const [totalRent, setTotalRent] = useState(0);
 
   const EventQuitService = (e :React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -184,7 +184,7 @@ function ProfileModal() {
             <section className={styles.profileModalLeftSection}>
               {/*    왼쪽      */}
               <div className={styles.userProfileImgContainer}>
-                <img className={styles.profileImgStyles} src="images/defaultImg.png" alt="profile" />
+                <img className={styles.profileImgStyles} src="/images/defaultUser.png" alt="profile" />
               </div>
 
               <div className={styles.profileModalUserTextInfoOuterContainer}>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from 'styles/pages/RentPage.module.css';
 import axios from 'axios';
-import router, { useRouter } from 'next/router';
+import router from 'next/router';
 import { IClubProduct } from '../../globalInterface';
 import { SERVER_API } from '../../config';
 import { getLocation, measure } from '../../components/common/getCurrentPosition';
@@ -23,8 +23,6 @@ function ProductCard({
   clubId,
   productId,
 }: ProductCardProps) {
-  const router = useRouter();
-
   const onClickProductCard = (e : React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
 
@@ -66,6 +64,7 @@ function ProductCard({
 interface IMyRentals {
   id : number;
   numbering : number;
+  productId : number;
   name : string;
   clubId : number;
   clubName : string;
@@ -143,7 +142,7 @@ function MyRentalCard({ item }:MyRentalProps) {
     }
   };
 
-  const EventRentalButton = async (e : React.MouseEvent<HTMLButtonElement>) => {
+  const EventRentalButton = async () => {
     const currentLocation:any = await getLocation();
     console.log('getLocation');
     const crrLocation: any = currentLocation;
@@ -183,6 +182,8 @@ function MyRentalCard({ item }:MyRentalProps) {
   };
 
   return (
+  // eslint-disable-next-line max-len
+  // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
     <div
       onClick={
           () => {

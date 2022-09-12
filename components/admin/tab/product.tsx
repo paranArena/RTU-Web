@@ -1280,6 +1280,21 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
   // 대여 관리 :: 반납
   const [returnList, setReturnList] = useState<IReturnInfo[]>([]);
 
+  // 새로고침
+  const reload = () => {
+    axios.get(`${SERVER_API}/clubs/${clubId}/products/search/all`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    }).then((res) => {
+      if (res.status === 200) {
+        setProductList(res.data.data);
+      }
+    }).catch((err) => {
+      console.log(err);
+    });
+  };
+
   // 클럽에 등록된 모든 물품
 
   useEffect(() => {
@@ -1370,7 +1385,7 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
             {/* 타이틀 */}
             <h1>대여 관리</h1>
             <div>
-              <IoReloadCircleOutline style={{ cursor: 'pointer' }} onClick={() => { window.location.reload(); }} size={30} />
+              <IoReloadCircleOutline style={{ cursor: 'pointer' }}  onClick={reload} size={30} />
             </div>
           </div>
 

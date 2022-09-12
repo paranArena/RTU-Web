@@ -220,7 +220,7 @@ function MemberManageTab({ clubId } : IMemberManageTab) {
             appliedList.map((apply) => (
               <MemberListCard
                 id={apply.id}
-                profileImage="https://picsum.photos/200"
+                profileImage="/images/defaultUser.png"
                 type="application"
                 major={apply.major}
                 name={apply.name}
@@ -257,7 +257,7 @@ function MemberManageTab({ clubId } : IMemberManageTab) {
           {
             memberList.map((member) => (
               <MemberListCard
-                profileImage="/images/defaultUserImage.png"
+                profileImage="/images/defaultUser.png"
                 name={member.name}
                 id={member.id}
                 major={member.major}

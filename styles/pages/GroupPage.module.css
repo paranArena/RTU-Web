@@ -75,7 +75,7 @@
     }
 }
 
-@media (max-width : 1720px) and (min-width : 1500px)) {
+@media (max-width : 1720px) and (min-width : 1500px) {
     .groupContainer{
         width : 100%;
         display: grid;

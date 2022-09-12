@@ -530,14 +530,13 @@ function AdminPage() {
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
           <h4
             id="event"
-            // onClick={onClickMenu}
+            onClick={onClickMenu}
             className={menu.event ? styles.current : styles.disabled}
-            onClick={() => { alert('준비중인 서비스입니다.'); }}
           >
             이벤트 관리
           </h4>
           <div>
-            <h4 onClick={() => { alert('준비중인 서비스입니다.'); }} className={menu.rentalActive ? styles.current : styles.disabled}>대여목록 활성화</h4>
+            <h4 className={menu.rentalActive ? styles.current : styles.disabled}>대여목록 활성화</h4>
             {/*
                 // TODO Toggle Button 구현 참고
                https://velog.io/@whljm1003/React-toggle-switch-%EA%B8%B0%EB%8A%A5 */}
