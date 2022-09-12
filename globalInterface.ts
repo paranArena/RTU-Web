@@ -23,7 +23,7 @@ export interface ClubDataModal {
   hashtags : string[];
   introduction : string;
   name : string;
-  // FIXME:
+  clubMemberSize:number;
   thumbnailPath : string;
 }
 
@@ -33,7 +33,6 @@ export interface RentalItemModal {
   id : number;
   max : number;
   left : number;
-  // FIXME:
   imagePath : string;
 }
 

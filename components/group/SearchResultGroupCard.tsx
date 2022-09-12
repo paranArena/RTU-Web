@@ -12,6 +12,7 @@ interface IGroupCard {
   hashtags: string[];
   clubRole: string;
   id: number;
+  memberNumber:number;
   introduction: string;
   thumbnailPath: string;
   // isClicked : boolean;
@@ -19,7 +20,7 @@ interface IGroupCard {
 }
 
 function SearchResultGroupCard({
-  name, hashtags, clubRole, id, thumbnailPath, introduction,
+  name, hashtags, clubRole, id, thumbnailPath, introduction, memberNumber,
   // setIsClicked, isClicked,
 } : IGroupCard) {
   const [flag, setFlag] = useState<boolean>(false);
@@ -122,7 +123,11 @@ function SearchResultGroupCard({
             <span className={styles.groupNameText}>{name}</span>
             {/* eslint-disable-next-line max-len */}
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions,max-len */}
-            <span className={styles.groupPersonnelMembership}>멤버73명</span>
+            <span className={styles.groupPersonnelMembership}>
+              멤버
+              {memberNumber}
+              명
+            </span>
           </div>
 
           {/* eslint-disable-next-line no-nested-ternary,max-len */}

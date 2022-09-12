@@ -10,7 +10,8 @@
     padding-left: 50px;
     padding-right : 50px;
 
-    margin-bottom : 100px;
+    /*FIXME margin-bottom*/
+    /*margin-bottom : 100px;*/
 
     display: flex;
     flex-direction: row;
@@ -20,7 +21,11 @@
 
 .rentImageRepresentativeOuterContainer{
     width : 42.5vw;
-    height : 60vw;
+    /* FIXME :: 나중에 물품에 사진 여러 개 등록 시 60vh */
+    /*height : 60vw;*/
+    /*height :*/
+
+    height : 500px;
 
     display: flex;
     flex-direction: row;
@@ -55,6 +60,7 @@
 .buttonIcon{
     width : 2vw;
     height : 7vw;
+    cursor : pointer;
 }
 
 .rentItemInfoContainer{
@@ -85,13 +91,15 @@
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /*justify-content: center;*/
     align-items: center;
 }
 
 .rentItemListContainer{
     width : 100%;
-    height : 570px;
+    /* FIXME :: height : 570px 나중에 물품 이미지 여러개로 변경될때 사용 */
+    /*height : 570px;*/
+    height : 300px;
     display: flex;
     flex-direction: column;
 
@@ -237,7 +245,7 @@
     width : 60%;
     height : 70px;
     min-width: 200px;
-
+    cursor : pointer;
     background: #FFFFFF;
     border: 3.5px solid #1E2F97;
     box-shadow: 0 0 13px rgba(30, 47, 151, 0.3);
@@ -257,6 +265,7 @@
 
 .rentalConfirmButton:hover{
     background: #1E2F97;
+
     color: #FFFFFF;
     border: 3.33514px solid #1E2F97;
     box-shadow: 0 0 13.3406px rgba(30, 47, 151, 0.3);
@@ -268,7 +277,7 @@
     width : 40%;
     min-width : 200px;
     margin-right: 20px;
-
+    cursor : pointer;
     height : 70px;
 
     background: #FFFFFF;
@@ -356,7 +365,7 @@
     margin-top : 1.5rem;
     width : 48%;
     height : 70px;
-
+    cursor : pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -371,7 +380,7 @@
     margin-top : 1.5rem;
     width : 48%;
     height : 70px;
-
+    cursor : pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -440,6 +449,7 @@
     width : 90%;
     height : 70px;
 
+    cursor : pointer;
     background: #FFFFFF;
     border: 3.5px solid #1E2F97;
     box-shadow: 0 0 13px rgba(30, 47, 151, 0.3);
@@ -460,7 +470,8 @@
 .noticeContainer{
     width : 90%;
 
-    margin : 150px;
+    margin-bottom : 100px;
+    /*margin : 150px;*/
     height : auto;
 }
 
@@ -630,7 +641,7 @@
     width : 100%;
     min-width : 200px;
     margin-right: 20px;
-
+    cursor : pointer;
     height : 70px;
 
     border: 3.5px solid #1E2F97;

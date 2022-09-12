@@ -81,6 +81,7 @@
     z-index: 999;
     width: 8.5rem;
     height: 2.875rem;
+    cursor:pointer;
 
     background: #FFFFFF;
     border: 0.105rem solid var(--primary);
@@ -99,7 +100,7 @@
     z-index: 999;
     width: 8.5rem;
     height: 2.875rem;
-
+    cursor:pointer;
     background: var(--primary);
     border:0.105rem solid var(--primary);
     box-shadow: 0 0 0.42rem rgba(30, 47, 151, 0.3);
