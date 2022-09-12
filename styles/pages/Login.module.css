@@ -84,6 +84,8 @@
 }
 .submitButton:hover{
     color: #FFFFFF;
+    cursor : pointer;
+
     background: var(--primary);
 }
 

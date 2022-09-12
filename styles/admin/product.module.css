@@ -351,6 +351,8 @@
     border: 1.5px solid #1E2F97;
     box-shadow: 0 0 7px rgba(30, 47, 151, 0.3);
     border-radius: 27px;
+    cursor : pointer;
+
 
     font-style: normal;
     font-weight: 400;
@@ -405,6 +407,8 @@
 
 .modifyTextContainer span:hover{
     color : var(--primary);
+    cursor : pointer;
+
 }
 
 .quantityOuterContainer{
@@ -790,7 +794,9 @@
 }
 
 .beforeButton:hover{
-    color: white;
+    cursor : pointer;
+
+    color: var(--primary);
 
 }
 
@@ -805,6 +811,7 @@
 
 .deleteText:hover{
     color : red;
+    curosr : pointer;
 }
 
 .rentalText{
@@ -1085,6 +1092,8 @@
 
 .categoryFirst:hover{
     background: #E9ECEF;
+    cursor : pointer;
+
 }
 
 .categoryFirstSelect{
@@ -1110,6 +1119,8 @@
 
 .categoryLast:hover{
     background: #E9ECEF;
+    cursor : pointer;
+
 }
 
 .categoryLastSelect{
@@ -1193,6 +1204,8 @@
 
 .category:hover{
     background: #E9ECEF;
+    cursor : pointer;
+
 }
 
 .mapModalOuterContainer{
@@ -1202,7 +1215,7 @@
     z-index: 999;
     min-width : 900px;
     width : 70%;
-    min-height : 720px;
+    min-height : 600px;
     height : 70%;
     background: #F8F9FA;
     box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.3);
@@ -1492,5 +1505,8 @@
 }
 
 .HoverBlueText:hover{
+    cursor : pointer;
+
+
     color: var(--primary);
 }

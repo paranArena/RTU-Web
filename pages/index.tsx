@@ -179,7 +179,7 @@ function Login() {
               {/* TODO 회원가입 Link Tag 삭제 */}
               <div className={styles.passwordSignLink}>
                 {/* eslint-disable-next-line react/button-has-type */}
-                <button onClick={onClickToggleModal} className={styles.buttonStyle}>비밀번호 찾기</button>
+                <button onClick={() => { alert('아직 지원하지 않는 기능입니다.'); }} className={styles.buttonStyle}>비밀번호 찾기</button>
               </div>
               <div className={styles.divide} />
               <div className={styles.passwordSignLink}>

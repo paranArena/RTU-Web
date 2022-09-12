@@ -218,6 +218,8 @@
 .rentNreturnButton:hover{
     width: 100px;
     height: 40px;
+    cursor : pointer;
+
 
     background: #1E2F97;
     border: 1.5px solid #1E2F97;
@@ -272,6 +274,8 @@
 
 .rentNreturnSubmitButton:hover{
     color : white;
+    cursor : pointer;
+
     min-width : 100px;
     width : 30%;
     height : 50px;

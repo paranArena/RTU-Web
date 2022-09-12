@@ -261,6 +261,7 @@
     border: 3.33514px solid #1E2F97;
     box-shadow: 0 0 13.3406px rgba(30, 47, 151, 0.3);
     border-radius: 55.0298px;
+    cursor : pointer;
 }
 
 .rentalCancelButton{
@@ -293,6 +294,7 @@
     border: 3.33514px solid #1E2F97;
     box-shadow: 0 0 13.3406px rgba(30, 47, 151, 0.3);
     border-radius: 55.0298px;
+    cursor : pointer;
 }
 
 .rentCancelNConfirmContainer{
@@ -406,6 +408,8 @@
 
 .selectButton:hover{
     background-color: #E9ECEF;
+    cursor : pointer;
+
 }
 
 .selectButton h5{
@@ -648,6 +652,7 @@
 
 .returnButton:hover{
     color: #1E2F97;
+    cursor : pointer;
 
     background: #FFFFFF;
     border: 3.33514px solid #1E2F97;

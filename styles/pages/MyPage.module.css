@@ -50,6 +50,8 @@
 }
 
 .disabled:hover{
+    cursor : pointer;
+
     margin : 30px 0;
     font-style: normal;
     font-weight: 500;
@@ -229,6 +231,7 @@
 
 .buttonBgWStyle:hover{
     color: #FFFFFF;
+    cursor : pointer;
 
     background: #868E96;
     border: 2px solid #868E96;
@@ -257,6 +260,8 @@
 
 .buttonBgBStyle:hover{
     color: white;
+    cursor : pointer;
+
 
     background: red;
     border: 2px solid red;
@@ -276,4 +281,6 @@
 
 .quitText:hover{
     color : red;
+    cursor : pointer;
+
 }
