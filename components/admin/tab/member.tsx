@@ -205,13 +205,13 @@ function MemberManageTab({ clubId } : IMemberManageTab) {
         </div>
         <div className={styles.selectButtonContainer}>
           {/* 버튼 */}
-          <div className={styles.selectDivContainer}>
-            <span>전체수락</span>
-          </div>
-          <div className={styles.selectDivContainer}>
-            <img className={styles.iconWithPadding} src="/icons/선택.png" alt="선택하기" />
-            <span>선택</span>
-          </div>
+          {/* <div className={styles.selectDivContainer}> */}
+          {/*  <span>전체수락</span> */}
+          {/* </div> */}
+          {/* <div className={styles.selectDivContainer}> */}
+          {/*  <img className={styles.iconWithPadding} src="/icons/선택.png" alt="선택하기" /> */}
+          {/*  <span>선택</span> */}
+          {/* </div> */}
         </div>
 
         <div className={styles.memberListContainer}>

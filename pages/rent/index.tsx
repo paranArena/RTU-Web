@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from 'styles/pages/RentPage.module.css';
 import axios from 'axios';
-import { useRouter } from 'next/router';
+import router, { useRouter } from 'next/router';
 import { IClubProduct } from '../../globalInterface';
 import { SERVER_API } from '../../config';
 import { getLocation, measure } from '../../components/common/getCurrentPosition';
@@ -85,6 +85,7 @@ interface IMyRentals {
 }
 
 interface Iitem {
+  productId : number;
   name : string;
   clubId : number;
   id : number;
@@ -183,6 +184,16 @@ function MyRentalCard({ item }:MyRentalProps) {
 
   return (
     <div
+      onClick={
+          () => {
+            const { clubId } = item;
+            const { productId } = item;
+            router.push({
+              pathname: '/rent/products',
+              query: { clubId, productId },
+            });
+          }
+        }
       className={styles.myRentalOuterContainer}
     >
       <div className={styles.myRentalInnerContainer}>
@@ -341,7 +352,7 @@ function RentPage() {
                 {allClubProduct !== null ? allClubProduct.length : 0}
                 개
               </h3>
-              <img src="/icons/중앙정렬.png" alt="filter" />
+              {/* <img src="/icons/중앙정렬.png" alt="filter" /> */}
             </div>
           </div>
 

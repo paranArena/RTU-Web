@@ -24,6 +24,7 @@ interface ShowProps {
 }
 
 const OverlapCheckedButton = styled.button`
+  cursor : pointer;
   margin-left: 3.5%;
   width: 14.3640350877%;
   height: 100%;
@@ -222,6 +223,11 @@ function RegisterModal({
         {/* eslint-disable-next-line max-len */}
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
         <img
+          style={
+              {
+                cursor: 'pointer',
+              }
+            }
           onClick={onClickCloseModal}
           src="/icons/Close.png"
           alt="Close Button"
@@ -283,6 +289,9 @@ function RegisterModal({
 
           { isCheckedPassword.visible ? (
             <Image
+              style={
+                  { cursor: 'pointer' }
+                }
               width={20}
               height={20}
               onClick={onClickCheckedPassword}
@@ -291,6 +300,9 @@ function RegisterModal({
             />
           ) : (
             <Image
+              style={
+                  { cursor: 'pointer' }
+                }
               width={20}
               height={20}
               onClick={onClickCheckedPassword}
@@ -317,6 +329,9 @@ function RegisterModal({
           />
           {isCheckedPasswordCheck.visible ? (
             <Image
+              style={
+                  { cursor: 'pointer' }
+                }
               width={20}
               height={20}
               onClick={onClickCheckedPasswordCheck}
@@ -325,6 +340,9 @@ function RegisterModal({
             />
           ) : (
             <Image
+              style={
+                  { cursor: 'pointer' }
+                }
               width={20}
               height={20}
               onClick={onClickCheckedPasswordCheck}

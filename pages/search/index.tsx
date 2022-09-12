@@ -25,7 +25,7 @@ async function SearchRequest(query : string) {
     })
       .then((res) => {
         if (res.status === 200) {
-          // console.log('전체 클럽 검색 : ', res.data.data);
+          console.log('전체 클럽 검색 : ', res.data.data);
           res.data.data.forEach((item) => {
             result.push(item);
           });
@@ -142,6 +142,7 @@ function SearchResult({ isSearched } : ISearchResult) {
           hashtags={item.hashtags}
           clubRole={item.clubRole}
           id={item.id}
+          memberNumber={item.clubMemberSize}
           introduction={item.introduction}
           thumbnailPath={item.thumbnailPath}
           // isClicked={isClick}

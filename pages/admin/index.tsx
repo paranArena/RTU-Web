@@ -76,6 +76,7 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
   }, []);
 
   useEffect(() => {
+    console.log(settingClubData);
     if (settingClubData.name !== '' && settingClubData.introduction !== '') {
       setActive(true);
     } else {
@@ -223,12 +224,12 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
 
           <div className={stylesModal.groupNameContainer}>
             <span className={styles.modalText}>그룹 이름</span>
-            <input ref={groupNameRef} id="groupName" onChange={onChangeGroupName} className={stylesModal.inputLineGroupName} type="text" />
+            <input ref={groupNameRef} id="groupName" onChange={(e) => { setSettingClubData({ ...settingClubData, name: e.currentTarget.value }); }} className={stylesModal.inputLineGroupName} type="text" />
           </div>
 
           <div className={stylesModal.introduceContainer}>
             <span className={styles.modalText}>소개글</span>
-            <textarea ref={groupIntroRef} id="groupIntroduce" onChange={onChangeGroupIntroduce} className={stylesModal.inputBoxIntro} />
+            <textarea ref={groupIntroRef} id="groupIntroduce" onChange={(e) => { setSettingClubData({ ...settingClubData, introduction: e.currentTarget.value }); }} className={stylesModal.inputBoxIntro} />
             <span className={stylesModal.explainText}>띄어쓰기 포함 한글 130글자, 영어 150글자까지 가능합니다.</span>
           </div>
 

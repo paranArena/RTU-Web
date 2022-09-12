@@ -84,7 +84,7 @@ function ProfileModal() {
   const [userRentalInfo, setUserRentalInfo] = useState<IRentalInfo[]>([]);
   const [showQuitAlert, setShowQuitAlert] = useState(false);
 
-  const [totlaRent, setTotalRent] = useState(0);
+  // const [totlaRent, setTotalRent] = useState(0);
 
   const EventQuitService = (e :React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -140,7 +140,7 @@ function ProfileModal() {
     })
       .then((res) => {
         setUserRentalInfo(res.data.data);
-        setTotalRent(res.data.data.length);
+        // setTotalRent(res.data.data.length);
         console.log(res.data.data);
       })
       .catch((err) => {

@@ -132,7 +132,7 @@
 
 .overlapCheckButton{
     margin-left : 3.5%;
-
+    cursor : pointer;
     width : 14.3640350877%;
     height : 100%;
     font-size : 1rem;
@@ -149,7 +149,7 @@
 .submitButton{
     width : 18.75%;
     height : 56.074766365%;
-
+    cursor : pointer;
     font-weight: 400;
     line-height: 38px;
     font-size : 1.2rem;
@@ -192,6 +192,7 @@
 .submitButtonActive{
     width : 18.75%;
     height : 56.074766365%;
+    cursor : pointer;
 
     font-weight: 400;
     line-height: 38px;

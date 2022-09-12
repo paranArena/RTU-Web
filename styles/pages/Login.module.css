@@ -104,6 +104,7 @@
 }
 
 .buttonStyle{
+    cursor : pointer;
     background:white;
     border : none;
     font-size: 0.8rem;

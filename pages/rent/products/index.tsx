@@ -524,51 +524,53 @@ function RentalProductsPage() {
             <section className={styles.rentItemOuterContainer}>
               <div className={styles.rentItemImageListContainer}>
                 <div className={styles.rentImageRepresentativeOuterContainer}>
-                  <img className={styles.buttonIcon} src="/icons/leftButton.png" alt="left Button" />
+                  {/* eslint-disable-next-line max-len */}
+                  {/* <img className={styles.buttonIcon} src="/icons/leftButton.png" alt="left Button" /> */}
                   {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
                   <img
                     className={styles.rentItemRepresentativeImage}
                     src={(rentalItemData.imagePath !== null && rentalItemData.imagePath !== '') ? rentalItemData.imagePath : '/images/productDefaultImg.png'}
                     alt="Rental Item Image"
                   />
-                  <img className={styles.buttonIcon} src="/icons/rightButton.png" alt="right Button" />
+                  {/* eslint-disable-next-line max-len */}
+                  {/* <img className={styles.buttonIcon} src="/icons/rightButton.png" alt="right Button" /> */}
                 </div>
 
                 <div className={styles.rentItemSmallImageContainer}>
-                  <ul className={styles.rentItemSmallList}>
-                    <li>
-                      {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
-                      <img
-                        className={styles.rentItemSmallImage}
-                        src="https://picsum.photos/200/200"
-                        alt="Rental Item IMage"
-                      />
-                    </li>
-                    <li>
-                      {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
-                      <img
-                        className={styles.rentItemSmallImage}
-                        src="https://picsum.photos/200/200"
-                        alt="Rental Item IMage"
-                      />
-                    </li>
-                    <li>
-                      {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
-                      <img
-                        className={styles.rentItemSmallImage}
-                        src="https://picsum.photos/200/200"
-                        alt="Rental Item IMage"
-                      />
-                    </li>
-                    <li>
-                      {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
-                      <img
-                        className={styles.rentItemSmallImage}
-                        src="https://picsum.photos/200/200"
-                        alt="Rental Item IMage"
-                      />
-                    </li>
-                  </ul>
+                  {/* <ul className={styles.rentItemSmallList}> */}
+                  {/*  <li> */}
+                  {/*    /!* eslint-disable-next-line jsx-a11y/img-redundant-alt *!/ */}
+                  {/*    <img */}
+                  {/*      className={styles.rentItemSmallImage} */}
+                  {/*      src="https://picsum.photos/200/200" */}
+                  {/*      alt="Rental Item IMage" */}
+                  {/*    /> */}
+                  {/*  </li> */}
+                  {/*  <li> */}
+                  {/*    /!* eslint-disable-next-line jsx-a11y/img-redundant-alt *!/ */}
+                  {/*    <img */}
+                  {/*      className={styles.rentItemSmallImage} */}
+                  {/*      src="https://picsum.photos/200/200" */}
+                  {/*      alt="Rental Item IMage" */}
+                  {/*    /> */}
+                  {/*  </li> */}
+                  {/*  <li> */}
+                  {/*    /!* eslint-disable-next-line jsx-a11y/img-redundant-alt *!/ */}
+                  {/*    <img */}
+                  {/*      className={styles.rentItemSmallImage} */}
+                  {/*      src="https://picsum.photos/200/200" */}
+                  {/*      alt="Rental Item IMage" */}
+                  {/*    /> */}
+                  {/*  </li> */}
+                  {/*  <li> */}
+                  {/*    /!* eslint-disable-next-line jsx-a11y/img-redundant-alt *!/ */}
+                  {/*    <img */}
+                  {/*      className={styles.rentItemSmallImage} */}
+                  {/*      src="https://picsum.photos/200/200" */}
+                  {/*      alt="Rental Item IMage" */}
+                  {/*    /> */}
+                  {/*  </li> */}
+                  {/* </ul> */}
                 </div>
               </div>
 
