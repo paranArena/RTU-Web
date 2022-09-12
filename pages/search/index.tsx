@@ -130,6 +130,7 @@ interface ISearchResult {
   isSearched :ClubSearchProps
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function SearchResult({ isSearched } : ISearchResult) {
   const [clubs, setClubs] = useState<ClubDataModal[] | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

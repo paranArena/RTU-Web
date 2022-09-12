@@ -52,4 +52,5 @@ function AuthTimer({ resetTimer } : AuthImer) {
   );
 }
 
+// eslint-disable-next-line import/prefer-default-export
 export { AuthTimer };
