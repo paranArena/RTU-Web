@@ -195,15 +195,15 @@ function ProfileModal() {
 
                 <div className={styles.profileUserRentalHistoryContainer}>
 
-                  <div className={styles.profileUserRentalHistoryCountContainer}>
-                    <span className={styles.profileModalCountText}>{totlaRent}</span>
-                    <span className={styles.profileModalGrayText}>총 대여횟수</span>
-                  </div>
+                  {/* <div className={styles.profileUserRentalHistoryCountContainer}> */}
+                  {/*  <span className={styles.profileModalCountText}>{totlaRent}</span> */}
+                  {/*  <span className={styles.profileModalGrayText}>총 대여횟수</span> */}
+                  {/* </div> */}
 
-                  <div className={styles.profileUserRentalHistoryReturnCountContainer}>
-                    <span className={styles.profileModalCountText}>50</span>
-                    <span className={styles.profileModalGrayText}>기간내반납</span>
-                  </div>
+                  {/* <div className={styles.profileUserRentalHistoryReturnCountContainer}> */}
+                  {/*  <span className={styles.profileModalCountText}>50</span> */}
+                  {/*  <span className={styles.profileModalGrayText}>기간내반납</span> */}
+                  {/* </div> */}
 
                 </div>
 

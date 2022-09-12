@@ -69,6 +69,8 @@
 .cardContainer:hover{
     background: #F1F3F5;
     border-radius: 20px;
+    cursor : pointer;
+
 }
 
 .introduceText{

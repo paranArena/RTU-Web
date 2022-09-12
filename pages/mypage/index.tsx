@@ -143,14 +143,15 @@ function MyPage() {
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
           <h4
             id="alarmNnotice"
-            onClick={() => {
-              setMenu({
-                profile: false,
-                alarmNnotice: true,
-                logout: false,
-                TermsOfService: false,
-              });
-            }}
+            onClick={() => { alert('준비중인 서비스입니다.'); }}
+            // onClick={() => {
+            //   setMenu({
+            //     profile: false,
+            //     alarmNnotice: true,
+            //     logout: false,
+            //     TermsOfService: false,
+            //   });
+            // }}
             className={menu.alarmNnotice ? styles.current : styles.disabled}
           >
             알람 / 공지사항

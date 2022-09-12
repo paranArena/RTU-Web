@@ -1,6 +1,7 @@
 .outerContainer{
     width : 100vw;
     height : 100vh;
+    background-image: url("/images/bg/Groupbackground.png") ;
 
     padding-top : 15vh;
 

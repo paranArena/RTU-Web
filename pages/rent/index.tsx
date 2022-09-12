@@ -115,6 +115,7 @@ function MyRentalCard({ item }:MyRentalProps) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       crrlongitude = crrLocation.longitude;
     }
+
     // eslint-disable-next-line max-len
     // measure(currentLocation.latitude, currentLocation.longitude, myRentals.location.latitude, myRentals.location.longitude
     // eslint-disable-next-line max-len
@@ -136,6 +137,47 @@ function MyRentalCard({ item }:MyRentalProps) {
         .catch((err) => {
           console.log(err);
         });
+    } else {
+      alert('반납 위치에 도달하지 못하였습니다.');
+    }
+  };
+
+  const EventRentalButton = async (e : React.MouseEvent<HTMLButtonElement>) => {
+    const currentLocation:any = await getLocation();
+    console.log('getLocation');
+    const crrLocation: any = currentLocation;
+    let crrlatitude = 0;
+    if (crrLocation.latitude !== undefined) {
+      crrlatitude = crrLocation.latitude;
+    }
+    let crrlongitude = 0;
+    if (crrLocation.longtitude !== undefined) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      crrlongitude = crrLocation.longitude;
+    }
+
+    console.log('crrlongitude : ', crrlongitude);
+    console.log('crrlatitude : ', crrlatitude);
+    if (measure(crrlatitude, crrlongitude, 37.27206960304626, 127.04518368153681) <= 30) {
+      axios(
+        {
+          method: 'put',
+          url: `${SERVER_API}/clubs/${item.clubId}/rentals/${item.id}/apply`,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        },
+      ).then((res) => {
+        console.log(res);
+        alert('대여 확정 성공');
+        // window.location.reload();
+      })
+        .catch((err) => {
+          console.log(err);
+          alert('대여 확정 실패');
+        });
+    } else {
+      alert('픽업 위치에 도달하지 못하였습니다.');
     }
   };
 
@@ -165,10 +207,20 @@ function MyRentalCard({ item }:MyRentalProps) {
                           }
             </span>
 
-            {/* eslint-disable-next-line max-len,react/button-has-type */}
-            <button onClick={EventReturnButton} className={styles.myRentalReturnButton}>
-              반납하기
-            </button>
+            {
+              item.rentalInfo.rentalStatus === 'WAIT'
+                ? (
+                  <button type="submit" onClick={EventRentalButton} className={styles.myRentalReturnButton}>
+                    대여확정
+                  </button>
+                )
+                : (
+                  <button type="submit" onClick={EventReturnButton} className={styles.myRentalReturnButton}>
+                    반납하기
+                  </button>
+                )
+            }
+
           </div>
         </div>
       </div>

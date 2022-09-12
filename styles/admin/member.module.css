@@ -192,6 +192,8 @@
 
 .button:hover{
     width : 100%;
+    cursor : pointer;
+
     height : 100%;
 
     color: #FFFFFF;
@@ -272,6 +274,8 @@
 
 .deleteButton:hover{
     color: #FFFFFF;
+    cursor : pointer;
+
     font-style: normal;
     font-weight: 400;
     font-size: 22px;

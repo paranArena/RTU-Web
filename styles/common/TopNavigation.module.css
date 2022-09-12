@@ -98,6 +98,8 @@
     background-image: url("/icons/searching.png");
     background-repeat : no-repeat;
     background-size : cover;
+    cursor : pointer;
+
 }
 
 

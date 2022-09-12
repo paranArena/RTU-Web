@@ -18,7 +18,7 @@
     width : 66.40625%;
     height : 100%;
 
-    background-image: url("/images/renderingBackgroundImage.png") ;
+    background-image: url("/images/bg/renderingBackgroundImage.png") ;
     background-size : cover;
 }
 
@@ -84,6 +84,8 @@
 }
 .submitButton:hover{
     color: #FFFFFF;
+    cursor : pointer;
+
     background: var(--primary);
 }
 

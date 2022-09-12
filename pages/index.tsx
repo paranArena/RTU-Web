@@ -8,10 +8,10 @@ import Header from 'components/common/Header';
 import axios from 'axios';
 import { SERVER_API } from '../config';
 
-axios.defaults.baseURL = 'http://ec2-15-165-38-225.ap-northeast-2.compute.amazonaws.com:8080/';
+axios.defaults.baseURL = 'http://ec2-15-165-38-225.ap-northeast-2.compute.amazonaws.com:80/';
 axios.defaults.withCredentials = true;
 
-axios.defaults.baseURL = 'http://ec2-15-165-38-225.ap-northeast-2.compute.amazonaws.com:8080/';
+axios.defaults.baseURL = 'http://ec2-15-165-38-225.ap-northeast-2.compute.amazonaws.com:80/';
 axios.defaults.withCredentials = true;
 
 export interface SignUpProps {
@@ -139,7 +139,7 @@ function Login() {
 
           <div className={styles.logoContainer}>
             {/* 로고 넣을 곳 */}
-            <img className={styles.logoImg} src="/images/logo/logo_sm.png" alt="Ren2U Logo" />
+            <img className={styles.logoImg} src="/images/logo/ren2U_logo.png" alt="Ren2U Logo" />
           </div>
 
           <div className={styles.explainTextContainer}>
@@ -179,7 +179,7 @@ function Login() {
               {/* TODO 회원가입 Link Tag 삭제 */}
               <div className={styles.passwordSignLink}>
                 {/* eslint-disable-next-line react/button-has-type */}
-                <button onClick={onClickToggleModal} className={styles.buttonStyle}>비밀번호 찾기</button>
+                <button onClick={() => { alert('아직 지원하지 않는 기능입니다.'); }} className={styles.buttonStyle}>비밀번호 찾기</button>
               </div>
               <div className={styles.divide} />
               <div className={styles.passwordSignLink}>

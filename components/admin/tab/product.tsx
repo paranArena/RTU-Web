@@ -360,7 +360,7 @@ function RentalItemCard({
   const ExpDate = new Date(rentalInfo.expDate.concat('z'));
 
   let Year = RentDate.getFullYear().toString();
-  let Month = RentDate.getMonth().toString();
+  let Month = (RentDate.getMonth() + 1).toString();
   let Day = RentDate.getDate().toString();
 
   Year = Year.concat('.');
@@ -369,14 +369,14 @@ function RentalItemCard({
   const RentDateString = (Year.concat(Month)).concat(Day).toString();
 
   Year = ExpDate.getFullYear().toString();
-  Month = ExpDate.getMonth().toString();
+  Month = (ExpDate.getMonth() + 1).toString();
   Day = ExpDate.getDate().toString();
 
   Year = Year.concat('.');
   Month = Month.concat('.');
 
   const ExpDateString = (Year.concat(Month)).concat(Day).toString();
-  const ReturnDate = Month.concat('.').concat(Day);
+  const ReturnDate = Month.concat(Day);
 
   return (
     <div className={styles.RentalItemCardOuterContainer}>
