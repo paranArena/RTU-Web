@@ -142,7 +142,7 @@ function MyRentalCard({ item }:MyRentalProps) {
     }
   };
 
-  const EventRentalButton = async (e : React.MouseEvent<HTMLButtonElement>) => {
+  const EventRentalButton = async () => {
     const currentLocation:any = await getLocation();
     console.log('getLocation');
     const crrLocation: any = currentLocation;
