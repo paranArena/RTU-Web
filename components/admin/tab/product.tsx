@@ -1273,7 +1273,7 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
 
   // 대여 관리 :: 반납
   const [returnList, setReturnList] = useState<IReturnInfo[]>([]);
-  const [forceUpdate, setForceUpdate] = useState<boolean>();
+  const [forceUpdate, setForceUpdate] = useState<boolean>(true);
   // 새로고침
   const reload = () => {
     console.log('reload');
@@ -1316,6 +1316,9 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
         console.log(err);
       });
     }
+  };
+  const doForceUpdate = () => {
+    setForceUpdate((fu) => !fu);
   };
   useEffect(() => {
     console.log('ReserveList:', reserveList);
@@ -1393,24 +1396,13 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
   const [mount, setMount] = useState(false);
 
   useEffect(() => {
-    setForceUpdate(true);
     // clearInterval(timer);
     if (mount === false) {
       setMount(true);
     } else {
       setInterval(() => {
         console.log('timer-prev', forceUpdate);
-        if (forceUpdate === true) {
-          setForceUpdate(() => {
-            console.log('timer', forceUpdate);
-            return false;
-          });
-        } else {
-          setForceUpdate(() => {
-            console.log('timer', forceUpdate);
-            return true;
-          });
-        }
+        doForceUpdate();
       }, 1000);
     }
   }, [mount]);
@@ -1435,7 +1427,7 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
             {/* 타이틀 */}
             <h1>대여 관리</h1>
             <div>
-              <IoReloadCircleOutline style={{ cursor: 'pointer' }}  onClick={reload} size={30} />
+              <IoReloadCircleOutline style={{ cursor: 'pointer' }} onClick={reload} size={30} />
             </div>
           </div>
 

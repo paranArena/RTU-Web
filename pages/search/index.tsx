@@ -153,6 +153,7 @@ function SearchResult({ isSearched } : ISearchResult) {
     if (mount === false) {
       setMount(true);
     } else {
+      // eslint-disable-next-line no-inner-declarations
       async function fetchRequestSearch() {
         const searchResult = await SearchRequest(query as string);
 

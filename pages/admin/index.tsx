@@ -84,21 +84,6 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
     }
   }, [settingClubData, active]);
 
-  const onChangeGroupName = (e) => {
-    console.log('onChangeGroupName');
-    e.preventDefault();
-    setName(e.currentTarget.value);
-    console.log('nanme : ', name);
-  };
-
-  const onChangeGroupIntroduce = (e) => {
-    console.log('onChangeGroupIntroduce');
-
-    e.preventDefault();
-    setIntroduction(e.currentTarget.value);
-    console.log('introduction : ', introduction);
-  };
-
   const onChangeGroupTag = (e) => {
     e.preventDefault();
     console.log(e.currentTarget.value);
