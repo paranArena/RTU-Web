@@ -1,0 +1,345 @@
+.AdminRentalModalContainer{
+    z-index : 999;
+
+    width : 80%;
+    height : 80%;
+    margin-top : 1%;
+    margin-left : 5%;
+    background: #F8F9FA;
+    box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 25px;
+    position : absolute;
+}
+
+.closeContainer{
+    width : 30px;
+    height : 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top : 20px;
+    margin-right : 20px;
+
+    position: absolute;
+    right :0;
+    top: 0;
+}
+
+.closeIcon{
+    width : 20px;
+    height :20px;
+}
+
+.AdminRentalModalInnerContainer{
+    width : 100%;
+    height : 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.AdminRentalRightSection{
+    width : 40%;
+    height : 90%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.AdminRentalLeftSection{
+    width : 55%;
+    height : 90%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.RightSectionInnerContainer{
+    width : 90%;
+    height : 95%;
+
+    overflow-y: scroll;
+    background: #F8F9FA;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.3);
+    border-radius: 25px;
+}
+
+.LeftSectionInnerContainer{
+    width : 90%;
+    height : 95%;
+}
+
+.NumberingRentalItemContainer{
+    width: 100%;
+    height: 100px;
+
+    display: flex;
+    align-items: center;
+    border-bottom : 2px solid #E9ECEF;
+}
+
+.NumberingRentalItemLeftContainer{
+    width : 60%;
+    height : 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding : 20px;
+}
+
+
+.NumberingRentalItemRightContainer{
+    width : 40%;
+    height : 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.NumberingTitle{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.6426px;
+    margin-right : 10px;
+
+    color: #000000;
+}
+
+.rentalTypeFIFO{
+    width: 45px;
+    height: 20px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 11px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #FFB800;
+    letter-spacing: -0.448596px;
+
+    color: #000000;
+
+    border-radius: 20px;
+}
+
+.rentalTypeRESERVE{
+    width: 45px;
+    height: 20px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 11px;
+    background-color: #2CA900;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    letter-spacing: -0.448596px;
+
+    color: #000000;
+
+    border-radius: 20px;
+}
+
+.memberName{
+    height : 30%;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+
+    margin-bottom : 5px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.6426px;
+
+    color: #000000;
+}
+
+.rentDate{
+
+    height : 30%;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.6426px;
+
+    color: #868E96;
+}
+
+.NumberingText1Container{
+    width : 100%;
+    height : 30%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    margin-bottom : 5px;
+}
+
+.rentNreturnButton{
+    width: 100px;
+    height: 40px;
+    background: #FFFFFF;
+    border: 1.5px solid #1E2F97;
+    box-shadow: 0 0 7px rgba(30, 47, 151, 0.3);
+    border-radius: 28px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+
+    color: #1E2F97;
+}
+
+.rentNreturnButton:hover{
+    width: 100px;
+    height: 40px;
+
+    background: #1E2F97;
+    border: 1.5px solid #1E2F97;
+    box-shadow: 0 0 7px rgba(30, 47, 151, 0.3);
+    border-radius: 28px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.rentNreturnViewContainer{
+    width : 100%;
+    height : 100%;
+}
+
+.rentNreturnSubmitButtonContainer{
+    width : 100%;
+    height : 50px;
+
+    display: flex;
+    align-items: center;
+
+    margin-top : 60px;
+    justify-content: space-evenly;
+}
+
+.rentNreturnSubmitButton{
+    min-width : 100px;
+    height : 50px;
+    width : 30%;
+
+    background: #FFFFFF;
+    border: 1px solid #1E2F97;
+    box-shadow: 0 0 3.5px rgba(30, 47, 151, 0.35);
+    border-radius: 25px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #1E2F97;
+}
+
+.rentNreturnSubmitButton:hover{
+    color : white;
+    min-width : 100px;
+    width : 30%;
+    height : 50px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    background : var(--primary);
+
+}
+
+.rentNreturnTitleContainer{
+    width : 100%;
+    height : 35px;
+
+    display: flex;
+    align-items: center;
+    margin-bottom :50px;
+}
+
+.rentNreturnTitle{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+
+}
+
+.rentNreturnInputNLabelContainer{
+    width : 100%;
+    height : 60px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom : 30px;
+}
+
+
+.labelText{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+
+    letter-spacing: -0.408px;
+    margin-bottom : 5px;
+
+    color: #495057;
+}
+
+
+.rentNreturnInput{
+    width : 80%;
+    height :30px;
+
+    padding-left : 5px;
+
+    background-color: transparent;
+    border : none;
+    border-bottom: 1px solid #DEE2E6;
+
+    font-weight: 500;
+    font-size: 20px;
+
+    color: #000000;
+}
+
+.rentNreturnInput:focus{
+    outline-color: var(--primary);
+}
+

@@ -1,12 +1,12 @@
-import Header from 'components/common/Header';
 import React from 'react';
-import TopNavigation from '../../components/common/TopNavigation';
+import styles from 'styles/pages/MyPage.module.css';
 
 function Main() {
   return (
-    <div>
-      <Header />
-      <TopNavigation />
+    <div className={styles.mainContainer}>
+      <div>
+        qwr
+      </div>
     </div>
   );
 }

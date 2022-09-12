@@ -2,53 +2,115 @@ import React, {
   Dispatch, SetStateAction, useCallback, useEffect, useState,
 } from 'react';
 import styles from 'styles/main/CertificationModal.module.css';
+import axios from 'axios';
 import AuthTimer from './AuthTimer';
+import { SERVER_API } from '../../config';
+import { SignUpProps } from '../../pages';
 
 interface Props {
+  email: string;
   isOpenRegisterOpen: boolean;
   setIsOpenRegisterOpen: Dispatch<SetStateAction<boolean>>;
   isCert: boolean;
   setIsCert: Dispatch<SetStateAction<boolean>>;
   registerSuccess: boolean;
   setRegisterSuccess: Dispatch<SetStateAction<boolean>>;
+  signupProps : SignUpProps;
 }
 
 function CertificationModal({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   registerSuccess,
-  setRegisterSuccess,
+  email,
   isCert,
   setIsCert,
   isOpenRegisterOpen,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  setRegisterSuccess,
+  signupProps,
   setIsOpenRegisterOpen,
 }: Props): React.ReactElement {
   const [isActive, setIsActive] = useState<boolean>(false); // 완료버튼 활성화
   const [certNumber, setCertNumber] = useState<string>('');
   const [isNotCorrect, setIsNotCorrect] = useState<boolean>(false);
   const [reSend, setReSend] = useState<boolean>(false);
+  const [resetTimer, setResetTimer] = useState(false);
+  const [one, setOne] = useState(0);
+
+  useEffect(() => {
+    if (one === 1) {
+      let Email = signupProps.email;
+      console.log('signupProps.email : ', signupProps.email);
+      Email = Email.concat('@ajou.ac.kr');
+
+      axios.post(`${SERVER_API}/signup`, {
+        email: Email,
+        password: signupProps.password,
+        name: signupProps.name,
+        phoneNumber: signupProps.phoneNumber,
+        studentId: signupProps.studentId,
+        major: signupProps.major,
+      })
+        .then((res) => {
+          console.log('res : ', res);
+        })
+        .catch((error) => {
+          alert(error.response.data.message);
+          setIsCert(false);
+        });
+
+      axios.post(`${SERVER_API}/members/email/requestCode`, { email })
+        .then((res) => {
+          console.log(res);
+        }).catch((err) => {
+          console.log(err);
+        });
+      console.log('one : ', one);
+    } else if (one === 0) {
+      setOne(1);
+    }
+  }, [one]);
+
+  useEffect(() => {
+    console.log('CertificationModal : ', email);
+  }, []);
 
   const onCLickSubmit = () => {
-    /* 서버와의 요청 ? */
-    /* 인증번호 체크 로직 */
-    if (certNumber !== '1234') {
-      setIsNotCorrect(!isNotCorrect);
-    } else {
-      setRegisterSuccess(true);
-      setIsCert(false);
-      setIsOpenRegisterOpen(false);
-    }
+    // TODO:: 인증번호 verify 잘 안됨.
+    console.log('email : ', email);
+    axios.post(`${SERVER_API}/members/email/verifyCode`, {
+      email,
+      code: certNumber.toString(),
+    }).then((res) => {
+      console.log(res);
+      if (res.status === 200) {
+        setRegisterSuccess(true);
+      }
+    }).catch((err) => {
+      if (err.response.data.code === 'WRONG_VERIFICATION_CODE') {
+        setIsNotCorrect(true);
+      }
+    });
   };
 
   const onClickReSend = () => {
     /* 인증번호 재발송 */
     // eslint-disable-next-line no-console
+    setReSend(true);
+    setResetTimer(!resetTimer);
+
     console.log('인증번호 재발송');
-    setReSend(!reSend);
+    axios.post(`${SERVER_API}/members/email/requestCode`, { email })
+      .then((res) => {
+        console.log(res);
+      }).catch((err) => {
+        console.log(err);
+      });
   };
 
   const onChangeCertInput = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
-    if (e.currentTarget.value.length >= 5) {
+    if (e.currentTarget.value.length >= 7) {
       e.currentTarget.value = certNumber;
     } else {
       setCertNumber(e.currentTarget.value);
@@ -56,7 +118,7 @@ function CertificationModal({
   };
 
   useEffect(() => {
-    if (certNumber.length === 4) {
+    if (certNumber.length === 6) {
       setIsActive(true);
     } else {
       setIsActive(false);
@@ -101,11 +163,11 @@ function CertificationModal({
       <div className={styles.certModalMainContainer}>
         <div className={styles.certInputDiv}>
           <span className={styles.certInputDivTitle}> 이메일로 인증번호가 발송되었습니다.</span>
-          <span className={styles.certInputSubText}>4자리 숫자를 입력해주세요.</span>
+          <span className={styles.certInputSubText}>6자리 숫자를 입력해주세요.</span>
 
           <div className={styles.certInputContainer}>
-            <input onChange={onChangeCertInput} maxLength={4} className={styles.certInput} type="number" />
-            <AuthTimer />
+            <input onChange={onChangeCertInput} maxLength={6} className={styles.certInput} type="number" />
+            <AuthTimer resetTimer={resetTimer} />
           </div>
 
           {isNotCorrect ? (

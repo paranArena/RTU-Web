@@ -4,9 +4,16 @@
 
     display: flex;
     flex-direction: row;
-
+    justify-content: space-between;
     align-items: center;
     border-bottom: 1.49628px solid #F1F3F5;
+}
+
+.itemNameNPolicyContainer{
+    display: flex;
+    flex-direction: row;
+
+
 }
 
 .tagTerm{
@@ -50,13 +57,12 @@
 }
 
 .rentDateContainer{
-    position: absolute;
-    right : 7%;
+    width : 50%;
 
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-end;
+    justify-content: flex-end;
 }
 
 .rentDate{

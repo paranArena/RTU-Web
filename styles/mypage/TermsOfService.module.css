@@ -1,0 +1,31 @@
+.termsOfServiceOuterContainer{
+    width : 100%;
+    height : 100%;
+}
+
+.termsOfServiceInnerContainer{
+    width : 100%;
+    height : 100%;
+
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(73, 80, 87, 0.15);
+    border-radius: 20px;
+    overflow-y: scroll;
+
+    padding : 20px;
+}
+
+@media (max-width : 1300px){
+    .termsOfServicePDFContainer{
+        width : 100%;
+        height : 100%;
+    }
+}
+
+
+@media (min-width : 1300px) {
+    .termsOfServicePDFContainer{
+        width : 50%;
+        height : 100%;
+    }
+}

@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 8080",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@next/bundle-analyzer": "^12.2.3",
+    "@types/react-cookies": "^0.1.0",
     "@types/styled-components": "^5.1.25",
     "axios": "^0.27.2",
     "http-proxy-middleware": "^2.0.6",
@@ -18,8 +19,14 @@
     "next-plugin-antd-less": "^1.8.0",
     "nextjs-cors": "^2.1.1",
     "react": "18.2.0",
+    "react-cookie": "^4.1.1",
     "react-dom": "18.2.0",
+    "react-hook-geolocation": "^1.1.0",
+    "react-icon": "^1.0.0",
     "react-icons": "^4.4.0",
+    "react-jwt": "^1.1.6",
+    "react-kakao-maps-sdk": "^1.1.3",
+    "semantic-ui-react": "^2.1.3",
     "styled-components": "^5.3.5"
   },
   "devDependencies": {

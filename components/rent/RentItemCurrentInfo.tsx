@@ -1,28 +1,51 @@
 import React from 'react';
 import styles from 'styles/rent/RentItemCurrentInfo.module.css';
-import { IRentItemCurrentInfo } from '../../globalInterface';
+import { RentItem } from '../../pages/rent/products';
 
-function RentItemCurrentInfo(rentInfo :IRentItemCurrentInfo) {
+interface RentItemCurrentInfoProps {
+  rentItem :RentItem;
+  itemName : string;
+}
+
+function RentItemCurrentInfo({ rentItem, itemName } :RentItemCurrentInfoProps) {
   return (
     <div className={styles.ItemInfoContainer}>
-      {
-          // eslint-disable-next-line react/destructuring-assignment
-            rentInfo.type === '선착순'
-            // eslint-disable-next-line react/destructuring-assignment
-              ? <span className={styles.tagFC}>{rentInfo.type}</span>
-            // eslint-disable-next-line react/destructuring-assignment
-              : <span className={styles.tagTerm}>{rentInfo.type}</span>
-        }
+      <div className={styles.itemNameNPolicyContainer}>
+        {
+                // eslint-disable-next-line react/destructuring-assignment
+                rentItem.rentalPolicy === 'FIFO'
+                // eslint-disable-next-line react/destructuring-assignment
+                  ? <span className={styles.tagFC}>선착순</span>
+                // eslint-disable-next-line react/destructuring-assignment
+                  : <span className={styles.tagTerm}>기간제</span>
+            }
 
-      {/* eslint-disable-next-line react/destructuring-assignment */}
-      <span className={styles.rentItemName}>{rentInfo.name}</span>
+        {/* eslint-disable-next-line react/destructuring-assignment */}
+        <span className={styles.rentItemName}>
+          {itemName}
+          {' '}
+          -
+          {' '}
+          {rentItem.numbering}
+        </span>
+      </div>
+
       <div className={styles.rentDateContainer}>
         <span className={styles.rentDate}>
           {/* eslint-disable-next-line react/destructuring-assignment */}
-          {rentInfo.lender !== null ? `${rentInfo.lender} 대여` : null}
+          {(rentItem.rentalInfo !== null && rentItem.rentalInfo.rentalStatus === 'RENT')
+            ? '대여중' : null}
         </span>
         {/* eslint-disable-next-line react/destructuring-assignment */}
-        <span className={styles.rentDate}>{rentInfo.lender === null ? '대여가능' : `~${rentInfo.rentDate}`}</span>
+        <span
+          className={styles.rentDate}
+        >
+          {
+              rentItem.rentalInfo === null
+                ? '대여가능'
+                : `~ ${`${new Date((Date.parse(rentItem.rentalInfo.rentDate))).getMonth() + 1}/${new Date((Date.parse(rentItem.rentalInfo.rentDate))).getDate()}`}`
+            }
+        </span>
       </div>
     </div>
   );

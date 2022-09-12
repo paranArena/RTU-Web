@@ -5,7 +5,6 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-
 }
 
 .titleContainer h1{
@@ -126,6 +125,11 @@
     height : auto;
 }
 
+.rentalItemScrollContainer{
+    width : 100%;
+    overflow-x: scroll;
+}
+
 .groupRentContainer ul{
     list-style: none;
 
@@ -164,13 +168,16 @@
 }
 
 .rentalItemImage{
-    width : 100%;
+    width : 135px;
+    height : 135px;
     border-radius: 8px;
     margin-bottom : 6px;
 }
 
 .rentalItemListOuterContainer{
     width : 100%;
+    height : 100%;
+
     display: flex;
     flex-direction: column;
 }
@@ -196,8 +203,223 @@
 .rentalItemInnerContainer{
     display: grid;
     grid-template-columns: repeat(6,1fr);
+    overflow-y: scroll;
 
     width : 100%;
     height : 100%;
 }
 
+/* Group Modal Rental Tab View*/
+.GroupModalRentalTabContainer{
+    width : 100%;
+    height : auto;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.GroupModalRentalTabNoticeListContainer{
+    width : 100%;
+    height : calc(100% - 48px);
+
+}
+
+.GroupModalRentalTabNoticeListContainer ul{
+    width : 100%;
+    height : auto;
+    overflow-y: scroll;
+}
+
+.noticeDetailContainer{
+    width : 100%;
+    min-height : 600px;
+
+}
+
+
+.noticeDetailInnerContainer{
+    width : 100%;
+    height : 100%;
+
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+.noticeDetailTitleContainer{
+    width : 100%;
+    height :40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 2px solid #F8F9FA;
+}
+
+.noticeDetailOuterContainer{
+    width : 100%;
+    height : 100%;
+
+    min-height : 500px;
+}
+
+.noticeDetailInnerContainer{
+    width : 100%;
+    height : 100%;
+}
+
+.closeButton{
+    width : 30px;
+    height : 30px;
+
+    padding : 4px;
+    margin-left : 40px;
+    margin-bottom : 70px;
+}
+
+.noticeDetailContent{
+    padding : 20px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    color: #000000;
+}
+
+.writerContainer{
+    width : 80px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-right :20px;
+}
+
+.writeDateContainer{
+    width : 120px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-right :20px;
+}
+
+.graySmallText{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+
+    text-align: center;
+    letter-spacing: -0.408px;
+
+    color: #868E96;
+}
+
+.blackSmallText{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+
+    text-align: center;
+    letter-spacing: -0.408px;
+
+    color: #000000;
+}
+
+.noticeDetailInfoContainer{
+    width : 100%;
+    min-width: 250px;
+    min-height : 30px;
+    height : 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+
+    border-bottom: 2px solid #F8F9FA;
+
+}
+
+.noticeDetailTitleContainer span{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+
+    text-align: center;
+    letter-spacing: -0.496216px;
+
+    color: #000000;
+}
+
+.GroupModalRentalTabTitleContainer{
+    width : 100%;
+    height : 3rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+
+.GroupModalRentalTabTitleContainer h1{
+    text-align: center;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 3rem;
+    color: var(--black);
+}
+
+.noticeImgContainer{
+    width : 170px;
+    height : 170px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    bottom : 5%;
+    right : 3%;
+
+    background-color: #ADB5BD;
+}
+
+.noticeImg{
+    width : 150px;
+    height :150px;
+}
+
+.noticeImg:hover{
+    webkit-filter: blur(1px); /* Chrome, Safari, Opera */
+    filter: blur(1px);
+}
+
+.detailNoticeImgContainer{
+    right :10%;
+    z-index: 999;
+    position: absolute;
+    width : 80%;
+    height : 80%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.detailNoticeImg {
+    border : 1px solid #ADB5BD;
+    min-width : 500px;
+    min-height : 500px;
+    max-width: 700px;
+    max-height : 700px;
+
+    width : 100%;
+    height : 100%;
+}
+
+.detailNoticeImg:hover{
+    webkit-filter: blur(4px); /* Chrome, Safari, Opera */
+    filter: blur(4px);
+}

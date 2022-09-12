@@ -8,8 +8,8 @@
 
 /* group info section */
 .groupInfoContainer{
-    width : 20vw;
-    height : 70vh;
+    width : 300px;
+    height : 100%;
 
     display: flex;
     flex-direction: column;
@@ -18,8 +18,8 @@
 }
 
 .groupInfoOuterContainer{
-    width : 20vw;
-    height : 50vh;
+    width : 300px;
+    height : 600px;
 
     padding : 1.5rem;
 
@@ -37,7 +37,7 @@
 .groupInfoIntroduceContainer{
     width : 100%;
     height : 35%;
-
+    margin-top : 5%;
     margin-bottom : 5%;
     overflow : hidden;
 }
@@ -70,8 +70,8 @@
 }
 
 .groupInfoImage{
-    width : 100%;
-    height : 85%;
+    width : 250px;
+    height : 250px;
 
     border-radius: 16px;
 }
@@ -79,11 +79,14 @@
 .groupName{
     font-style: normal;
     font-weight: 700;
-    font-size: 1.875rem;
-    line-height: 22px;
+    font-size: 30px;
 
     color : var(--primary);
     text-align: center;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .groupMemberNumber{
@@ -109,25 +112,37 @@
 
 .groupInfoInnerContainer{
     width :100%;
-    height: 1.875rem;
+    height: 40px;
 
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     margin-bottom : 5px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* blur */
+.blur{
+    background: rgba(255, 255, 255, 0.5);
+    filter: blur(10px);
 }
 
 /* group Content Section */
 .groupContentContainer{
+    min-width : 800px;
     width : 60vw;
     height : 75vh;
+    border-radius: 0 25px 25px 25px;
 
     background: #FFFFFF;
     backdrop-filter: blur(10px);
-    border-radius: 0 25px 25px 25px;
 
-    overflow:scroll;
+    overflow-y:scroll;
+    overflow-x: hidden;
 }
 
 .groupHome{
@@ -145,7 +160,8 @@
     position : relative;
     top : 12%;
 
-    width : 6vw;
+    width : 100px;
+    min-width: 90px;
     height : 24vh;
 
     background: #F8F9FA;
@@ -185,3 +201,55 @@
 .groupMenuText{
     color: var(--black);
 }
+
+.joinButton{
+    width: 8.125rem;
+    height: 2.875rem;
+
+    background: #FFFFFF;
+    border: 0.105rem solid var(--primary);
+    box-shadow: 0 0 0.42rem rgba(30, 47, 151, 0.3);
+    border-radius: 1.731rem;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.25rem;
+    line-height: 30px;
+
+    color: var(--primary);
+}
+
+.requestButton{
+    width: 8.125rem;
+    height: 2.875rem;
+
+    background: var(--primary);
+    border:0.105rem solid var(--primary);
+    box-shadow: 0 0 0.42rem rgba(30, 47, 151, 0.3);
+    border-radius: 1.731rem;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.25rem;
+    line-height: 30px;
+
+    color: #FFFFFF;
+}
+
+.clubLeaveButton{
+    width: 8.125rem;
+    height: 2.875rem;
+
+    background: #EC0000;
+    border:0.105rem solid #EC0000;
+    box-shadow: 0 0 0.42rem rgba(30, 47, 151, 0.3);
+    border-radius: 1.731rem;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.25rem;
+    line-height: 30px;
+
+    color: #FFFFFF;
+}
+

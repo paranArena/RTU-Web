@@ -1,0 +1,128 @@
+.alertModalContainer{
+    width : 600px;
+    /*height : 270px;*/
+    height : 350px;
+    position: fixed;
+    z-index: 999;
+
+    top : 10vh;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    background: #F8F9FA;
+    box-shadow: 0 0 9px 3px rgba(0, 0, 0, 0.3);
+    border-radius: 21px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.alertModalContainer_30{
+    width : 600px;
+    /*height : 270px;*/
+    height : 350px;
+    position: fixed;
+    z-index: 999;
+
+    top : 30vh;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    background: #F8F9FA;
+    box-shadow: 0 0 9px 3px rgba(0, 0, 0, 0.3);
+    border-radius: 21px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.closeIconContainer{
+    width : 50vw;
+    height : 48px;
+}
+
+.closeIcon{
+    width : 24px;
+    height : 24px;
+
+    margin : 20px;
+
+    position : absolute;
+    right : 0;
+    top : 0;
+}
+
+.alertTextContainer{
+    width : 50vw;
+    height : 160px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.representativeIcon{
+    width : 42px;
+    height : 42px;
+    margin : 8px;
+}
+
+.titleText{
+    font-style: normal;
+    font-weight: 900;
+    font-size: 26px;
+
+    text-align: center;
+
+    color: #000000;
+}
+
+.buttonContainer{
+    width : 150px;
+    height : 50px;
+
+    margin-top :30px;
+
+}
+
+.button{
+    width : 100%;
+    height : 100%;
+
+    background: #EB1808;
+    box-shadow: 0 0 8px rgba(45, 3, 3, 0.35);
+    border-radius: 30px;
+    border: 1px solid #FF0000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 26px;
+
+    color: #FFFFFF;
+}
+
+.button:hover{
+    width : 100%;
+    height : 100%;
+
+    background: white;
+    box-shadow: 0 0 8px rgba(45, 3, 3, 0.35);
+    border-radius: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 26px;
+
+    color: #FF0000;
+}

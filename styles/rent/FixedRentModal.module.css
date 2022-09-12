@@ -1,0 +1,13 @@
+.fixedRentModalContainer{
+    width : 47.5vw;
+    height : 37.5vw;
+    z-index: 999;
+
+    position: fixed;
+    top : 180px;
+    right : 26.5vw;
+
+    background: #F8F9FA;
+    box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 35px;
+}

@@ -5,9 +5,38 @@ import RegisterModal from 'components/register/RegisterModal';
 import CertificationModal from 'components/register/CertificationModal';
 import RegisterSuccessModal from 'components/register/RegisterSuccessModal';
 import Header from 'components/common/Header';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
+import { SERVER_API } from '../config';
 
-// const API_SERVER = '';
+axios.defaults.baseURL = 'http://ec2-15-165-38-225.ap-northeast-2.compute.amazonaws.com:8080/';
+axios.defaults.withCredentials = true;
+
+axios.defaults.baseURL = 'http://ec2-15-165-38-225.ap-northeast-2.compute.amazonaws.com:8080/';
+axios.defaults.withCredentials = true;
+
+export interface SignUpProps {
+  email: string
+  password: string
+  name: string
+  major: string
+  studentId: string
+  phoneNumber: string
+}
+
+export const defaultSignUpProps: SignUpProps = {
+  email: '',
+  password: '',
+  name: '',
+  major: '',
+  studentId: '',
+  phoneNumber: '',
+};
+
+declare global {
+  interface Window {
+    kakao: any;
+  }
+}
 
 interface LoginDate {
   email: string;
@@ -19,11 +48,40 @@ function Login() {
   const [wrongVisible, setWrongVisible] = useState<boolean>(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState<boolean>(false);
   const [registerSuccess, setRegisterSuccess] = useState<boolean>(false);
-  const [loginData, setLoginData] = useState<LoginDate>({ email: '', password: '' });
+  const [signupProps, setSignUpProps] = useState<SignUpProps>(defaultSignUpProps);
+
   const router = useRouter();
 
+  const [loginData, setLoginData] = useState<LoginDate>({ email: '', password: '' });
   // Cert Modal Props
   const [isCert, setIsCert] = useState<boolean>(false);
+
+  const onClickLoginButton = (e : React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    console.log(loginData);
+
+    if (loginData.email === '' && loginData.password === '') {
+      alert('아이디와 비밀번호를 입력해주세요');
+    } else {
+      console.log(SERVER_API);
+      axios.post(`${SERVER_API}/authenticate`, loginData)
+        .then((res) => {
+          if (res.status === 200) {
+            localStorage.setItem('token', res.data.token);
+            router.push('/main');
+          }
+        })
+        .catch(() => {
+          alert('아이디 또는 비번이 틀렸습니다.');
+        });
+    }
+  };
+
+  useEffect(() => {}, []);
+
+  useEffect(() => {
+    console.log('localStorage : ', localStorage);
+  }, []);
 
   const onClickToggleModal = useCallback(() => {
     setIsRegisterOpen(!isRegisterOpen);
@@ -42,34 +100,18 @@ function Login() {
     currentLoginData.password = e.currentTarget.value;
     setLoginData(currentLoginData);
   };
-
-  const onClickLogin = () => {
-    // setWrongVisible(!wrongVisible);
-    // 서버에 로그인 요청
-
-    axios.post('http://ec2-13-125-234-225.ap-northeast-2.compute.amazonaws.com:8080/authenticate', loginData)
-      .then((res: { status: number; data: { token: any; }; }) => {
-        if (res.status === 200) {
-          // eslint-disable-next-line no-console
-          console.log(res.data.token);
-        }
-      }).catch((error : AxiosError) => {
-      // eslint-disable-next-line no-console
-        console.log(error);
-      });
-    router.push('/main');
-  };
-
-  useEffect(() => {}, [isCert]);
+  useEffect(() => {
+    console.log('uE isCert :: loginData : ', loginData);
+  }, [isCert]);
 
   return (
     <div className={styles.container}>
-
       <Header />
-
       <main className={styles.main}>
         {isRegisterOpen ? (
           <RegisterModal
+            signupProps={signupProps}
+            setSignUpProps={setSignUpProps}
             isOpenRegisterOpen={isRegisterOpen}
             setIsOpenRegisterOpen={setIsRegisterOpen}
             isCert={isCert}
@@ -78,12 +120,14 @@ function Login() {
         ) : null}
         {isCert ? (
           <CertificationModal
+            email={signupProps.email.concat('@ajou.ac.kr')}
             setRegisterSuccess={setRegisterSuccess}
             registerSuccess={registerSuccess}
             isOpenRegisterOpen={isRegisterOpen}
             setIsOpenRegisterOpen={setIsRegisterOpen}
             isCert={isCert}
             setIsCert={setIsCert}
+            signupProps={signupProps}
           />
         ) : null}
         {/* eslint-disable-next-line max-len */}
@@ -95,7 +139,7 @@ function Login() {
 
           <div className={styles.logoContainer}>
             {/* 로고 넣을 곳 */}
-            로고
+            <img className={styles.logoImg} src="/images/logo/logo_sm.png" alt="Ren2U Logo" />
           </div>
 
           <div className={styles.explainTextContainer}>
@@ -127,7 +171,7 @@ function Login() {
           )}
 
           <div className={styles.submitLinkBox}>
-            <button onClick={onClickLogin} className={styles.submitButton} type="submit">
+            <button onClick={onClickLoginButton} className={styles.submitButton} type="submit">
               로그인
             </button>
 

@@ -1,115 +1,314 @@
-import React, { useState } from 'react';
-import Header from 'components/common/Header';
-import TopNavigation from 'components/common/TopNavigation';
-import styles from 'styles/rent/RentPage.module.css';
-import RentItemCurrentInfo from '../../components/rent/RentItemCurrentInfo';
+import React, { useEffect, useState } from 'react';
+import styles from 'styles/pages/RentPage.module.css';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import { IClubProduct } from '../../globalInterface';
+import { SERVER_API } from '../../config';
+import { getLocation, measure } from '../../components/common/getCurrentPosition';
 
-function RentPage() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [show, setShow] = useState<boolean>(true);
+interface ProductCardProps {
+  name : string;
+  thumbNail : string;
+  left : number;
+  max : number;
+  clubId : number;
+  productId : number;
+}
+
+function ProductCard({
+  name,
+  thumbNail,
+  left,
+  max,
+  clubId,
+  productId,
+}: ProductCardProps) {
+  const router = useRouter();
+
+  const onClickProductCard = (e : React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+
+    router.push({
+      pathname: '/rent/products',
+      query: { clubId, productId },
+    });
+  };
 
   return (
-    <div className={styles.container}>
-      <Header />
-      <TopNavigation />
-      <section className={styles.rentItemOuterContainer}>
-        <div className={styles.rentItemImageListContainer}>
-          <div className={styles.rentImageRepresentativeOuterContainer}>
-            <img className={styles.buttonIcon} src="/icons/leftButton.png" alt="left Button" />
-            {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
-            <img className={styles.rentItemRepresentativeImage} src="https://picsum.photos/200" alt="Rental Item Image" />
-            <img className={styles.buttonIcon} src="/icons/rightButton.png" alt="right Button" />
-          </div>
-
-          <div className={styles.rentItemSmallImageContainer}>
-            <ul className={styles.rentItemSmallList}>
-              <li>
-                {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
-                <img className={styles.rentItemSmallImage} src="https://picsum.photos/200/200" alt="Rental Item IMage" />
-              </li>
-              <li>
-                {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
-                <img className={styles.rentItemSmallImage} src="https://picsum.photos/200/200" alt="Rental Item IMage" />
-              </li>
-              <li>
-                {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
-                <img className={styles.rentItemSmallImage} src="https://picsum.photos/200/200" alt="Rental Item IMage" />
-              </li>
-              <li>
-                {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
-                <img className={styles.rentItemSmallImage} src="https://picsum.photos/200/200" alt="Rental Item IMage" />
-              </li>
-            </ul>
-          </div>
+  // eslint-disable-next-line max-len
+  // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+    <div onClick={onClickProductCard} className={styles.productCardOuterContainer}>
+      <div className={styles.productCardInnerContainer}>
+        <div className={styles.productImgContainer}>
+          {/* 물품 이미지 컨테이너 */}
+          <img className={styles.thumbNail} src={(thumbNail === '' || thumbNail === null) ? '/images/productDefaultImg.png' : thumbNail} alt="thumbnail" />
         </div>
 
-        <div className={styles.rentItemInfoContainer}>
-          <div className={styles.rentTitleContainer}>
-            <h1 className={styles.groupName}>REN2U</h1>
-            <h3 className={styles.rentItemClassification}>디지털기기 &gt; 가상기기</h3>
+        <div className={styles.productNameContainer}>
+          {/*  물품 이름 컨테이너  */}
+          <h1>{name}</h1>
+        </div>
+
+        <div className={styles.productQuantityContainer}>
+          {/*  물품 남은 수량 컨테이너  */}
+          <h3>
+            남은 수량
+            {left}
+            /
+            {max}
+          </h3>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+interface IMyRentals {
+  id : number;
+  numbering : number;
+  name : string;
+  clubId : number;
+  clubName : string;
+  imagePath : string;
+  rentalPolicy : 'RESERVE' | 'FIFO';
+  rentalInfo : {
+    rentalStatus : 'RENT' | 'WAIT' | 'DONE' ;
+    rentDate : string;
+    expDate : string;
+    meRental : boolean;
+  };
+  location : {
+    name : string;
+    latitude : number;
+    longitude : number;
+  };
+}
+
+interface Iitem {
+  name : string;
+  clubId : number;
+  id : number;
+  imagePath : string;
+  rentalInfo : {
+    rentalStatus : 'RENT' | 'WAIT' | 'DONE' ;
+    rentDate : string;
+    expDate : string;
+    meRental : boolean;
+  }
+}
+
+interface MyRentalProps {
+  item : Iitem;
+}
+
+function MyRentalCard({ item }:MyRentalProps) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const EventReturnButton = async (e : React.MouseEvent<HTMLButtonElement>) => {
+    const currentLocation:any = await getLocation();
+    const crrLocation: any = currentLocation;
+    let crrlatitude = 0;
+    if (crrLocation.latitude !== undefined) {
+      crrlatitude = crrLocation.latitude;
+    }
+    let crrlongitude = 0;
+    if (crrLocation.longtitude !== undefined) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      crrlongitude = crrLocation.longitude;
+    }
+    // eslint-disable-next-line max-len
+    // measure(currentLocation.latitude, currentLocation.longitude, myRentals.location.latitude, myRentals.location.longitude
+    // eslint-disable-next-line max-len
+    if (measure(crrlatitude, crrlongitude, 37.27206960304626, 127.04518368153681) <= 30) {
+      axios(
+        {
+          method: 'put',
+          url: `${SERVER_API}/clubs/${item.clubId}/rentals/${item.id}/return`,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+
+        },
+      ).then((res) => {
+        console.log(res);
+        alert('렌탈 반납 성공');
+        window.location.reload();
+      })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  return (
+    <div
+      className={styles.myRentalOuterContainer}
+    >
+      <div className={styles.myRentalInnerContainer}>
+        <div className={styles.productImgContainer}>
+          <img className={styles.myRentalImg} src={item.imagePath === null ? '/images/defaultImg.png' : item.imagePath} alt="my rental img" />
+        </div>
+        <div className={styles.myRentalTextContainer}>
+          <div className={styles.productNameContainer}>
+            <h1>
+              {item.name}
+            </h1>
           </div>
+          <div className={styles.myRentalReserveCancelButtonContainer}>
+            <span>
+              반납일 :
+              {
+                item.rentalInfo.expDate !== null
+                  ? (new Date(item.rentalInfo.expDate.concat('z')).getFullYear().toString().concat('.')
+                    .concat(new Date(item.rentalInfo.expDate.concat('z')).getMonth().toString().concat('.')
+                      .concat(new Date(item.rentalInfo.expDate.concat('z')).getDate().toString())))
+                  : null
+                          }
+            </span>
 
-          <h1 className={styles.rentItemName}>VR기기</h1>
-
-          <div className={styles.rentItemPriceContainer}>
-            <h3>물품가치</h3>
-            <span className={styles.rentItemPrice}>200,000원</span>
+            {/* eslint-disable-next-line max-len,react/button-has-type */}
+            <button onClick={EventReturnButton} className={styles.myRentalReturnButton}>
+              반납하기
+            </button>
           </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-          <div className={styles.rentItemListOuterContainer}>
-            <h3>물품목록</h3>
-            <div className={styles.rentItemListContainer}>
-              <RentItemCurrentInfo name="폴라 카메라 - 001" lender="김현지" rentDate="8/11" type="선착순" />
-              <RentItemCurrentInfo name="폴라 카메라 - 002" lender="김현지" rentDate="8/11" type="선착순" />
-              <RentItemCurrentInfo name="폴라 카메라 - 003" lender="김현지" rentDate="8/11" type="기간제" />
-              <RentItemCurrentInfo name="폴라 카메라 - 004" lender={null} rentDate={null} type="기간제" />
+function RentPage() {
+  const [allClubId, setAllClubID] = useState<number[] | null>(null);
+  const [allClubProduct, setAllClubProduct] = useState<IClubProduct[]>([]);
+
+  const [myRentals, setMyRentals] = useState<IMyRentals[]>([]);
+
+  const [mount, setMount] = useState(0);
+
+  useEffect(() => {
+    axios.get(
+      `${SERVER_API}/members/my/rentals`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      },
+    ).then((res) => {
+      setMyRentals(res.data.data);
+
+      console.log('/members/my/rentals : ', res.data.data);
+    }).catch((err) => {
+      console.log(err);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (mount === 0) {
+      setMount(1);
+    } else if (allClubId === null) {
+      axios.get(`${SERVER_API}/members/my/clubs`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      }).then((res) => {
+        if (res.status === 200) {
+          const arr = [];
+          res.data.data.forEach((club) => {
+            arr.push(club.id);
+          });
+
+          setAllClubID(arr);
+        }
+      })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      console.log(allClubProduct);
+    }
+  }, [mount]);
+
+  useEffect(() => {
+    if (allClubId !== null) {
+      allClubId.forEach((id) => {
+        axios.get(`${SERVER_API}/clubs/${id}/products/search/all`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }).then((res) => {
+          if (res.status === 200 && res.data.data.length > 0) {
+            const arr = allClubProduct;
+            res.data.data.forEach((product) => {
+              arr.push(product);
+            });
+
+            const set = new Set(arr);
+            setAllClubProduct(Array.from(set));
+
+            console.log('clubs/clubId/products/search/all', res.data.data);
+          }
+        }).catch((err) => {
+          console.log(err);
+        });
+      });
+    }
+  }, [allClubId]);
+
+  // @ts-ignore
+  return (
+    <div className={styles.rentPageContainer}>
+      <div className={styles.rentPageInnerContainer}>
+        {/*  아직 API 구현 안됨. 다음에 구현할 예정 */}
+        <section className={styles.rentaledListSection}>
+          {/*  대여 목록  */}
+          <div className={styles.titleTopContainer}>
+            <div className={styles.titleContainer}>
+              <h3 className={styles.title}>대여목록</h3>
             </div>
           </div>
 
-          <div className={styles.rentTypeSelectContainer}>
-            <div className={styles.dateSelectTitleContainer}>
-              <span className={styles.rentDateTitle}>기간선택</span>
-              { show ? <span className={styles.alertText}>기간을 선택해주세요.</span> : null}
-            </div>
-            <div className={styles.buttonContainer}>
-              <div className={styles.selectButtonContainer}>
-                <div className={styles.selectButton}>
-                  <h5>선착순</h5>
-                  <span>바로 대여가 가능합니다.</span>
-                </div>
-                <div className={styles.selectButton}>
-                  <h5>기간제</h5>
-                  <span>일정기간 대여가 가능합니다.</span>
-                </div>
-              </div>
-              <button className={styles.rentSubmitButton} type="submit">대여하기</button>
-            </div>
-
+          <div className={styles.productListContainer}>
+            {
+              myRentals.map((item) => (
+                <MyRentalCard item={item} />
+              ))
+            }
           </div>
 
-        </div>
-      </section>
+        </section>
 
-      <section className={styles.rentPrecautionsContainer}>
-        <div className={styles.noticeContainer}>
-          <h3>사용시 주의사항</h3>
-          <div>
-            <p>
-              {/* eslint-disable-next-line max-len */}
-              1. 천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을 천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을 천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을 천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을
-              <br />
-              <br />
-              {/* eslint-disable-next-line max-len */}
-              2. 천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을 천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을 천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을 천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을
-              <br />
-              <br />
-              {/* eslint-disable-next-line max-len */}
-              3. 천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을 천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을 천자만홍이 안고, 청춘의 것이다.보라, 천하를 기관과 길지 모래뿐일 피다. 구하기 착목한는 실로 주는 것이다. 동력은 소금이라 실현에 같이, 청춘 아름답고 심장의 되려니와, 때문이다. 어디 만물은 부패를 이 착목한는 아니한 두손을
-            </p>
+        <section className={styles.rentProductlListSection}>
+          {/*  물품 목록  */}
+          <div className={styles.titleTopContainer}>
+            <div className={styles.titleContainer}>
+              <h3 className={styles.title}>물품목록</h3>
+            </div>
 
+            <div className={styles.productTotalContainer}>
+              <h3>
+                총
+                {allClubProduct !== null ? allClubProduct.length : 0}
+                개
+              </h3>
+              <img src="/icons/중앙정렬.png" alt="filter" />
+            </div>
           </div>
-        </div>
-      </section>
+
+          <div className={styles.productListContainer}>
+            {
+                allClubProduct.map((product) => (
+                  <ProductCard
+                    productId={product.id}
+                    clubId={product.clubId}
+                    name={product.name}
+                    left={product.left}
+                    thumbNail={product.imagePath}
+                    max={product.max}
+                  />
+                ))
+            }
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
