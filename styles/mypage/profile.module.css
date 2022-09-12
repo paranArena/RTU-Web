@@ -96,6 +96,7 @@
 .profileModalUserStudentIntoContainer{
     width : 100%;
     height : 65px;
+    margin-top : 25px;
 
     display: flex;
     flex-direction: column;

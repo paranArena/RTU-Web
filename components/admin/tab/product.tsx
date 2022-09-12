@@ -1435,7 +1435,7 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
             {/* 타이틀 */}
             <h1>대여 관리</h1>
             <div>
-              <IoReloadCircleOutline onClick={reload} size={30} />
+              <IoReloadCircleOutline style={{ cursor: 'pointer' }}  onClick={reload} size={30} />
             </div>
           </div>
 

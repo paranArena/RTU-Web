@@ -205,13 +205,13 @@ function MemberManageTab({ clubId } : IMemberManageTab) {
         </div>
         <div className={styles.selectButtonContainer}>
           {/* 버튼 */}
-          <div className={styles.selectDivContainer}>
-            <span>전체수락</span>
-          </div>
-          <div className={styles.selectDivContainer}>
-            <img className={styles.iconWithPadding} src="/icons/선택.png" alt="선택하기" />
-            <span>선택</span>
-          </div>
+          {/* <div className={styles.selectDivContainer}> */}
+          {/*  <span>전체수락</span> */}
+          {/* </div> */}
+          {/* <div className={styles.selectDivContainer}> */}
+          {/*  <img className={styles.iconWithPadding} src="/icons/선택.png" alt="선택하기" /> */}
+          {/*  <span>선택</span> */}
+          {/* </div> */}
         </div>
 
         <div className={styles.memberListContainer}>
@@ -220,7 +220,7 @@ function MemberManageTab({ clubId } : IMemberManageTab) {
             appliedList.map((apply) => (
               <MemberListCard
                 id={apply.id}
-                profileImage="https://picsum.photos/200"
+                profileImage="/images/defaultUser.png"
                 type="application"
                 major={apply.major}
                 name={apply.name}
@@ -257,7 +257,7 @@ function MemberManageTab({ clubId } : IMemberManageTab) {
           {
             memberList.map((member) => (
               <MemberListCard
-                profileImage="/images/defaultUserImage.png"
+                profileImage="/images/defaultUser.png"
                 name={member.name}
                 id={member.id}
                 major={member.major}

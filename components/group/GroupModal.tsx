@@ -26,6 +26,7 @@ function GroupModal({ clubData }: IGroupModal) {
   const [show, setShow] = useState(false);
   const [role, setRole] = useState('NONE');
   const [Alert, setAlert] = useState<boolean>(false);
+  const [clubMembers, setClubMembers] = useState<number>(0);
 
   const router = useRouter();
 
@@ -129,7 +130,22 @@ function GroupModal({ clubData }: IGroupModal) {
       .catch((err) => {
         console.log(err);
       });
+
+    axios.get(`${SERVER_API}/clubs/${clubData.id}/members/search/all`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          setClubMembers(res.data.data.length);
+        }
+      });
   }, []);
+
+  useEffect(() => {
+
+  }, [clubMembers]);
 
   useEffect(() => {
     if (currentTab === 'HOME') {
@@ -211,7 +227,6 @@ function GroupModal({ clubData }: IGroupModal) {
     }
   }, [currentTab]);
 
-  const memberNumber = 9;
   console.log('GroupModal : ', clubData);
 
   return (
@@ -237,7 +252,7 @@ function GroupModal({ clubData }: IGroupModal) {
               <h1 className={styles.groupName}>{clubData.name}</h1>
               <span className={styles.groupMemberNumber}>
                 일반회원 &nbsp; 멤버 &nbsp;
-                {memberNumber}
+                {clubMembers}
                 명
               </span>
             </div>

@@ -24,6 +24,7 @@ function SearchCardContainer({ render }:SearchCardContainerProps) {
                   id={item.id}
                   introduction={item.introduction}
                   thumbnailPath={item.thumbnailPath}
+                  memberNumber={item.clubMemberSize}
                 />
               );
             })
