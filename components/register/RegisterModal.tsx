@@ -85,7 +85,7 @@ function RegisterModal({
     type: 'password',
   });
 
-  const EventCertificationRequest = (e :React.MouseEvent<HTMLButtonElement>) => {
+  const EventCertificationRequest = () => {
     const { phoneNumber, studentId } = signupProps;
     axios.get(`${SERVER_API}/members/duplicate/${phoneNumber}/${studentId}/exists`)
       .then((res) => {
