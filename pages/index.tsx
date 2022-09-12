@@ -8,10 +8,10 @@ import Header from 'components/common/Header';
 import axios from 'axios';
 import { SERVER_API } from '../config';
 
-axios.defaults.baseURL = 'http://ec2-15-165-38-225.ap-northeast-2.compute.amazonaws.com:8080/';
+axios.defaults.baseURL = 'http://ec2-15-165-38-225.ap-northeast-2.compute.amazonaws.com:80/';
 axios.defaults.withCredentials = true;
 
-axios.defaults.baseURL = 'http://ec2-15-165-38-225.ap-northeast-2.compute.amazonaws.com:8080/';
+axios.defaults.baseURL = 'http://ec2-15-165-38-225.ap-northeast-2.compute.amazonaws.com:80/';
 axios.defaults.withCredentials = true;
 
 export interface SignUpProps {

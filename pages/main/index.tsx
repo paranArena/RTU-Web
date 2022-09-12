@@ -5,7 +5,7 @@ function Main() {
   return (
     <div className={styles.mainContainer}>
       <div>
-        qwr
+        w
       </div>
     </div>
   );

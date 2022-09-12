@@ -12,7 +12,7 @@ import { getLocation, measure } from '../../../components/common/getCurrentPosit
 // const KAKAO_API_KEY = 'KAKAO_API_KEY';
 
 export interface MapProps {
-  latitude: number; // 위도22222
+  latitude: number; // 위도
   longitude: number; // 경도
 }
 

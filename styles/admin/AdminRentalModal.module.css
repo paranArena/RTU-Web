@@ -85,6 +85,8 @@
 }
 
 .NumberingRentalItemLeftContainer{
+    margin-top : 10px;
+    margin-left : 5px;
     width : 60%;
     height : 100%;
 
@@ -92,7 +94,7 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    padding : 20px;
+    padding : 10px;
 }
 
 
@@ -111,9 +113,8 @@
     font-weight: 500;
     font-size: 18px;
 
-    display: flex;
-    align-items: center;
-    text-align: center;
+    /*display: flex;*/
+    /*align-items: center;*/
     letter-spacing: -0.6426px;
     margin-right : 10px;
 
@@ -175,7 +176,6 @@
 }
 
 .rentDate{
-
     height : 30%;
     font-style: normal;
     font-weight: 400;
@@ -195,7 +195,7 @@
     flex-direction: row;
     align-items: center;
 
-    margin-bottom : 5px;
+    /*margin-bottom : 5px;*/
 }
 
 .rentNreturnButton{
