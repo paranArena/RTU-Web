@@ -10,7 +10,8 @@ function GroupMain() {
   const [clubData, setClubData] = useState<ClubData | null>(null);
 
   useEffect(() => {
-    if (router !== undefined && router !== null) {
+    console.log('fghfghh');
+    if (router !== undefined && router !== null && router.query.id !== undefined) {
       console.log(router.query.id);
       axios.get(`${SERVER_API}/clubs/${router.query.id}/info`, {
         headers: {
@@ -26,7 +27,7 @@ function GroupMain() {
           console.log(err);
         });
     }
-  }, []);
+  }, [router.query]);
 
   return (
     <div className={styles.outerContainer}>

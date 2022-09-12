@@ -41,13 +41,11 @@ function GroupModal({ clubData }: IGroupModal) {
 
         },
       },
-    ).then((res) => {
-      console.log(res);
+    ).then(() => {
       alert('탈퇴 성공');
       window.history.back();
     })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         alert('탈퇴 실패');
       });
   };
