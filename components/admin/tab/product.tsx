@@ -206,11 +206,8 @@ function ReturnItemCard({
   let Day;
   let ExpDateString;
 
-  console.log(expDate);
   if (expDate !== null) {
-    console.log('expDate !== null');
     const expireDate = new Date(expDate.concat('z'));
-    console.log('expireDate : ', expireDate);
     Year = expireDate.getFullYear().toString();
     Month = (expireDate.getMonth() + 1).toString();
     Day = expireDate.getDate().toString();
@@ -1319,8 +1316,8 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
       }).then((res) => {
         if (res.status === 200) {
           console.log('All search : ', res.data.data);
-          const reserve = [];
-          const rental = [];
+          let reserve = [];
+          let rental = [];
           if (Array.isArray(res.data.data)) {
             res.data.data.forEach((item) => {
               if (item.rentalInfo.rentalStatus === 'WAIT') {
@@ -1328,6 +1325,18 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
               } else if (item.rentalInfo.rentalStatus === 'RENT') {
                 rental.push(item);
               }
+            });
+
+            reserve = reserve.sort((a, b) => {
+              const aDate = new Date((a.rentalInfo.rentDate.concat('z')));
+              const bDate = new Date((b.rentalInfo.rentDate.concat('z')));
+              return bDate.valueOf() - aDate.valueOf();
+            });
+
+            rental = rental.sort((a, b) => {
+              const aDate = new Date((a.rentalInfo.expDate.concat('z')));
+              const bDate = new Date((b.rentalInfo.expDate.concat('z')));
+              return aDate.valueOf() - bDate.valueOf();
             });
 
             setReserveList(reserve);
@@ -1344,8 +1353,13 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
         },
       }).then((res) => {
         if (res.status === 200) {
-          setReturnList(res.data.data);
-          console.log('returnList : ', returnList);
+          let tmp = res.data.data;
+          tmp = tmp.sort((a, b) => {
+            const aDate = new Date((a.returnDate.concat('z')));
+            const bDate = new Date((b.returnDate.concat('z')));
+            return bDate.valueOf() - aDate.valueOf();
+          });
+          setReturnList(tmp);
         }
       }).catch((err) => {
         console.log(err);
@@ -1385,7 +1399,7 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
             {/* 타이틀 */}
             <h1>대여 관리</h1>
             <div>
-              <IoReloadCircleOutline style={{ cursor: 'pointer' }}  onClick={reload} size={30} />
+              <IoReloadCircleOutline style={{ cursor: 'pointer' }} onClick={reload} size={30} />
             </div>
           </div>
 
@@ -1516,13 +1530,17 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
               {/*  )) */}
               {/* } */}
               {
-                productList.map((item) => {
-                  console.log('item : ', item);
-                  return (
-                  // eslint-disable-next-line max-len
-                    <ClubProductItem setViewAdminRental={setViewAdminRental} setClickItemId={setClickedItem} itemId={item.id} setShowAddProduct={setShowAddProduct} max={item.max} name={item.name} imagePath={item.imagePath} />
-                  );
-                })
+                productList.map((item) => (
+                  <ClubProductItem
+                    setViewAdminRental={setViewAdminRental}
+                    setClickItemId={setClickedItem}
+                    itemId={item.id}
+                    setShowAddProduct={setShowAddProduct}
+                    max={item.max}
+                    name={item.name}
+                    imagePath={item.imagePath}
+                  />
+                ))
               }
             </div>
           </div>

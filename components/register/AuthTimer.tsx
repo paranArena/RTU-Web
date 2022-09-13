@@ -52,4 +52,4 @@ function AuthTimer({ resetTimer } : AuthImer) {
   );
 }
 
-export { AuthTimer };
+export default AuthTimer;

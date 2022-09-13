@@ -84,33 +84,20 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
     }
   }, [settingClubData, active]);
 
-  const onChangeGroupName = (e) => {
-    console.log('onChangeGroupName');
-    e.preventDefault();
-    setName(e.currentTarget.value);
-    console.log('nanme : ', name);
-  };
-
-  const onChangeGroupIntroduce = (e) => {
-    console.log('onChangeGroupIntroduce');
-
-    e.preventDefault();
-    setIntroduction(e.currentTarget.value);
-    console.log('introduction : ', introduction);
-  };
-
   const onChangeGroupTag = (e) => {
     e.preventDefault();
-    console.log(e.currentTarget.value);
-    setHashTag(e.currentTarget.value);
-    console.log(hashTag);
+    console.log(hashTag.length);
+    // 입력한 해시태그 길이가 36 이하면 setHashtag
+    // 입력한 해시태그 길이가 36을 넘으면 e.currentTarget.value = hashtag;
+    if (e.currentTarget.value.length <= 36) {
+      setHashTag(e.currentTarget.value);
+    } else {
+      e.currentTarget.value = hashTag;
+    }
   };
 
   const onClickSettingButton = (e : React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log('hashtags : ', clubData.hashtags);
-    console.log('name : ', name);
-    console.log('introduction : ', introduction);
 
     const data = new FormData();
     if (name !== clubData.name) {
@@ -143,7 +130,6 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
     // }
     console.log('imgData ', imgData);
 
-    // TODO:: BACKEND API 아직 완성 안됨. 구현해야 함.
     axios.put(`${SERVER_API}/clubs/${id}/info`, data, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -214,7 +200,7 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
             <span
               className={stylesModal.explainText}
             >
-              #과 띄어쓰기를 포함해 영어는 최대 36글자, 한글은 24글자까지 가능합니다.
+              #과 띄어쓰기를 포함해 최대 36글자까지 가능합니다.
             </span>
           </div>
 
@@ -229,8 +215,19 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
 
           <div className={stylesModal.introduceContainer}>
             <span className={styles.modalText}>소개글</span>
-            <textarea ref={groupIntroRef} id="groupIntroduce" onChange={(e) => { setSettingClubData({ ...settingClubData, introduction: e.currentTarget.value }); }} className={stylesModal.inputBoxIntro} />
-            <span className={stylesModal.explainText}>띄어쓰기 포함 한글 130글자, 영어 150글자까지 가능합니다.</span>
+            <textarea
+              ref={groupIntroRef}
+              id="groupIntroduce"
+              onChange={(e) => {
+                if (e.currentTarget.value.length <= 130) {
+                  setSettingClubData({ ...settingClubData, introduction: e.currentTarget.value });
+                } else {
+                  e.currentTarget.value = settingClubData.introduction;
+                }
+              }}
+              className={stylesModal.inputBoxIntro}
+            />
+            <span className={stylesModal.explainText}>띄어쓰기 포함 130글자까지 가능합니다.</span>
           </div>
 
         </div>
@@ -581,7 +578,8 @@ function AdminPage() {
           {/* TODO:: DashBoard */}
           {
             menu.dashBoard
-              ? <DashBoard />
+              ? <div>업데이트 후 추가될 기능입니다.</div> // TODO: dash board update
+            // <DashBoard />
               : null
           }
           {
@@ -615,5 +613,4 @@ function AdminPage() {
     </div>
   );
 }
-
 export default AdminPage;

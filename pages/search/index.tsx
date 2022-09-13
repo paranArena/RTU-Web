@@ -13,20 +13,11 @@ interface ClubSearchProps {
   isSearched: boolean;
 }
 
-async function SearchRequest(query : string) {
+async function SearchRequest(query: string) {
   const result = [];
-
-  console.log(query);
-  console.log(query);
-  console.log(query);
-  console.log(query);
-  console.log(query);
-  console.log(query);
-  console.log(query);
-  console.log(query);
-
   // 전체 클럽 검색
-  if (query === '') {
+  // FIXME :: 임시방편
+  if (query === 'all') {
     await axios.get(`${SERVER_API}/clubs/search/all`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -94,35 +85,14 @@ async function SearchRequest(query : string) {
         console.log(error);
       });
   }
-  console.log(result);
-  if (result[0] !== undefined) {
-    console.log('result[0]!==undefined');
-    console.log('new Array');
-    console.log('new Array');
-    console.log('new Array');
-    console.log('new Array');
-    console.log('new Array');
-    console.log('new Array');
-    console.log('new Array');
-    console.log('new Array');
-    console.log('new Array');
-    console.log('new Array');
-    console.log('new Array');
-    console.log('new Array');
-    console.log('new Array');
-    console.log('new Array');
-    console.log('new Array');
-    console.log('new Array');
-
+  console.log('    result    :', result);
+  if (result.length !== 0) {
     const newArray = result.filter((item, i) => (
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       result.findIndex((item2, j) => item.id === item2.id) === i
     ));
-    console.log(newArray);
     return newArray;
   }
-  console.log(result);
-
   return null;
 }
 
@@ -142,7 +112,13 @@ function SearchResult({ isSearched } : ISearchResult) {
   // const [isClick, setIsClick] = useState<boolean>(false);
 
   useEffect(() => {
-    setQuery(router.query.input);
+    console.log('uesEffect : [router.query.input] : ', router.query.input);
+
+    if (router.query.input === '') {
+      setQuery('all');
+    } else {
+      setQuery(router.query.input);
+    }
   }, [router.query.input]);
 
   useEffect(() => {
@@ -159,7 +135,6 @@ function SearchResult({ isSearched } : ISearchResult) {
           setClubs(searchResult);
         }
       }
-
       if (query !== undefined) {
         fetchRequestSearch();
       }

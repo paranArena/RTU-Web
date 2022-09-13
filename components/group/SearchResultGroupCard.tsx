@@ -27,8 +27,6 @@ function SearchResultGroupCard({
   const [role, setRole] = useState<string>(clubRole);
   const router = useRouter();
 
-  console.log('imagePath : ', thumbnailPath);
-
   useEffect(() => {
     if (role === 'WAIT') {
       setFlag(true);
@@ -39,11 +37,6 @@ function SearchResultGroupCard({
 
   const onClickGroupCard = (e : React.MouseEvent<HTMLElement | HTMLButtonElement>) => {
     e.preventDefault();
-
-    console.log('onClickGroupCard');
-    console.log('target : ', e.target);
-    console.log('currentTarget : ', e.currentTarget);
-
     if (e.currentTarget.id === 'container') {
       router.push({
         pathname: '/group/main',
