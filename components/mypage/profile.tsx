@@ -89,9 +89,9 @@ function ProfileModal() {
   const EventQuitService = (e :React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    setShowQuitAlert(false);
-    localStorage.removeItem('token');
-    router.push('/');
+    setShowQuitAlert(true);
+    // localStorage.removeItem('token');
+    // router.push('/');
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -103,14 +103,17 @@ function ProfileModal() {
     })
       .then((res) => {
         console.log(res);
-        if (res.data.data === 200) {
+        if (res.status === 200) {
+          alert('탈퇴 성공');
           localStorage.removeItem('token');
-          window.location.assign('/');
+          router.push('/');
         }
       })
       .catch((err) => {
-        console.log('localStorage.getItem("token") : ', localStorage.getItem('token'));
         console.log(err);
+        if (err.response.data.code === 'CLUB_OWNER_CANT_QUIT') {
+          alert(err.response.data.message);
+        }
       });
   };
 

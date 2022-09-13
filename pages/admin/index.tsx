@@ -578,7 +578,11 @@ function AdminPage() {
           {/* TODO:: DashBoard */}
           {
             menu.dashBoard
-              ? <div>업데이트 후 추가될 기능입니다.</div> // TODO: dash board update
+              ? (
+                <div className={styles.dashboardImgContainer}>
+                  <img src="/images/dashboardImg.png" alt="임시 이미지" />
+                </div>
+              )
             // <DashBoard />
               : null
           }

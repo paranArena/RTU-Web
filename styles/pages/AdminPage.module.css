@@ -381,3 +381,15 @@
     color: var(--primary);
 }
 
+.dashboardImgContainer{
+    width : 100%;
+    height : 100%;
+
+
+}
+
+.dashboardImgContainer img{
+    width : 100%;
+    height : 100%;
+}
+
