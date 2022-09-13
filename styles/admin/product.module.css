@@ -819,11 +819,6 @@
     curosr : pointer;
 }
 
-.rentalText{
-
-}
-
-
 .contour{
     width : 1px;
     height : 90%;
@@ -1413,9 +1408,21 @@
     height : 80%;
 
     display: flex;
+    flex-direction: row;
+    margin-left : 10px;
+
+    align-items: center;
+}
+
+.ReturnItemTextInfoContainer{
+    width : calc(100% - 90px);
+    height : 80%;
+
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: space-evenly;
+    justify-content: center;
+    margin-left : 10px;
 }
 
 .RentalItemProductName{
@@ -1486,7 +1493,7 @@
     text-align: center;
     letter-spacing: -0.6426px;
 
-    color: #000000;
+    color: black;
 }
 
 .redText{
@@ -1514,4 +1521,58 @@
 
 
     color: var(--primary);
+}
+
+.rentalInfoTextLeft{
+    width : 60%;
+    height : 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.rentalInfoTextRight{
+    width : 40%;
+    height : 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+   align-items: flex-end;
+}
+
+.timeText{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.6426px;
+
+    color: red;
+}
+
+.dateText{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: -0.6426px;
+
+    color: black;
+}
+
+.textContainer{
+    width : 70%;
+    height : 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }

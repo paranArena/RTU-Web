@@ -202,8 +202,9 @@ function RegisterModal({
             alert('중복된 이메일입니다.');
             setIsOverlap({ ...isOverlap, flag: false });
           } else {
-            // 중복되는 이메일이 존재하지 않음.
+            // 중복되는 이메일이 존재하지 않음.인
             setIsOverlap({ flag: true, overlap: signupProps.email });
+            alert('가입가능한 아이디 입니다.');
           }
         })
         .catch((error) => console.log(error));

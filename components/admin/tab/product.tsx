@@ -279,7 +279,7 @@ function ReturnItemCard({
             />
           </div>
 
-          <div className={styles.RentalItemTextInfoContainer}>
+          <div className={styles.ReturnItemTextInfoContainer}>
             <span className={styles.RentalItemProductName}>{(productName.concat('-0')).concat(numbering.toString())}</span>
             <span className={styles.RentalItemMemberName}>{memberName}</span>
             <span className={styles.RentalItemRentalDate}>{ViewDateString}</span>
@@ -356,6 +356,23 @@ function RentalItemCard({
   const RentDate = new Date(rentalInfo.rentDate.concat('z'));
   const ExpDate = new Date(rentalInfo.expDate.concat('z'));
 
+  let hour: string | number = ExpDate.getHours();
+  let minute: string | number = ExpDate.getMinutes();
+
+  console.log('hour : ', hour);
+  console.log('minute : ', minute);
+  if (hour < 10 && typeof hour === 'number') {
+    hour = '0'.concat(hour.toString());
+  } else {
+    hour = hour.toString();
+  }
+
+  if (minute < 10 && typeof minute === 'number') {
+    minute = '0'.concat(minute.toString());
+  } else {
+    minute = minute.toString();
+  }
+
   let Year = RentDate.getFullYear().toString();
   let Month = (RentDate.getMonth() + 1).toString();
   let Day = RentDate.getDate().toString();
@@ -388,16 +405,25 @@ function RentalItemCard({
           </div>
 
           <div className={styles.RentalItemTextInfoContainer}>
-            <span className={styles.RentalItemProductName}>{name.concat('-0').concat(numbering.toString())}</span>
-            <span className={styles.RentalItemMemberName}>{memberName}</span>
-            <span className={styles.RentalItemRentalDate}>{RentDateString.concat('~').concat(ExpDateString)}</span>
+            <div className={styles.rentalInfoTextLeft}>
+              <span className={styles.RentalItemProductName}>{name.concat('-0').concat(numbering.toString())}</span>
+              <span className={styles.RentalItemMemberName}>{memberName}</span>
+              <span className={styles.RentalItemRentalDate}>{RentDateString.concat('~').concat(ExpDateString)}</span>
+            </div>
+
+            <div className={styles.rentalInfoTextRight}>
+              <div className={styles.textContainer}>
+                <span className={styles.RentalItemReturnDateTitle}>반납시간</span>
+                <span className={styles.timeText}>{hour.concat(':').concat(minute)}</span>
+              </div>
+            </div>
           </div>
 
         </div>
 
         <div className={styles.RentalItemRightContainer}>
-          <span className={styles.RentalItemReturnDateTitle}>반납예정</span>
-          <span className={styles.RentalItemReturnDate}>{ReturnDate}</span>
+          <span className={styles.RentalItemReturnDateTitle}>반납일</span>
+          <span className={styles.timeText}>{ReturnDate}</span>
         </div>
 
       </div>
@@ -1330,7 +1356,7 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
             reserve = reserve.sort((a, b) => {
               const aDate = new Date((a.rentalInfo.rentDate.concat('z')));
               const bDate = new Date((b.rentalInfo.rentDate.concat('z')));
-              return bDate.valueOf() - aDate.valueOf();
+              return aDate.valueOf() - bDate.valueOf();
             });
 
             rental = rental.sort((a, b) => {
