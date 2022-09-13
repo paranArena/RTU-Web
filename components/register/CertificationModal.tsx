@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import styles from 'styles/main/CertificationModal.module.css';
 import axios from 'axios';
-import { AuthTimer } from './AuthTimer';
+import AuthTimer from './AuthTimer';
 import { SERVER_API } from '../../config';
 import { SignUpProps } from '../../pages';
 
@@ -76,7 +76,7 @@ function CertificationModal({
         }
         console.log('res : ', res);
       })
-      .catch((error) => {
+      .catch(() => {
         setIsNotCorrect(true);
       });
   };
