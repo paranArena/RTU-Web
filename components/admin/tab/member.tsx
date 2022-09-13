@@ -47,8 +47,7 @@ function MemberListCard(
       // eslint-disable-next-line consistent-return
     }).then((res) => {
       if (res.status === 200) {
-        console.log(res);
-        return <AlertModal type="info" top={30} titleText="성공" onClickEvent={() => { alert('성공'); }} />;
+        alert('클럽 멤버 삭제 성공');
       }
     }).catch((err) => {
       console.log(err);

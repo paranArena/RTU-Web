@@ -23,6 +23,7 @@ export function ParseTag(hashtags : string) : string[] {
 
   let flag = true;
   while (flag) {
+    console.log('flag : ', flag);
     const startIdx = string.search(rexStart);
     const endIdx = string.search(rexEnd);
 
@@ -40,6 +41,8 @@ export function ParseTag(hashtags : string) : string[] {
       flag = false;
     }
   }
+
+  console.log('TAG PARSING : ', result);
   return result;
 }
 
@@ -78,26 +81,32 @@ function AddGroupModal({
 
   const onChangeGroupIntroduce = (e) => {
     e.preventDefault();
-    setGroupForm({
-      ...groupForm,
-      introduction: e.currentTarget.value,
-    });
+
+    if (e.currentTarget.value.length <= 130) {
+      setGroupForm({
+        ...groupForm,
+        introduction: e.currentTarget.value,
+      });
+    } else {
+      e.currentTarget.value = groupForm.introduction;
+    }
   };
 
   const onChangeGroupTag = (e) => {
     e.preventDefault();
-    setGroupForm({
-      ...groupForm,
-      hashtags: e.currentTarget.value,
-    });
+    if (e.currentTarget.value.length <= 36) {
+      setGroupForm({
+        ...groupForm,
+        hashtags: e.currentTarget.value,
+      });
+    } else {
+      e.currentTarget.value = groupForm.hashtags;
+    }
   };
 
   // 클럽 생성 버튼 클릭 이벤트
   const onClickAddClubButton = (e : React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
-    console.log(groupForm);
-
     if (groupForm.name !== '' && groupForm.introduction !== '') {
       setIsButtonActive(true);
     } else {
@@ -109,6 +118,7 @@ function AddGroupModal({
     }
 
     console.log('parse tag : ', groupForm.hashtags);
+    console.log('groupName : ', groupForm.name);
 
     const data = new FormData();
     data.append('name', groupForm.name);
@@ -200,7 +210,7 @@ function AddGroupModal({
           <div>
             <span className={styles.contentTitle}>태그</span>
             <input onChange={onChangeGroupTag} className={styles.inputLineTag} type="text" />
-            <span className={styles.explainText}>#과 띄어쓰기를 포함해 영어는 최대 36글자, 한글은 24글자까지 가능합니다.</span>
+            <span className={styles.explainText}>#과 띄어쓰기를 포함해 최대 36자까지 가능합니다.</span>
           </div>
 
         </div>
@@ -215,7 +225,7 @@ function AddGroupModal({
           <div className={styles.introduceContainer}>
             <span className={styles.contentTitle}>소개글</span>
             <textarea onChange={onChangeGroupIntroduce} className={styles.inputBoxIntro} />
-            <span className={styles.explainText}>띄어쓰기 포함 한글 130글자, 영어 150글자까지 가능합니다.</span>
+            <span className={styles.explainText}>띄어쓰기 포함 130글자까지 가능합니다.</span>
           </div>
 
         </div>
