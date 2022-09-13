@@ -100,6 +100,7 @@ interface ISearchResult {
   isSearched :ClubSearchProps
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function SearchResult({ isSearched } : ISearchResult) {
   const [clubs, setClubs] = useState<ClubDataModal[] | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -125,6 +126,7 @@ function SearchResult({ isSearched } : ISearchResult) {
     if (mount === false) {
       setMount(true);
     } else {
+      // eslint-disable-next-line no-inner-declarations
       async function fetchRequestSearch() {
         const searchResult = await SearchRequest(query as string);
 
