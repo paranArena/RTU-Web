@@ -71,10 +71,10 @@ function CertificationModal({
       verificationCode: certNumber,
     })
       .then((res) => {
+        console.log(SERVER_API);
         if (res.status === 200) {
           setRegisterSuccess(true);
         }
-        console.log('res : ', res);
       })
       .catch(() => {
         setIsNotCorrect(true);
@@ -89,8 +89,8 @@ function CertificationModal({
 
     console.log('인증번호 재발송');
     axios.post(`${SERVER_API}/members/email/requestCode`, { email })
-      .then((res) => {
-        console.log(res);
+      .then(() => {
+        alert('인증번호가 재발송 되었습니다.');
       }).catch((err) => {
         console.log(err);
       });
@@ -159,7 +159,7 @@ function CertificationModal({
           </div>
 
           {isNotCorrect ? (
-            <span className={styles.notCorrectCert}>인증번호가 일치하지 않습니다.</span>
+            <span className={styles.notCorrectCert}>인증번호가 일치하지 않거나 만료되었습니다.</span>
           ) : (
             <span className={styles.notCorrectCert}>ㅤ</span>
           )}
