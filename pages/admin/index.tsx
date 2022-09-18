@@ -409,7 +409,7 @@ const menuDefault:IMenuTabState = {
 };
 
 function AdminPage() {
-  const [menu, setMenu] = useState<IMenuTabState>({ ...menuDefault, dashBoard: true });
+  const [menu, setMenu] = useState<IMenuTabState>({ ...menuDefault, profileSetting: true });
   const [showDeleteAlert, setShowDeleteAlert] = useState<boolean>(false);
   const [clubId, setClubId] = useState('');
 
