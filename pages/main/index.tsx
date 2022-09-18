@@ -1,11 +1,37 @@
-import React from 'react';
-import styles from 'styles/pages/MyPage.module.css';
+import React, { useEffect, useState } from 'react';
+import styles from 'styles/pages/Main.module.css';
+import axios from 'axios';
+import { SERVER_API } from '../../config';
 
 function Main() {
+  const [user, setUser] = useState('');
+
+  useEffect(() => {
+    axios.get(
+      `${SERVER_API}/members/my/info`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      },
+    ).then((res) => {
+      setUser(res.data.data.name);
+    });
+  }, []);
+
   return (
     <div className={styles.mainContainer}>
-      <div>
-        w
+      <div className={styles.mainInnerContainer}>
+        <span className={user === '' ? styles.mainPageTextHidden : styles.mainPageText}>
+          Hello,
+          {' '}
+          {user}
+        </span>
+        <span className={user === '' ? styles.mainPageText2Hidden : styles.mainPageText2}>
+          Welcome,
+          {' '}
+          Ren2U
+        </span>
       </div>
     </div>
   );

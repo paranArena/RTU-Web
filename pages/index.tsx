@@ -7,6 +7,7 @@ import RegisterSuccessModal from 'components/register/RegisterSuccessModal';
 import Header from 'components/common/Header';
 import axios from 'axios';
 import { SERVER_API } from '../config';
+import ResetPassword from '../components/register/ResetPassword';
 
 // axios.defaults.withCredentials = true;
 // axios.defaults.baseURL = 'http://15.165.38.225:8080';
@@ -47,16 +48,15 @@ function Login() {
   const [registerSuccess, setRegisterSuccess] = useState<boolean>(false);
   const [signupProps, setSignUpProps] = useState<SignUpProps>(defaultSignUpProps);
 
+  const [viewPasswordReset, setViewPasswordReset] = useState(false);
+
   const router = useRouter();
 
   const [loginData, setLoginData] = useState<LoginDate>({ email: '', password: '' });
   // Cert Modal Props
   const [isCert, setIsCert] = useState<boolean>(false);
 
-  const onClickLoginButton = (e : React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    console.log(loginData);
-
+  const onClickLoginButton = () => {
     if (loginData.email === '' && loginData.password === '') {
       alert('아이디와 비밀번호를 입력해주세요');
     } else {
@@ -75,12 +75,6 @@ function Login() {
     }
   };
 
-  useEffect(() => {}, []);
-
-  useEffect(() => {
-    console.log('localStorage : ', localStorage);
-  }, []);
-
   const onClickToggleModal = useCallback(() => {
     setIsRegisterOpen(!isRegisterOpen);
   }, [isRegisterOpen]);
@@ -98,9 +92,6 @@ function Login() {
     currentLoginData.password = e.currentTarget.value;
     setLoginData(currentLoginData);
   };
-  useEffect(() => {
-    console.log('uE isCert :: loginData : ', loginData);
-  }, [isCert]);
 
   return (
     <div className={styles.container}>
@@ -154,6 +145,12 @@ function Login() {
               placeholder="Email"
             />
             <input
+              onKeyPress={(e) => {
+                if (e.key === 'Enter') {
+                  // @ts-ignore
+                  onClickLoginButton();
+                }
+              }}
               onChange={onChangePasswordHandler}
               name="password"
               type="password"
@@ -168,16 +165,22 @@ function Login() {
             <div className={styles.wrongInputHidden} />
           )}
 
+          {
+            viewPasswordReset
+              ? <ResetPassword setResetPasswordView={setViewPasswordReset} />
+              : null
+          }
+
           <div className={styles.submitLinkBox}>
-            <button onClick={onClickLoginButton} className={styles.submitButton} type="submit">
+            <button onClick={onClickLoginButton} className={loginData.email === '' || loginData.password === '' ? styles.submitButton : styles.submitButtonActive} type="submit">
               로그인
             </button>
 
             <div className={styles.passwordSignBox}>
               {/* TODO 회원가입 Link Tag 삭제 */}
               <div className={styles.passwordSignLink}>
-                {/* eslint-disable-next-line react/button-has-type */}
-                <button onClick={() => { alert('아직 지원하지 않는 기능입니다.'); }} className={styles.buttonStyle}>비밀번호 찾기</button>
+                {/* eslint-disable-next-line react/button-has-type,max-len */}
+                <button onClick={() => { setViewPasswordReset(true); }} className={styles.buttonStyle}>비밀번호 찾기</button>
               </div>
               <div className={styles.divide} />
               <div className={styles.passwordSignLink}>

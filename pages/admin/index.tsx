@@ -409,7 +409,7 @@ const menuDefault:IMenuTabState = {
 };
 
 function AdminPage() {
-  const [menu, setMenu] = useState<IMenuTabState>({ ...menuDefault, dashBoard: true });
+  const [menu, setMenu] = useState<IMenuTabState>({ ...menuDefault, profileSetting: true });
   const [showDeleteAlert, setShowDeleteAlert] = useState<boolean>(false);
   const [clubId, setClubId] = useState('');
 
@@ -480,13 +480,13 @@ function AdminPage() {
         <div className={styles.menuTabContainer}>
           {/* eslint-disable-next-line max-len */}
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
-          <h4
-            id="dashBoard"
-            onClick={onClickMenu}
-            className={menu.dashBoard ? styles.current : styles.disabled}
-          >
-            대시보드
-          </h4>
+          {/* <h4 */}
+          {/*  id="dashBoard" */}
+          {/*  onClick={onClickMenu} */}
+          {/*  className={menu.dashBoard ? styles.current : styles.disabled} */}
+          {/* > */}
+          {/*  대시보드 */}
+          {/* </h4> */}
           {/* eslint-disable-next-line max-len */}
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
           <h4
@@ -525,15 +525,16 @@ function AdminPage() {
           </h4>
           {/* eslint-disable-next-line max-len */}
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
-          <h4
-            id="event"
-            onClick={onClickMenu}
-            className={menu.event ? styles.current : styles.disabled}
-          >
-            이벤트 관리
-          </h4>
+          {/* <h4 */}
+          {/*  id="event" */}
+          {/*  onClick={onClickMenu} */}
+          {/*  className={menu.event ? styles.current : styles.disabled} */}
+          {/* > */}
+          {/*  이벤트 관리 */}
+          {/* </h4> */}
           <div>
-            <h4 className={menu.rentalActive ? styles.current : styles.disabled}>대여목록 활성화</h4>
+            {/* eslint-disable-next-line max-len */}
+            {/* <h4 className={menu.rentalActive ? styles.current : styles.disabled}>대여목록 활성화</h4> */}
             {/*
                 // TODO Toggle Button 구현 참고
                https://velog.io/@whljm1003/React-toggle-switch-%EA%B8%B0%EB%8A%A5 */}
