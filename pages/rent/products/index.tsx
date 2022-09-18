@@ -189,7 +189,7 @@ function RentalProductsPage() {
 
         axios({
           method: 'put',
-          url: `${SERVER_API}/clubs/${clubId}/rentals/${id}/apply`,
+          url: `http://15.165.38.225:8080/clubs/${clubId}/rentals/${id}/apply`,
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -214,7 +214,7 @@ function RentalProductsPage() {
   useEffect(() => {
     if (rentalItemData.items[0].id === 0) {
       const { clubId, productId } = router.query;
-      axios.get(`${SERVER_API}/clubs/${clubId}/products/${productId}`, {
+      axios.get(`http://15.165.38.225:8080/clubs/${clubId}/products/${productId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -229,7 +229,7 @@ function RentalProductsPage() {
           console.log(err);
         });
 
-      axios.get(`${SERVER_API}/members/my/rentals`, {
+      axios.get('http://15.165.38.225:8080/members/my/rentals', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -293,7 +293,7 @@ function RentalProductsPage() {
     if (clubId !== undefined && productId !== undefined) {
       console.log('물품 정보 요청');
 
-      axios.get(`${SERVER_API}/clubs/${clubId}/products/${productId}`, {
+      axios.get(`http://15.165.38.225:8080/clubs/${clubId}/products/${productId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -308,7 +308,7 @@ function RentalProductsPage() {
           console.log(err);
         });
 
-      axios.get(`${SERVER_API}/members/my/rentals`, {
+      axios.get('http://15.165.38.225:8080/members/my/rentals', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -332,7 +332,7 @@ function RentalProductsPage() {
       const itemId = myRentals.id;
       axios({
         method: 'delete',
-        url: `${SERVER_API}/clubs/${router.query.clubId}/rentals/${itemId}/cancel`,
+        url: `http://15.165.38.225:8080/clubs/${router.query.clubId}/rentals/${itemId}/cancel`,
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -391,7 +391,7 @@ function RentalProductsPage() {
       if (flag) {
         axios({
           method: 'post',
-          url: `${SERVER_API}/clubs/${router.query.clubId}/rentals/${rentalId}/request`,
+          url: `http://15.165.38.225:8080/clubs/${router.query.clubId}/rentals/${rentalId}/request`,
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -479,7 +479,7 @@ function RentalProductsPage() {
         axios(
           {
             method: 'put',
-            url: `${SERVER_API}/clubs/${router.query.clubId}/rentals/${itemId}/return`,
+            url: `http://15.165.38.225:8080/clubs/${router.query.clubId}/rentals/${itemId}/return`,
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`,
             },

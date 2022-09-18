@@ -18,7 +18,7 @@ async function SearchRequest(query: string) {
   // 전체 클럽 검색
   // FIXME :: 임시방편
   if (query === 'all') {
-    await axios.get(`${SERVER_API}/clubs/search/all`, {
+    await axios.get('http://15.165.38.225:8080/clubs/search/all', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
