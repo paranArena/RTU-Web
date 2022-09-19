@@ -63,7 +63,7 @@ function NumberingRentalItem({
         exp = new Date((item.rentalInfo.expDate).concat('z'));
 
         Year = exp.getFullYear().toString();
-        Month = exp.getMonth().toString();
+        Month = (exp.getMonth() + 1).toString();
         Day = exp.getDate().toString();
 
         view = Year.concat('.');
@@ -75,16 +75,16 @@ function NumberingRentalItem({
       if (item.rentalInfo.rentDate !== null) {
         rent = new Date((item.rentalInfo.rentDate).concat('z'));
         Year = rent.getFullYear().toString();
-        Month = rent.getMonth().toString();
+        Month = (rent.getMonth() + 1).toString();
         Day = rent.getDate().toString();
 
         let view2 = Year.concat('.');
         view2 = view2.concat(Month);
         view2 = view2.concat('.');
         view2 = view2.concat(Day);
-
+        console.log(rent, 'Month', rent.getMonth());
         if (view !== null && view !== undefined) {
-          view = (view.concat('~')).concat(view2);
+          view = (view2.concat('~')).concat(view);
         } else {
           view = view2;
         }
