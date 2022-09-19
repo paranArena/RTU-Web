@@ -409,7 +409,7 @@ const menuDefault:IMenuTabState = {
 };
 
 function AdminPage() {
-  const [menu, setMenu] = useState<IMenuTabState>({ ...menuDefault, profileSetting: true });
+  const [menu, setMenu] = useState<IMenuTabState>({ ...menuDefault, rentalItemManage: true });
   const [showDeleteAlert, setShowDeleteAlert] = useState<boolean>(false);
   const [clubId, setClubId] = useState('');
 

@@ -123,7 +123,7 @@ function MyRentalCard({ item }:MyRentalProps) {
       axios(
         {
           method: 'put',
-          url: `http://15.165.38.225:8080/clubs/${item.clubId}/rentals/${item.id}/return`,
+          url: `https://ren2u.shop/clubs/${item.clubId}/rentals/${item.id}/return`,
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -162,7 +162,7 @@ function MyRentalCard({ item }:MyRentalProps) {
       axios(
         {
           method: 'put',
-          url: `http://15.165.38.225:8080/clubs/${item.clubId}/rentals/${item.id}/apply`,
+          url: `https://ren2u.shop/clubs/${item.clubId}/rentals/${item.id}/apply`,
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -250,7 +250,7 @@ function RentPage() {
 
   useEffect(() => {
     axios.get(
-      'http://15.165.38.225:8080/members/my/rentals',
+      'https://ren2u.shop/members/my/rentals',
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -269,7 +269,7 @@ function RentPage() {
     if (mount === 0) {
       setMount(1);
     } else if (allClubId === null) {
-      axios.get('http://15.165.38.225:8080/members/my/clubs', {
+      axios.get('https://ren2u.shop/members/my/clubs', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -294,7 +294,7 @@ function RentPage() {
   useEffect(() => {
     if (allClubId !== null) {
       allClubId.forEach((id) => {
-        axios.get(`http://15.165.38.225:8080/clubs/${id}/products/search/all`, {
+        axios.get(`https://ren2u.shop/clubs/${id}/products/search/all`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
