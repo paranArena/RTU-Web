@@ -474,7 +474,6 @@ function ClubProductItem({
           {/* TODO 무슨 기능인지 모르겠음 */}
           <div className={styles.reserveNfifoQuantityContainer}>
             <span className={styles.quantityRound1}>{max}</span>
-            <span className={styles.quantityRound2}>0</span>
             {/* <img className={styles.icon} src="/icons/선착순.png" alt="icon1" /> */}
             {/* <img className={styles.icon} src="/icons/기간제.png" alt="icon2" /> */}
           </div>
