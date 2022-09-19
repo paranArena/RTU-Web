@@ -18,7 +18,7 @@ async function SearchRequest(query: string) {
   // 전체 클럽 검색
   // FIXME :: 임시방편
   if (query === 'all') {
-    await axios.get('http://15.165.38.225:8080/clubs/search/all', {
+    await axios.get('https://ren2u.shop/clubs/search/all', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
@@ -86,7 +86,7 @@ async function SearchRequest(query: string) {
       });
   }
   console.log('    result    :', result);
-  if (result.length !== 0) {
+  if (result.length !== 0 && result[0] !== undefined) {
     const newArray = result.filter((item, i) => (
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       result.findIndex((item2, j) => item.id === item2.id) === i

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from 'styles/pages/Login.module.css';
 import RegisterModal from 'components/register/RegisterModal';
@@ -9,8 +9,8 @@ import axios from 'axios';
 import { SERVER_API } from '../config';
 import ResetPassword from '../components/register/ResetPassword';
 
-// axios.defaults.withCredentials = true;
-// axios.defaults.baseURL = 'http://15.165.38.225:8080';
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = 'https://ren2u.shop';
 
 export interface SignUpProps {
   email: string
