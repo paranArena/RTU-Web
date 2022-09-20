@@ -118,7 +118,6 @@ export function NoticeDetailModal({ clubId, noticeId, setShowDetail }:NoticeDeta
       },
     ).then((res) => {
       setNotice(res.data.data);
-      console.log('detail', res.data.data);
     }).catch((err) => {
       console.log(err);
     });
@@ -226,13 +225,10 @@ function Notice() {
             if (Array.isArray(res.data.data)) {
               setNotificationList(res.data.data.sort((a, b) => b.id - a.id));
             }
-            console.log('mount : ', notificationList);
           }
-          console.log(res);
         })
         .catch((err) => {
           console.log('err.response : ', err.response);
-          console.log('err.response.data : ', err.response.data);
         });
     }
   }, [mount]);

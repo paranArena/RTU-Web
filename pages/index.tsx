@@ -60,11 +60,9 @@ function Login() {
     if (loginData.email === '' && loginData.password === '') {
       alert('아이디와 비밀번호를 입력해주세요');
     } else {
-      console.log(SERVER_API);
       axios.post(`${SERVER_API}/authenticate`, loginData)
         .then((res) => {
           if (res.status === 200) {
-            console.log(SERVER_API);
             localStorage.setItem('token', res.data.token);
             router.push('/main');
           }

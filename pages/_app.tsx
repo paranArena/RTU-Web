@@ -14,7 +14,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [showLogoutState, setShowLogoutState] = useState(false);
 
   useEffect(() => {
-    console.log('__app.tsx : ', router.pathname);
     if (router.pathname === '/admin' || router.pathname === '/' || router.pathname === '/mypage') {
       setFlag(false);
     } else {

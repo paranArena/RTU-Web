@@ -225,8 +225,6 @@ function GroupModal({ clubData }: IGroupModal) {
     }
   }, [currentTab]);
 
-  console.log('GroupModal : ', clubData);
-
   return (
     <div className={styles.outerContainer}>
       {/* div 1 */}
@@ -334,7 +332,6 @@ function GroupModal({ clubData }: IGroupModal) {
             <li
               className={tabStyles.admin.style}
               onClick={() => {
-                console.log('관리자 클릭');
                 if (role === 'OWNER' || role === 'ADMIN') {
                   setCurrentTab('관리자');
                   router.push({
@@ -345,7 +342,6 @@ function GroupModal({ clubData }: IGroupModal) {
                     },
                   });
                 } else {
-                  console.log('else');
                   setCurrentTab('관리자');
                   setAlert(true);
                 }

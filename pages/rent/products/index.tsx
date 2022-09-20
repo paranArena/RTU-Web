@@ -139,7 +139,6 @@ function RentalProductsPage() {
   useEffect(() => {
     if (meRentalState === 'RENT' && !Array.isArray(myRentals)) {
       const date = new Date(myRentals.rentalInfo.expDate.concat('z'));
-      console.log('date : ', date);
       const month = ((date.getMonth() + 1).toString()).concat('월 ');
       const day = (date.getDate().toString()).concat('일 ');
       setExpDate(month.concat(day));
@@ -156,13 +155,6 @@ function RentalProductsPage() {
   const onClickRentApply = async (e : React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const [currentLocation] = await Promise.all([getLocation()]);
-
-    console.log('currentLocation');
-    console.log('currentLocation');
-
-    console.log('currentLocation');
-
-    console.log(currentLocation);
     const crrLocation:any = currentLocation;
     let crrlatitude = 0;
     if (crrLocation.latitude !== undefined) {
@@ -173,8 +165,6 @@ function RentalProductsPage() {
     if (crrLocation.longtitude !== undefined) {
       crrlongitude = crrLocation.longitude;
     }
-
-    console.log('currentLocation : ', currentLocation);
 
     // eslint-disable-next-line max-len
     // measure(currentLocation.latitude, currentLocation.longitude, myRentals.location.latitude, myRentals.location.longitude
@@ -221,9 +211,7 @@ function RentalProductsPage() {
       }).then((res) => {
         if (res.status === 200) {
           setRentalItemData(res.data.data);
-          console.log('res status === 200 : ', rentalItemData);
         }
-        console.log('rentalItemData : ', rentalItemData);
       })
         .catch((err) => {
           console.log(err);
@@ -235,10 +223,7 @@ function RentalProductsPage() {
         },
       }).then((res) => {
         if (res.status === 200) {
-          console.log('getRental :', res);
           setMyRentals(res.data.data);
-          console.log('uE ', myRentals);
-          console.log('myRentals : ', myRentals);
         }
       })
         .catch((err) => {
@@ -247,8 +232,6 @@ function RentalProductsPage() {
     }
 
     if (meRentalState && !Array.isArray(myRentals)) {
-      console.log('pppp');
-
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const rentedTime = new Date(myRentals.rentalInfo.rentDate.concat('z'));
       const current = new Date();
@@ -279,7 +262,6 @@ function RentalProductsPage() {
     }, 1000);
 
     if (min === 0 && min === 0) {
-      console.log('min : ', min, ' : sec : ', sec);
       alert('픽업시간이 초과되었습니다.');
       router.push('/rent/products');
     }
@@ -288,11 +270,8 @@ function RentalProductsPage() {
 
   useEffect(() => {
     const { clubId, productId } = router.query;
-    console.log('clubId : ', clubId);
-    console.log('productId : ', productId);
-    if (clubId !== undefined && productId !== undefined) {
-      console.log('물품 정보 요청');
 
+    if (clubId !== undefined && productId !== undefined) {
       axios.get(`${SERVER_API}/clubs/${clubId}/products/${productId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -300,9 +279,7 @@ function RentalProductsPage() {
       }).then((res) => {
         if (res.status === 200) {
           setRentalItemData(res.data.data);
-          console.log('res status === 200 : ', rentalItemData);
         }
-        console.log('rentalItemData : ', rentalItemData);
       })
         .catch((err) => {
           console.log(err);
@@ -314,10 +291,7 @@ function RentalProductsPage() {
         },
       }).then((res) => {
         if (res.status === 200) {
-          console.log('getRental :', res);
           setMyRentals(res.data.data);
-          console.log('uE ', myRentals);
-          console.log('myRentals : ', myRentals);
         }
       })
         .catch((err) => {
@@ -350,9 +324,6 @@ function RentalProductsPage() {
   };
 
   const onClickRentButton = (e : React.MouseEvent<HTMLButtonElement>) => {
-    console.log('');
-    console.log('onClickRentButton ');
-
     // submit button
     e.preventDefault();
     if (rentType === '') {
@@ -384,10 +355,7 @@ function RentalProductsPage() {
           }
           flag = false;
         });
-      } else {
-        console.log('rentalItemData not array : ', rentalItemData);
       }
-
       if (flag) {
         axios({
           method: 'post',
@@ -396,7 +364,6 @@ function RentalProductsPage() {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         }).then((res) => {
-          console.log('대여하기버늩');
           console.log(res);
         }).catch((err) => {
           console.log(err);
@@ -426,33 +393,21 @@ function RentalProductsPage() {
     if (rentType !== '') {
       setAlertShow(false);
     }
-
-    if (selectedRentType['first-come']) {
-      // eslint-disable-next-line no-console
-      console.log('first-come');
-    }
   }, [rentType, selectedRentType]);
 
   useEffect(() => {
-    console.log('rentalItemData : ', rentalItemData);
-    console.log('Array.isArray(myRentals : ', Array.isArray(myRentals));
     if (Array.isArray(rentalItemData.items) && rentalItemData.items[0].id !== 0) {
       if (Array.isArray(myRentals)) {
         rentalItemData.items.forEach((item) => {
           myRentals.forEach((myRent) => {
             if (item.id === myRent.id) {
-              console.log('item.id === myRent.id ', item.id === myRent.id);
               setMeRentalState(item.rentalInfo.rentalStatus);
               setMyRentals(myRent);
             }
           });
         });
       }
-    } else {
-      console.log('rentalItem not array ', rentalItemData);
     }
-
-    console.log('나의 렌탈 상황 : ', meRentalState);
   }, [myRentals]);
 
   const EventReturnButton = async (e : React.MouseEvent<HTMLButtonElement>) => {

@@ -360,8 +360,6 @@ function RentalItemCard({
   let hour: string | number = ExpDate.getHours();
   let minute: string | number = ExpDate.getMinutes();
 
-  console.log('hour : ', hour);
-  console.log('minute : ', minute);
   if (hour < 10 && typeof hour === 'number') {
     hour = '0'.concat(hour.toString());
   } else {
@@ -444,13 +442,11 @@ function ClubProductItem({
 
   const EventDeleteButton = (e : React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    console.log(router.query.id);
     axios.delete(`${SERVER_API}/clubs/${router.query.id}/products/${itemId}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     }).then((res) => {
-      console.log(res);
       if (res.status === 200) {
         alert('물품 삭제 성공');
         window.location.reload();
@@ -719,12 +715,10 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
   const [url, setUrl] = useState('');
 
   const onChangeLocation = (e) => {
-    console.log('dsd', e.currentTarget.value);
     setProduct({ ...product, locationName: e.currentTarget.value });
     if (product.locationName !== '') {
       // eslint-disable-next-line no-plusplus
       const locationNameTmp = e.currentTarget.value;
-      console.log(locationNameTmp);
       for (let i = 0; i < rentalLocation.length; i += 1) {
         if (locationNameTmp.search(rentalLocation[i].text) === 0) {
           setProduct({
@@ -732,20 +726,16 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
             ...product, locationName: e.currentTarget.value, longitude: rentalLocation[i].longitude, latitude: rentalLocation[i].latitude,
           });
           setMapIndex(i);
-          console.log('for : ', product.locationName);
         }
       }
     }
   };
 
   useEffect(() => {
-    console.log('submitActive : ', submitActive);
+    console.log();
   }, [submitActive]);
 
   useEffect(() => {
-    console.log('MODIFY');
-    console.log(ModalType === 'modify');
-
     if (ModalType === 'modify') {
       const clubId = window.location.search.slice(window.location.search.search('=') + 1);
       axios.get(`${SERVER_API}/clubs/${clubId}/products/${itemId}`, {
@@ -754,9 +744,7 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
         },
       })
         .then(async (res) => {
-          console.log('res.data.data : ', res.data.data);
           setModiProduct(res.data.data);
-          console.log('product ', modiProduct);
         }).catch((err) => {
           console.log(err);
         });
@@ -764,7 +752,6 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
   }, []);
 
   useEffect(() => {
-    console.log('uE modi : ', modiProduct);
     if (modiProduct !== undefined) {
       setProduct({
         // @ts-ignore
@@ -792,8 +779,6 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
         // @ts-ignore
         name: modiProduct.name,
       });
-
-      console.log('uE modi Product : ', product);
     }
   }, [modiProduct]);
 
@@ -809,10 +794,6 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
 
   const onClickProductSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log(product);
-    console.log(files);
-    console.log('Add');
-
     const clubId = window.location.search.slice(window.location.search.search('=') + 1);
 
     const data = new FormData();
@@ -832,9 +813,7 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
     // @ts-ignore
     data.append('latitude', product.latitude);
     data.append('caution', product.caution);
-    console.log('files', files);
     files.forEach((file) => {
-      console.log('file :', file);
       data.append('image', file.uploadedFile);
     });
 
@@ -844,14 +823,12 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       }).then((res) => {
-        console.log(res);
         alert('물품 생성 성공');
         window.location.reload();
       }).catch((err) => {
         console.log(err);
       });
     } else {
-      console.log('물품 수');
       // @ts-ignore
       const imgFile = await convertURLtoFile(modiProduct.imagePath);
       data.append('image', imgFile);
@@ -860,7 +837,6 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       }).then((res) => {
-        console.log(res);
         if (res.data.statusCode === 200 && res.data.responseMessage.search('수정') > -1) {
           alert('물품 생성 성공');
           window.location.reload();
@@ -874,8 +850,6 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
   // FIXME 물품 수정
   const onClickProductUpdate = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log(product);
-    console.log(files);
 
     const clubId = window.location.search.slice(window.location.search.search('=') + 1);
 
@@ -896,7 +870,6 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
     // @ts-ignore
     data.append('latitude', product.latitude);
     data.append('caution', product.caution);
-    console.log('files', files);
 
     // files.forEach((file) => {
     //   console.log('file :', file);
@@ -913,13 +886,11 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       }).then((res) => {
-        console.log(res);
         window.location.reload();
       }).catch((err) => {
         console.log(err);
       });
     } else {
-      console.log('물품 수');
       // @ts-ignore
       // TODO
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -953,10 +924,6 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
     if (Url !== undefined) {
       setUrl(Url);
     }
-
-    console.log(Url);
-
-    console.log('file', files);
   };
 
   useEffect(() => {}, [page]);
@@ -971,10 +938,9 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
     } else {
       setSubmitActive(false);
     }
-    console.log('uE : ', product);
   }, [product]);
 
-  useEffect(() => { console.log('showMap : ', showMap); }, [showMap]);
+  useEffect(() => { console.log(); }, [showMap]);
 
   if (page === 1) {
     return (
@@ -1298,7 +1264,6 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
   const [forceUpdate, setForceUpdate] = useState<boolean>(true);
   // 새로고침
   const reload = () => {
-    console.log('reload');
     if (tab.reserve || tab.rental) {
       axios.get(`${SERVER_API}/clubs/${clubId}/rentals/search/all`, {
         headers: {
@@ -1306,7 +1271,6 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
         },
       }).then((res) => {
         if (res.status === 200) {
-          console.log('All search : ', res.data.data);
           const reserve = [];
           const rental = [];
           if (Array.isArray(res.data.data)) {
@@ -1332,7 +1296,6 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
       }).then((res) => {
         if (res.status === 200) {
           setReturnList(res.data.data);
-          console.log('returnList : ', returnList);
         }
       }).catch((err) => {
         console.log(err);
@@ -1343,9 +1306,7 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
     setForceUpdate((fu) => !fu);
   };
   useEffect(() => {
-    console.log('ReserveList:', reserveList);
-    console.log('RentalList:', rentalList);
-    console.log('ReturnList:', returnList);
+    console.log();
   }, [reserveList, rentalList, returnList]);
   // 클럽에 등록된 모든 물품
 
@@ -1370,7 +1331,6 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
         },
       }).then((res) => {
         if (res.status === 200) {
-          console.log('All search : ', res.data.data);
           let reserve = [];
           let rental = [];
           if (Array.isArray(res.data.data)) {
@@ -1440,7 +1400,6 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
       setMount(true);
     } else {
       setInterval(() => {
-        console.log('timer-prev', forceUpdate);
         doForceUpdate();
       }, 1000);
     }

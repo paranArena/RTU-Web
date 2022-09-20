@@ -41,23 +41,20 @@ function CertificationModal({
     if (one === 1) {
       axios.post(`${SERVER_API}/members/email/requestCode`, { email })
         .then((res) => {
-          console.log(res);
         }).catch((err) => {
           console.log(err);
         });
-      console.log('one : ', one);
     } else if (one === 0) {
       setOne(1);
     }
   }, [one]);
 
   useEffect(() => {
-    console.log('CertificationModal : ', email);
+    console.log();
   }, []);
 
   const onCLickSubmit = () => {
     let Email = signupProps.email;
-    console.log('signupProps.email : ', signupProps.email);
     Email = Email.concat('@ajou.ac.kr');
     setIsNotCorrect(false);
 
@@ -71,7 +68,6 @@ function CertificationModal({
       verificationCode: certNumber,
     })
       .then((res) => {
-        console.log(SERVER_API);
         if (res.status === 200) {
           setRegisterSuccess(true);
         }
@@ -87,7 +83,6 @@ function CertificationModal({
     setReSend(true);
     setResetTimer(!resetTimer);
 
-    console.log('인증번호 재발송');
     axios.post(`${SERVER_API}/members/email/requestCode`, { email })
       .then(() => {
         alert('인증번호가 재발송 되었습니다.');

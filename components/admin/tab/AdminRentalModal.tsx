@@ -48,12 +48,9 @@ function NumberingRentalItem({
 }:NumberingRentalItemProps) {
   const [viewDate, setViewDate] = useState('');
 
-  console.log('rentalInfo', item.rentalInfo);
-
   useEffect(() => {
     let exp;
     let rent;
-    console.log('item.rentalInfo : ', item.rentalInfo);
     if (item.rentalInfo !== null) {
       let Year;
       let Month;
@@ -82,7 +79,6 @@ function NumberingRentalItem({
         view2 = view2.concat(Month);
         view2 = view2.concat('.');
         view2 = view2.concat(Day);
-        console.log(rent, 'Month', rent.getMonth());
         if (view !== null && view !== undefined) {
           view = (view2.concat('~')).concat(view);
         } else {
@@ -130,7 +126,7 @@ function NumberingRentalItem({
       </div>
 
       <div className={styles.NumberingRentalItemRightContainer}>
-        <button id={item.rentalInfo === null ? '예약' : '반납'} onClick={(e) => { console.log('vlaue : ', e.currentTarget.id); setRentView({ view: true, type: e.currentTarget.id, id: item.id }); }} className={styles.rentNreturnButton} type="submit">
+        <button id={item.rentalInfo === null ? '예약' : '반납'} onClick={(e) => { setRentView({ view: true, type: e.currentTarget.id, id: item.id }); }} className={styles.rentNreturnButton} type="submit">
           {
             item.rentalInfo === null
               ? '예약'
@@ -148,7 +144,6 @@ interface AdminRentalModalProps {
 }
 
 function AdminRentalModal({ viewAdminRental, setViewAdminRental }:AdminRentalModalProps) {
-  console.log('AdminRentalModal : viewAdminRental : ', viewAdminRental);
   const [mount, setMount] = useState(0);
   const [adminRentName, setAdminRentName] = useState<string>('');
   const [adminRentStudentId, setAdminRentStudentId] = useState<string>('');
@@ -218,7 +213,6 @@ function AdminRentalModal({ viewAdminRental, setViewAdminRental }:AdminRentalMod
       studentId: adminRentStudentId,
     };
     if (rentView.type === '예약') {
-      console.log('예약');
       axios.post(`${SERVER_API}/clubs/${clubID}/rentals/${itemId}/apply/admin`, body, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -232,14 +226,12 @@ function AdminRentalModal({ viewAdminRental, setViewAdminRental }:AdminRentalMod
               productId: 0,
             });
           }
-          console.log(res);
           window.location.reload();
         })
         .catch((err) => {
           if (err.response.data.code === 'SAME_STUDENTID_EXIST') {
             alert(err.response.data.message);
           } else {
-            console.log(err);
             alert('오류');
           }
           setRentView({
@@ -251,15 +243,11 @@ function AdminRentalModal({ viewAdminRental, setViewAdminRental }:AdminRentalMod
           window.location.reload();
         });
     } else {
-      console.log('반납');
-      console.log('club id : ', clubID);
-      console.log('item id : ', itemId);
       axios.put(`${SERVER_API}/clubs/${clubID}/rentals/${itemId}/return/admin`, body, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       }).then((res) => {
-        console.log(res);
         if (res.status === 200) {
           alert('렌탈 반납 성공');
           setRentView({
@@ -286,8 +274,7 @@ function AdminRentalModal({ viewAdminRental, setViewAdminRental }:AdminRentalMod
   };
 
   useEffect(() => {
-    console.log('admin name : ', adminRentName);
-    console.log('adming studentId : ', adminRentStudentId);
+    console.log();
   }, [adminRentName, adminRentStudentId]);
 
   return (

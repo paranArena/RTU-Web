@@ -18,14 +18,13 @@ async function SearchRequest(query: string) {
   // 전체 클럽 검색
   // FIXME :: 임시방편
   if (query === 'all') {
-    await axios.get('https://ren2u.shop/clubs/search/all', {
+    await axios.get(`${SERVER_API}/clubs/search/all`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     })
       .then((res) => {
         if (res.status === 200) {
-          console.log('전체 클럽 검색 : ', res.data.data);
           res.data.data.forEach((item) => {
             result.push(item);
           });
@@ -33,7 +32,6 @@ async function SearchRequest(query: string) {
       })
       .catch((err) => { console.log(err); });
   } else {
-    console.log('not all');
     // 쿼리가 있는 경우 | 검색하는 인풋이 있는 경우
     // 이름 검색 무조건 한개만 결과 나옴.
     await axios.get(`${SERVER_API}/clubs/search?name=${query}`, {
@@ -43,7 +41,6 @@ async function SearchRequest(query: string) {
     }).then((res) => {
       if (res.status === 200 && res.data.data !== undefined) {
         // console.log('이름으로 검색 : ', res.data.data);
-        console.log('이름검색', res.data.data);
         res.data.data.forEach((item) => {
           result.push(item);
         });
@@ -65,8 +62,6 @@ async function SearchRequest(query: string) {
           res.data.data.forEach((item) => {
             result.push(item);
           });
-
-          console.log('result ', result);
         } else {
           // console.log('res.data.data === undefined : ', res.data);
         }
@@ -85,7 +80,7 @@ async function SearchRequest(query: string) {
         console.log(error);
       });
   }
-  console.log('    result    :', result);
+
   if (result.length !== 0 && result[0] !== undefined) {
     const newArray = result.filter((item, i) => (
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -113,8 +108,6 @@ function SearchResult({ isSearched } : ISearchResult) {
   // const [isClick, setIsClick] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log('uesEffect : [router.query.input] : ', router.query.input);
-
     if (router.query.input === '') {
       setQuery('all');
     } else {
@@ -129,8 +122,6 @@ function SearchResult({ isSearched } : ISearchResult) {
       // eslint-disable-next-line no-inner-declarations
       async function fetchRequestSearch() {
         const searchResult = await SearchRequest(query as string);
-
-        console.log('searchResult', searchResult);
         if (searchResult === null) {
           setClubs(null);
         } else {

@@ -61,10 +61,7 @@ interface LogoutAlertModalProps {
 export function LogoutAlertModal({ setShowLogoutAlert }:LogoutAlertModalProps) {
   const EventLogoutButton = (e : React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
-    console.log('localStorage : ', localStorage.getItem('token'));
     localStorage.removeItem('token');
-    console.log(localStorage.getItem('token'));
     setShowLogoutAlert(false);
     router.push('/');
   };
@@ -103,7 +100,7 @@ function MyPage() {
   };
 
   useEffect(() => {
-    console.log('menu : ', menu);
+    console.log();
   }, [menu]);
 
   // @ts-ignore

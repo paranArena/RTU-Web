@@ -102,7 +102,6 @@ function ProfileModal() {
       },
     })
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           alert('탈퇴 성공');
           localStorage.removeItem('token');
@@ -125,17 +124,14 @@ function ProfileModal() {
     })
       .then((res) => {
         if (res.status === 200) {
-          console.log('res.data.data : ', res.data.data);
           setUserInfo(res.data.data);
         }
-        console.log(res);
       }).catch((err) => {
         console.log(err);
       });
   }, []);
 
   useEffect(() => {
-    console.log('userInfo', userInfo);
     axios.get(`${SERVER_API}/members/my/rentals`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -144,7 +140,6 @@ function ProfileModal() {
       .then((res) => {
         setUserRentalInfo(res.data.data);
         // setTotalRent(res.data.data.length);
-        console.log(res.data.data);
       })
       .catch((err) => {
         console.log(err);
