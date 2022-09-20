@@ -23,7 +23,6 @@ export function ParseTag(hashtags : string) : string[] {
 
   let flag = true;
   while (flag) {
-    console.log('flag : ', flag);
     const startIdx = string.search(rexStart);
     const endIdx = string.search(rexEnd);
 
@@ -42,7 +41,6 @@ export function ParseTag(hashtags : string) : string[] {
     }
   }
 
-  console.log('TAG PARSING : ', result);
   return result;
 }
 
@@ -56,7 +54,7 @@ function AddGroupModal({
   const fileRef = useRef();
 
   useEffect(() => {
-    console.log('uE');
+    console.log();
   }, [groupForm.thumbnail, groupForm.name, groupForm.hashtags, groupForm.introduction]);
 
   useEffect(() => {
@@ -68,7 +66,7 @@ function AddGroupModal({
   }, [groupForm, isButtonActive]);
 
   useEffect(() => {
-    console.log('groupForm : ', groupForm);
+    console.log();
   }, [groupForm]);
 
   const onChangeGroupName = (e) => {
@@ -117,9 +115,6 @@ function AddGroupModal({
       setGroupForm({ ...groupForm, hashtags: ParseTag(groupForm.hashtags) });
     }
 
-    console.log('parse tag : ', groupForm.hashtags);
-    console.log('groupName : ', groupForm.name);
-
     const data = new FormData();
     data.append('name', groupForm.name);
     data.append('introduction', groupForm.introduction);
@@ -127,7 +122,6 @@ function AddGroupModal({
     // FIXME:: 이미지 업로드 안하면 에러남
     if (Array.isArray(groupForm.hashtags)) {
       groupForm.hashtags.forEach((tag) => {
-        console.log('form data add tag  : ', tag);
         data.append('hashtags', tag);
       });
     } else {
@@ -146,7 +140,6 @@ function AddGroupModal({
       .then((res) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const clubID = res.data.data.id;
-        console.log(res);
         if (res.status === 200) {
           setIsAlertModal(res.status);
           window.history.back();
@@ -166,8 +159,7 @@ function AddGroupModal({
   };
 
   useEffect(() => {
-    console.log('imgUrl === imgSrc  : ', imgSrc);
-    console.log('imgData : ', imgData);
+    console.log();
   }, [imgSrc, imgData]);
 
   // eslint-disable-next-line consistent-return
@@ -176,7 +168,6 @@ function AddGroupModal({
       const objectUrl = URL.createObjectURL(e.target.files[0]);
       setImgSrc(objectUrl);
       setImgData(e.target.files[0]);
-      console.log('e.target.files[0] : ', e.target.files[0]);
 
       return () => URL.revokeObjectURL(objectUrl);
     }
@@ -184,9 +175,6 @@ function AddGroupModal({
 
     // setImgData(null);
     setImgData(e.target.files[0]);
-    console.log('e.target.files[0] : ', e.target.files[0]);
-    console.log('imgUrl === imgSrc  : ', imgSrc);
-    console.log('imgData : ', imgData);
   };
 
   return (

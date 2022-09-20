@@ -172,7 +172,6 @@ function MemberManageTab({ clubId } : IMemberManageTab) {
         if (res.status === 200) {
           const list = res.data.data.filter((member) => member.clubRole !== 'OWNER');
           setMemberList(list);
-          console.log(list);
         }
       })
       .catch((err) => {

@@ -54,7 +54,6 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
   // 처음 마운트될 때
   useEffect(() => {
     // eslint-disable-next-line max-len
-    console.log('처음 마운트 : ', clubData);
     // eslint-disable-next-line max-len
     if (groupNameRef.current !== undefined && groupIntroRef.current !== undefined && groupTagRef.current !== undefined) {
       // @ts-ignore
@@ -76,7 +75,6 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
   }, []);
 
   useEffect(() => {
-    console.log(settingClubData);
     if (settingClubData.name !== '' && settingClubData.introduction !== '') {
       setActive(true);
     } else {
@@ -86,7 +84,6 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
 
   const onChangeGroupTag = (e) => {
     e.preventDefault();
-    console.log(hashTag.length);
     // 입력한 해시태그 길이가 36 이하면 setHashtag
     // 입력한 해시태그 길이가 36을 넘으면 e.currentTarget.value = hashtag;
     if (e.currentTarget.value.length <= 36) {
@@ -128,7 +125,6 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
       data.append('thumbnail', null);
     }
     // }
-    console.log('imgData ', imgData);
 
     axios.put(`${SERVER_API}/clubs/${id}/info`, data, {
       headers: {
@@ -137,10 +133,7 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
     })
       .then((res) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const clubID = res.data.data.id;
-        console.log(res);
         if (res.status === 200) {
-          console.log(res);
           alert('클럽 프로필 수정 완료');
           // window.location.reload();
         }
@@ -364,8 +357,6 @@ function ProfileSetting() {
           console.log(err);
         });
     }
-
-    console.log(clubData);
   }, []);
 
   // 클럽 데이터 받아오면 받아온 정보 기반으로 프로필 수정 modal 띄우기 위한 준비

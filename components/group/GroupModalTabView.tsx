@@ -48,17 +48,6 @@ function NoticeListItem({
   const date = new Date(Date.parse(noticeDateCreated));
   const noticeDate = `${date.getFullYear()}. ${date.getMonth() + 1}. ${date.getDate()}`;
 
-  useEffect(() => {
-    console.log(
-      'title : ',
-      noticeTitle,
-      'content : ',
-      noticeContent,
-      'writeDate : ',
-      noticeDate,
-    );
-  }, []);
-
   const onClickEventNoticeListItem = (e) => {
     e.preventDefault();
 
@@ -138,10 +127,6 @@ function RentalItem({
   clubId, id,
   thumbnailPath, rentalItemName, quantityTotal, quantityLeft,
 }: RentalItemProps) {
-  useEffect(() => {
-    console.log('rental item : ', clubId, id);
-  }, []);
-
   let quantity = true;
   if (rentalItemName === '' && thumbnailPath === '' && quantityTotal === 0 && quantityLeft === 0) {
     quantity = false;
@@ -253,14 +238,12 @@ function GroupModalHome({ show, clubId } : IGroupModalHome) {
     })
       .then((res) => {
         setRentalProduct(res.data.data);
-        console.log(rentalProduct);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  console.log('noticeDetail noticeDetail noticeDetail:', noticeDetail);
   return (
     <div className={styles.groupHomeContainer}>
       {

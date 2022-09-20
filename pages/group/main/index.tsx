@@ -10,9 +10,7 @@ function GroupMain() {
   const [clubData, setClubData] = useState<ClubData | null>(null);
 
   useEffect(() => {
-    console.log('fghfghh');
     if (router !== undefined && router !== null && router.query.id !== undefined) {
-      console.log(router.query.id);
       axios.get(`${SERVER_API}/clubs/${router.query.id}/info`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,

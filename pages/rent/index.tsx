@@ -5,6 +5,7 @@ import router from 'next/router';
 import { IClubProduct } from '../../globalInterface';
 // import { SERVER_API } from '../../config';
 import { getLocation, measure } from '../../components/common/getCurrentPosition';
+import { SERVER_API } from '../../config';
 
 interface ProductCardProps {
   name : string;
@@ -123,14 +124,13 @@ function MyRentalCard({ item }:MyRentalProps) {
       axios(
         {
           method: 'put',
-          url: `https://ren2u.shop/clubs/${item.clubId}/rentals/${item.id}/return`,
+          url: `${SERVER_API}/clubs/${item.clubId}/rentals/${item.id}/return`,
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
 
         },
       ).then((res) => {
-        console.log(res);
         alert('렌탈 반납 성공');
         window.location.reload();
       })
@@ -144,7 +144,6 @@ function MyRentalCard({ item }:MyRentalProps) {
 
   const EventRentalButton = async () => {
     const currentLocation:any = await getLocation();
-    console.log('getLocation');
     const crrLocation: any = currentLocation;
     let crrlatitude = 0;
     if (crrLocation.latitude !== undefined) {
@@ -156,19 +155,16 @@ function MyRentalCard({ item }:MyRentalProps) {
       crrlongitude = crrLocation.longitude;
     }
 
-    console.log('crrlongitude : ', crrlongitude);
-    console.log('crrlatitude : ', crrlatitude);
     if (measure(crrlatitude, crrlongitude, 37.27206960304626, 127.04518368153681) <= 30) {
       axios(
         {
           method: 'put',
-          url: `https://ren2u.shop/clubs/${item.clubId}/rentals/${item.id}/apply`,
+          url: `${SERVER_API}/clubs/${item.clubId}/rentals/${item.id}/apply`,
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         },
       ).then((res) => {
-        console.log(res);
         alert('대여 확정 성공');
         // window.location.reload();
       })
@@ -250,7 +246,7 @@ function RentPage() {
 
   useEffect(() => {
     axios.get(
-      'https://ren2u.shop/members/my/rentals',
+      `${SERVER_API}/members/my/rentals`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -258,8 +254,6 @@ function RentPage() {
       },
     ).then((res) => {
       setMyRentals(res.data.data);
-
-      console.log('/members/my/rentals : ', res.data.data);
     }).catch((err) => {
       console.log(err);
     });
@@ -269,7 +263,7 @@ function RentPage() {
     if (mount === 0) {
       setMount(1);
     } else if (allClubId === null) {
-      axios.get('https://ren2u.shop/members/my/clubs', {
+      axios.get(`${SERVER_API}/members/my/clubs`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -286,15 +280,13 @@ function RentPage() {
         .catch((err) => {
           console.log(err);
         });
-
-      console.log(allClubProduct);
     }
   }, [mount]);
 
   useEffect(() => {
     if (allClubId !== null) {
       allClubId.forEach((id) => {
-        axios.get(`https://ren2u.shop/clubs/${id}/products/search/all`, {
+        axios.get(`${SERVER_API}/clubs/${id}/products/search/all`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -307,8 +299,6 @@ function RentPage() {
 
             const set = new Set(arr);
             setAllClubProduct(Array.from(set));
-
-            console.log('clubs/clubId/products/search/all', res.data.data);
           }
         }).catch((err) => {
           console.log(err);

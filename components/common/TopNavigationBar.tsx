@@ -29,7 +29,7 @@ function TopNavigationBar({ setIsSearched, isSearched, setShowLogoutState } :Top
   });
 
   useEffect(() => {
-    console.log(isSearched);
+    console.log();
   }, [isSearched]);
 
   useEffect(() => {
@@ -58,7 +58,6 @@ function TopNavigationBar({ setIsSearched, isSearched, setShowLogoutState } :Top
     e.preventDefault();
     // setIsSearched(!isSearched);
     setIsSearched((prev) => !prev);
-    console.log('onClickSearch : ', e.currentTarget.value);
     router.push({
       pathname: '/search',
       query: {
@@ -86,9 +85,7 @@ function TopNavigationBar({ setIsSearched, isSearched, setShowLogoutState } :Top
         <input
           id="input"
           onKeyPress={(e:React.KeyboardEvent<HTMLInputElement>) => {
-            console.log('onClickSearch : ', e.currentTarget.value);
             if (e.key === 'Enter') {
-              console.log(searchInput);
               // e.target.value = '';
               // setSearchInput(searchInput);
 

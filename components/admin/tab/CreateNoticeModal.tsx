@@ -14,7 +14,6 @@ function CreateNoticeModal() {
   const handleImgUpload = (e) => {
     e.preventDefault();
     const file = e.target.files[0];
-    console.log('e.target.files[0]', file);
     const url = URL.createObjectURL(file);
     if (url !== undefined) {
       const arr = imgURL;
@@ -24,11 +23,10 @@ function CreateNoticeModal() {
     }
   };
 
-  useEffect(() => { console.log(files); }, [files]);
+  useEffect(() => { console.log(); }, [files]);
 
   useEffect(() => {
-    console.log('title : ', title);
-    console.log('content : ', content);
+    console.log();
   }, [title, content]);
 
   const onClickSubmitButton = (e : React.MouseEvent<HTMLButtonElement>) => {
@@ -108,8 +106,7 @@ function CreateNoticeModal() {
 
             {
               imgURL.map((url) => {
-                console.log('file');
-                console.log(url.uploadedFile);
+                console.log('');
                 return (
                   <div className={styles.Img}>
                     <img src={url} alt="img1" />

@@ -20,7 +20,6 @@ function AuthTimer({ resetTimer } : AuthImer) {
   const [min, setMin] = useState<number>(5);
   const [sec, setSec] = useState<number>(0);
   useEffect(() => {
-    console.log(resetTimer);
     setMin(5);
     setSec(0);
   }, [resetTimer]);

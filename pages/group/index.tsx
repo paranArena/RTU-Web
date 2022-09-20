@@ -9,8 +9,6 @@ import { ClubData } from '../../components/group/GroupModal';
 const rendering = (joinedClubList : ClubData[]) => {
   const result = [];
 
-  console.log('rendering : ', joinedClubList);
-
   if (joinedClubList === null) {
     return null;
   }
@@ -39,7 +37,6 @@ function GroupPage() {
       },
     })
       .then((res) => {
-        console.log(res);
         setjoinedClubList(res.data.data);
       })
       .catch((err) => {
@@ -48,7 +45,7 @@ function GroupPage() {
   }, []);
 
   useEffect(() => {
-    console.log('joinedClubList : ', joinedClubList);
+    console.log();
   }, [joinedClubList]);
 
   return (
