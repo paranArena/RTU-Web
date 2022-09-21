@@ -13,6 +13,7 @@ import MemberManageTab from '../../components/admin/tab/member';
 import AlertModal from '../../components/common/AlertModal';
 import ProductManageModal from '../../components/admin/tab/product';
 import AdminRentalModal from '../../components/admin/tab/AdminRentalModal';
+import AdminManageTab from '../../components/admin/tab/AdminManageTab';
 
 interface IClubProfileSettingModal {
   id : string;
@@ -387,6 +388,7 @@ interface IMenuTabState {
   HR: boolean;
   event: boolean;
   rentalActive: boolean;
+  admin : boolean;
 }
 
 const menuDefault:IMenuTabState = {
@@ -397,12 +399,15 @@ const menuDefault:IMenuTabState = {
   HR: false,
   event: false,
   rentalActive: false,
+  admin: false,
 };
 
 function AdminPage() {
   const [menu, setMenu] = useState<IMenuTabState>({ ...menuDefault, rentalItemManage: true });
   const [showDeleteAlert, setShowDeleteAlert] = useState<boolean>(false);
   const [clubId, setClubId] = useState('');
+  // OWNER인지 ADMIN인지 판단하기 위한
+  const [myRole, setMyrole] = useState('');
 
   // 관리자가 미가입자 렌탈 기록용
   const [viewAdminRental, setViewAdminRental] = useState({
@@ -426,6 +431,8 @@ function AdminPage() {
       setMenu({ ...menuDefault, event: true });
     } else if (e.currentTarget.id === 'rentalActive') {
       setMenu({ ...menuDefault, rentalActive: true });
+    } else if (e.currentTarget.id === 'admin') {
+      setMenu({ ...menuDefault, admin: true });
     }
   };
 
@@ -433,6 +440,21 @@ function AdminPage() {
     const url = window.location.search;
     setClubId(url.slice(url.search('=') + 1));
   }, []);
+
+  useEffect(() => {
+    axios.get(
+      `${SERVER_API}/members/my/clubs/${clubId}/role`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      },
+    ).then((res) => {
+      setMyrole(res.data.clubRole);
+    }).catch((err) => {
+      console.log(err);
+    });
+  }, [clubId]);
 
   const onClickDeleteClub = (e : React.MouseEvent) => {
     e.preventDefault();
@@ -513,6 +535,16 @@ function AdminPage() {
             className={menu.HR ? styles.current : styles.disabled}
           >
             멤버 관리
+          </h4>
+
+          {/* eslint-disable-next-line max-len */}
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
+          <h4
+            id="admin"
+            onClick={onClickMenu}
+            className={menu.admin ? styles.current : styles.disabled}
+          >
+            클럽 관리자 관리
           </h4>
           {/* eslint-disable-next-line max-len */}
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
@@ -602,6 +634,11 @@ function AdminPage() {
             menu.rentalItemManage
             // eslint-disable-next-line max-len
               ? <ProductManageModal viewAdminRental={viewAdminRental} setViewAdminRental={setViewAdminRental} clubId={clubId} />
+              : null
+          }
+          {
+            menu.admin
+              ? <AdminManageTab />
               : null
           }
         </div>

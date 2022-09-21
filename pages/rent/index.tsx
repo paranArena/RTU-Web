@@ -209,7 +209,7 @@ function MyRentalCard({ item }:MyRentalProps) {
               {
                 item.rentalInfo.expDate !== null
                   ? (new Date(item.rentalInfo.expDate.concat('z')).getFullYear().toString().concat('.')
-                    .concat(new Date(item.rentalInfo.expDate.concat('z')).getMonth().toString().concat('.')
+                    .concat((((new Date(item.rentalInfo.expDate.concat('z')).getMonth()) + 1).toString()).concat('.')
                       .concat(new Date(item.rentalInfo.expDate.concat('z')).getDate().toString())))
                   : null
                           }

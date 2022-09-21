@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import styles from 'styles/admin/member.module.css';
 import axios from 'axios';
 import { SERVER_API } from '../../../config';
-import AlertModal from '../../common/AlertModal';
 import { IClubMember } from '../../../globalInterface';
 
 interface IMemberListCard {
+  clubRole : 'USER' | 'ADMIN' | 'OWNER' | 'WAIT' | 'NONE';
   name:string;
   id : number;
   major: string;
@@ -19,6 +19,7 @@ interface IMemberListCard {
 
 function MemberListCard(
   {
+    clubRole,
     name,
     major,
     studentId,
@@ -95,6 +96,27 @@ function MemberListCard(
     }
   };
 
+  const onClickGrantAdmin = () => {
+    const clubId = window.location.search.slice(window.location.search.search('=') + 1);
+
+    axios({
+      method: 'put',
+      url: `${SERVER_API}/clubs/${clubId}/members/${id}/role/admin`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          alert(`${name}에게 관리자 권한 부여`);
+          window.location.reload();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div className={styles.memberListCardContainer}>
 
@@ -108,7 +130,8 @@ function MemberListCard(
           <span className={styles.memberName}>{name}</span>
           <span className={styles.memberMajor}>
             {major}
-            {' '}
+          </span>
+          <span className={styles.memberMajor}>
             {studentId}
           </span>
         </div>
@@ -144,7 +167,26 @@ function MemberListCard(
                   {
                         rental
                           // ? <span>대여 중</span>
-                          ? <button className={styles.deleteButton} type="submit" onClick={onClickMemberDelete}>삭제</button>
+                          ? (
+                        // <div>
+                        //   <span>{type}</span>
+                            <>
+                              {
+                                clubRole === 'USER' ? (
+                                  <button
+                                    className={styles.adminAuthButton}
+                                    type="submit"
+                                    onClick={onClickGrantAdmin}
+                                  >
+                                    권한
+                                  </button>
+                                )
+                                  : null
+                              }
+                              <button className={styles.deleteButton} type="submit" onClick={onClickMemberDelete}>삭제</button>
+                            </>
+                        // </div>
+                          )
                           : null
                     }
                 </div>
@@ -222,7 +264,8 @@ function MemberManageTab({ clubId } : IMemberManageTab) {
                 type="application"
                 major={apply.major}
                 name={apply.name}
-                studentId={(apply.studentId.slice(2, 4))}
+                studentId={apply.studentId}
+                clubRole={apply.clubRole}
               />
             ))
           }
@@ -255,6 +298,7 @@ function MemberManageTab({ clubId } : IMemberManageTab) {
           {
             memberList.map((member) => (
               <MemberListCard
+                clubRole={member.clubRole}
                 profileImage="/images/defaultUser.png"
                 name={member.name}
                 id={member.id}
