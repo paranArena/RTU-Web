@@ -1,0 +1,144 @@
+.outerContainer{
+    width : 100%;
+    height : 100%;
+
+    padding : 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow-y: scroll;
+}
+
+
+.innerContainer{
+    width : 100%;
+    height : 100%;
+
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+}
+
+@media (max-width : 1370px){
+    .innerContainer{
+        width : 100%;
+        height : 100%;
+
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        grid-column-gap: 20px;
+        grid-row-gap: 20px;
+    }
+}
+
+
+.adminMemberCardOuterContainer{
+    width : 300px;
+    height : 500px;
+
+    padding : 20px;
+
+    border-radius: 25px;
+    background: #F8F9FA;
+    border : 1px solid rgba(0, 0, 0, 0.3);
+    /*box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.3);*/
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.adminMemberCardInnerContainer {
+    width: 100%;
+    height: 100%;
+
+}
+
+.userProfileImgContainer{
+    width : 100%;
+    height : 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.userProfileImg{
+    width : 120px;
+    height : 120px;
+}
+
+.adminMemberInfoContainer{
+    width : 100%;
+    height : 120px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.adminMemberInfoText{
+    font-size : 1.2rem;
+    color : black;
+    font-weight : 500;
+}
+
+.ownerText{
+    font-size : 1.2rem;
+    color : blue;
+    font-weight : 500;
+}
+
+.adminMemberContactInfoContainer{
+    width : 100%;
+    height : 180px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.adminMemberContactInfoInnerContainer{
+    display: flex;
+    flex-direction: column;
+
+    width : 100%;
+    height : 50px;
+    justify-content: center;
+}
+
+.adminMemberCancelButtonContainer{
+    width : 100%;
+    height : 130px;
+
+    display: flex;
+    /*align-items: center;*/
+    justify-content: center;
+}
+
+.adminMemberCancelButton{
+    border-radius: 25px;
+    width : 170px;
+    height : 50px;
+    cursor: pointer;
+
+    font-size : 18px;
+    font-weight: 500;
+    color : #1E2F97;
+
+    background: #FFFFFF;
+    border: 1.5px solid #1E2F97;
+    box-shadow: 0 0 6px rgba(30, 47, 151, 0.3);
+}
+
+.adminMemberCancelButton:hover{
+    font-size : 18px;
+    font-weight: 500;
+    color : white;
+
+    background-color: #1E2F97;
+}

@@ -1262,6 +1262,7 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
   // 대여 관리 :: 반납
   const [returnList, setReturnList] = useState<IReturnInfo[]>([]);
   const [forceUpdate, setForceUpdate] = useState<boolean>(true);
+
   // 새로고침
   const reload = () => {
     if (tab.reserve || tab.rental) {
@@ -1302,6 +1303,7 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
       });
     }
   };
+
   const doForceUpdate = () => {
     setForceUpdate((fu) => !fu);
   };
@@ -1311,7 +1313,9 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
   // 클럽에 등록된 모든 물품
 
   useEffect(() => {
-    axios.get(`${SERVER_API}/clubs/${clubId}/products/search/all`, {
+    const clubID = window.location.search.slice(window.location.search.search('=') + 1);
+
+    axios.get(`${SERVER_API}/clubs/${clubID}/products/search/all`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },

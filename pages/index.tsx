@@ -175,7 +175,6 @@ function Login() {
             </button>
 
             <div className={styles.passwordSignBox}>
-              {/* TODO 회원가입 Link Tag 삭제 */}
               <div className={styles.passwordSignLink}>
                 {/* eslint-disable-next-line react/button-has-type,max-len */}
                 <button onClick={() => { setViewPasswordReset(true); }} className={styles.buttonStyle}>비밀번호 찾기</button>

@@ -167,7 +167,8 @@
 }
 
 .buttonContainer{
-    min-width :100px;
+    min-width :50px;
+    width : 30%;
     max-width: 100px;
     height :40px;
     margin-right:15px;
@@ -211,14 +212,18 @@
 
 .memberRentalContainer{
     min-width : 50px;
-    max-width : 120px;
-    width : 20%;
+    max-width : 200px;
+    width : 40%;
     height : 100%;
 
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     margin-right : 20px;
+}
+
+.memberRentalContainer button{
+    margin-left : 15px;
 }
 
 .memberRentalContainer span{
@@ -257,13 +262,38 @@
     color: #868E96;
 }
 
-.deleteButton{
-    min-width : 100px;
-    height : 50px;
+.adminAuthButton{
+    width : 20%;
+    max-width : 100px;
+    min-width : 80px;
+    height : 40px;
+    cursor: pointer;
 
     font-style: normal;
     font-weight: 400;
-    font-size: 22px;
+    font-size: 18px;
+    color: #1E2F97;
+
+    background: #FFFFFF;
+    border: 2px solid #1E2F97;
+    box-shadow: 0 0 8px rgba(30, 47, 151, 0.3);
+    border-radius: 32px;
+}
+
+.adminAuthButton:hover {
+    background-color: #1E2F97;
+    color : white;
+}
+
+.deleteButton{
+    width : 20%;
+    max-width : 100px;
+    min-width : 80px;
+    height : 40px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
     color: #F90000;
 
     background: #FFFFFF;
@@ -278,7 +308,7 @@
 
     font-style: normal;
     font-weight: 400;
-    font-size: 22px;
+    font-size: 18px;
 
     background: #FF0F00;
     border: 2px solid #F90000;

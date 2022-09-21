@@ -47,9 +47,9 @@ function RentalStateInProfileModal(
   const rentDate = new Date(rentalInfo.rentDate.concat('z'));
   if (rentalInfo.expDate !== null) {
     const expDate = new Date(rentalInfo.expDate.concat('z'));
-    ExpDate = expDate.getFullYear().toString().concat('.').concat(expDate.getMonth().toString().concat('.').concat(expDate.getDate().toString()));
+    ExpDate = expDate.getFullYear().toString().concat('.').concat((expDate.getMonth() + 1).toString().concat('.').concat(expDate.getDate().toString()));
   }
-  const RentDate = rentDate.getFullYear().toString().concat('.').concat(rentDate.getMonth().toString().concat('.').concat(rentDate.getDate().toString()));
+  const RentDate = rentDate.getFullYear().toString().concat('.').concat((rentDate.getMonth() + 1).toString().concat('.').concat(rentDate.getDate().toString()));
 
   return (
     <div className={styles.RentalStateInProfileModalContainer}>

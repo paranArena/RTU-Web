@@ -411,8 +411,14 @@ function ResetPassword({ setResetPasswordView }:ResetPasswordProps) {
                             setResetPasswordView(false);
                           }
                         })
-                          .catch(() => {
-                            alert('인증 코드가 올바르지 않거나 만료되었습니다.');
+                          .catch((err) => {
+                            if (err.response.data.code === 'MEMBER_NOT_FOUND') {
+                              alert(err.response.data.message);
+                            } else if (err.response.data.code === 'INVALID_PARAMETER') {
+                              alert(err.response.data.errors[0].message);
+                            } else {
+                              alert(err.response.data.message);
+                            }
                           });
                       }}
                       className={pw.pw === pw.pw2 && pw.pw !== '' ? styles.nextButtonTrue : styles.nextButtonFalse}
