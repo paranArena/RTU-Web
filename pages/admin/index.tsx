@@ -544,7 +544,7 @@ function AdminPage() {
             onClick={onClickMenu}
             className={menu.admin ? styles.current : styles.disabled}
           >
-            클럽 관리자 관리
+            그룹 관리자 관리
           </h4>
           {/* eslint-disable-next-line max-len */}
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}

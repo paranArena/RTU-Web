@@ -6,11 +6,23 @@ import React, {
 import router from 'next/router';
 import TermsOfService from 'components/admin/tab/TermsOfService';
 // eslint-disable-next-line import/no-cycle
+import ProfileSetting from 'components/mypage/ProfileSetting';
+// eslint-disable-next-line import/no-cycle
 import ProfileModal from '../../components/mypage/profile';
+import member from '../../components/admin/tab/member';
 
 interface IClub {
   id : number;
   club : string;
+}
+
+export interface IUserProfileInfo {
+  id : number;
+  email : string;
+  name : string;
+  phoneNumber : string;
+  studentId : string;
+  major : string;
 }
 
 export interface IUserInfo {
@@ -44,7 +56,7 @@ interface IMenuTabState {
   alarmNnotice: boolean;
   TermsOfService: boolean;
   logout: boolean;
-
+  profileSetting : boolean;
 }
 
 const menuDefault:IMenuTabState = {
@@ -52,6 +64,7 @@ const menuDefault:IMenuTabState = {
   alarmNnotice: false,
   TermsOfService: false,
   logout: false,
+  profileSetting: false,
 };
 
 interface LogoutAlertModalProps {
@@ -130,11 +143,30 @@ function MyPage() {
                 alarmNnotice: false,
                 logout: false,
                 TermsOfService: false,
+                profileSetting: false,
               });
             }}
             className={menu.profile ? styles.current : styles.disabled}
           >
             프로필 확인
+          </h4>
+
+          {/* eslint-disable-next-line max-len */}
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
+          <h4
+            id="profileSetting"
+            onClick={() => {
+              setMenu({
+                profile: false,
+                alarmNnotice: false,
+                logout: false,
+                TermsOfService: false,
+                profileSetting: true,
+              });
+            }}
+            className={menu.profileSetting ? styles.current : styles.disabled}
+          >
+            프로필 수정
           </h4>
           {/* eslint-disable-next-line max-len */}
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
@@ -163,6 +195,7 @@ function MyPage() {
                 alarmNnotice: false,
                 logout: false,
                 TermsOfService: true,
+                profileSetting: false,
               });
             }}
             className={menu.TermsOfService ? styles.current : styles.disabled}
@@ -202,6 +235,10 @@ function MyPage() {
 
           {
             menu.alarmNnotice ? <div>아직 지원하지 않는 기능입니다.</div> : null
+          }
+
+          {
+            menu.profileSetting ? <ProfileSetting /> : null
           }
 
           {

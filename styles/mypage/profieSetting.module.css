@@ -1,0 +1,135 @@
+.profileSettingOuterContainer{
+    width : 100%;
+    height : 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.profileSettingInnerContainer{
+    width : 70%;
+    height : 80%;
+
+    background: #F8F9FA;
+    box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.3);
+    border-radius: 25px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.titleContainer{
+    width : 100%;
+    height : 60px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.titleContainer h1{
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.profileImgNInfoContainer{
+    width : 100%;
+    height : calc(80% - 60px);
+
+    display: flex;
+    padding-left: 40px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.profileImgContainer {
+    width: 40%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.profileImgLabel{
+    width : 70%;
+    height : 70%;
+}
+
+.profileImg{
+    cursor: pointer;
+    width : 100%;
+    height : 80%;
+    max-width : 200px;
+    max-height : 200px;
+    min-width : 150px;
+    min-height : 150px;
+}
+
+
+.profileUserInfoInputContainer{
+    padding-left : 30px;
+    width :60%;
+    height :100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+
+.userInfoInputContainer{
+    width : 100%;
+    height : 25%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.userInfoInput{
+    width : 80%;
+    height : 40px;
+
+    font-size: 16px;
+    margin-top : 5px;
+
+    border : none;
+    background: #FFFFFF;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding-left : 15px;
+}
+
+.submitButton{
+    cursor: pointer;
+    width : 180px;
+    height : 50px;
+
+    font-size: 20px;
+
+    background: #FFFFFF;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+}
+
+.submitButton:hover{
+    background: #1E2F97;
+    color : white;
+}
+
+.buttonContainer{
+    width : 100%;
+    height : 20%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

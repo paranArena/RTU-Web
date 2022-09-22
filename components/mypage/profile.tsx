@@ -124,6 +124,7 @@ function ProfileModal() {
     })
       .then((res) => {
         if (res.status === 200) {
+          console.log(res.data.data);
           setUserInfo(res.data.data);
         }
       }).catch((err) => {
