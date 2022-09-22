@@ -136,6 +136,8 @@ function RentalProductsPage() {
   const [rentalItemData, setRentalItemData] = useState(DefaultrentalItemData);
   const [expDate, setExpDate] = useState('');
 
+  const [rentalState, setRentalState] = useState(false);
+
   useEffect(() => {
     if (meRentalState === 'RENT' && !Array.isArray(myRentals)) {
       const date = new Date(myRentals.rentalInfo.expDate.concat('z'));
@@ -245,6 +247,21 @@ function RentalProductsPage() {
   }, [meRentalState]);
 
   useEffect(() => {
+    let rentalIng = 0;
+    for (let i = 0; i < rentalItemData.items.length; i += 1) {
+      if (rentalItemData.items[i].rentalInfo !== null) {
+        rentalIng += 1;
+      }
+    }
+
+    if (rentalIng === rentalItemData.items.length) {
+      setRentalState(false);
+    } else {
+      setRentalState(true);
+    }
+  }, [rentalItemData]);
+
+  useEffect(() => {
     // clearInterval(timer);
     // eslint-disable-next-line @typescript-eslint/no-shadow
     const timer = setInterval(() => {
@@ -342,29 +359,26 @@ function RentalProductsPage() {
       });
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      let rentalId = 0;
-      let flag = true;
-      rentalItemData.items.sort((a, b) => a.id - b.id);
+      let rentalId = null;
+      // rentalItemData.items.sort((a, b) => a.id - b.id);
+      console.log('rentalItemData : \n', rentalItemData);
       if (Array.isArray(rentalItemData.items)) {
         // eslint-disable-next-line consistent-return
         rentalItemData.items.forEach((item) => {
           if (item.rentalInfo === null) {
             rentalId = item.id;
-            flag = true;
-            return false;
           }
-          flag = false;
         });
       }
-      if (flag) {
+      if (rentalId !== null) {
         axios({
           method: 'post',
           url: `${SERVER_API}/clubs/${router.query.clubId}/rentals/${rentalId}/request`,
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
-        }).then((res) => {
-          console.log(res);
+        }).then(() => {
+          alert(`${rentalItemData.name}대여신청 성공하였습니다.`);
         }).catch((err) => {
           console.log(err);
         });
@@ -476,6 +490,17 @@ function RentalProductsPage() {
       { !selectedRentType['first-come']
         ? (
           <div className={styles.totalOuterContainer}>
+            <section className={styles.rentPrecautionsContainer}>
+              <div className={styles.noticeContainer}>
+                <h3>사용시 주의사항</h3>
+                <div>
+                  <p>
+                    {rentalItemData.caution}
+                  </p>
+                </div>
+              </div>
+            </section>
+
             <section className={styles.rentItemOuterContainer}>
               <div className={styles.rentItemImageListContainer}>
                 <div className={styles.rentImageRepresentativeOuterContainer}>
@@ -596,7 +621,11 @@ function RentalProductsPage() {
                                 </button>
                               </div>
 
-                              <button onClick={onClickRentButton} className={styles.rentSubmitButton} type="submit">대여하기</button>
+                              <button onClick={rentalState ? onClickRentButton : null} className={styles.rentSubmitButton} type="submit">
+                                {
+                                  rentalState ? '대여하기' : '대여불가'
+                              }
+                              </button>
                             </div>
                           ) : null
                     }
@@ -675,16 +704,16 @@ function RentalProductsPage() {
               </div>
             </section>
 
-            <section className={styles.rentPrecautionsContainer}>
-              <div className={styles.noticeContainer}>
-                <h3>사용시 주의사항</h3>
-                <div>
-                  <p>
-                    {rentalItemData.caution}
-                  </p>
-                </div>
-              </div>
-            </section>
+            {/* <section className={styles.rentPrecautionsContainer}> */}
+            {/*  <div className={styles.noticeContainer}> */}
+            {/*    <h3>사용시 주의사항</h3> */}
+            {/*    <div> */}
+            {/*      <p> */}
+            {/*        {rentalItemData.caution} */}
+            {/*      </p> */}
+            {/*    </div> */}
+            {/*  </div> */}
+            {/* </section> */}
           </div>
         )
         : (

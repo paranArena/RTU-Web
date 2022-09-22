@@ -664,7 +664,7 @@ function ProductItem({
 interface IProductBoday {
   name : string;
   category : string;
-  price : number;
+  price : number | null;
   rentalPolicies : 'FIFO' | 'RESERVE';
   fifoRentalPeriod : number;
   reserveRentalPeriod : number;
@@ -686,7 +686,7 @@ interface IAddProductModal {
 const defaultIProduct :IProductBoday = {
   name: '',
   category: '',
-  price: 0,
+  price: null,
   rentalPolicies: 'FIFO',
   fifoRentalPeriod: 0,
   reserveRentalPeriod: 0,
@@ -779,6 +779,14 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
         // @ts-ignore
         name: modiProduct.name,
       });
+
+      // @ts-ignore
+      if (modiProduct.imagePath !== undefined) {
+        // @ts-ignore
+        setUrl(modiProduct.imagePath);
+      } else {
+        setUrl('');
+      }
     }
   }, [modiProduct]);
 
@@ -799,7 +807,11 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
     const data = new FormData();
     data.append('name', product.name);
     data.append('category', product.category);
-    data.append('price', product.price.toString());
+    if (product.price !== null) {
+      data.append('price', product.price.toString());
+    } else {
+      data.append('price', '0');
+    }
     if (modiProduct === undefined) {
       for (let i = 0; i < product.rentalFifoCount; i += 1) {
         data.append('rentalPolicies', 'FIFO');
@@ -822,7 +834,7 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
-      }).then((res) => {
+      }).then(() => {
         alert('물품 생성 성공');
         window.location.reload();
       }).catch((err) => {
@@ -830,7 +842,7 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
       });
     } else {
       // @ts-ignore
-      const imgFile = await convertURLtoFile(modiProduct.imagePath);
+      const imgFile = modiProduct.imagePath;
       data.append('image', imgFile);
       axios.post(`${SERVER_API}/clubs/${clubId}/products/${itemId}`, data, {
         headers: {
@@ -885,7 +897,7 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
-      }).then((res) => {
+      }).then(() => {
         window.location.reload();
       }).catch((err) => {
         console.log(err);
@@ -894,9 +906,13 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
       // @ts-ignore
       // TODO
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const imgFile = await convertURLtoFile(modiProduct.imagePath);
+      // const imgFile = modiProduct.imagePath;
       // data.append('image', imgFile);
       // data.append('image', '');
+
+      files.forEach((file) => {
+        data.append('image', file.uploadedFile);
+      });
 
       axios.put(`${SERVER_API}/clubs/${clubId}/products/${itemId}`, data, {
         headers: {
@@ -989,6 +1005,46 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
                   : null
             }
 
+              {
+                  ModalType === 'modify' ? (
+                    <div className={styles.ImageInputContainer}>
+                      {/*  대여 물품 사진 */}
+                      <h1>물품 이미지</h1>
+                      <div className={styles.QuantityNDateInputInnerContainer}>
+                        <div className={styles.productImageListContainer}>
+                          <div className={styles.productImageListInnerContainer}>
+                            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                            <label htmlFor="img">
+                              <img className={styles.productImg} src={url !== '' ? url : '/images/defaultImg.png'} alt="product" />
+                            </label>
+                            {/* eslint-disable-next-line max-len */}
+                            {/*  <img className={styles.productImg} src="/images/defaultImg.png" alt="product" /> */}
+                            {/* eslint-disable-next-line max-len */}
+                            {/*  <img className={styles.productImg} src="/images/defaultImg.png" alt="product" /> */}
+                            {/* eslint-disable-next-line max-len */}
+                            {/*  <img className={styles.productImg} src="/images/defaultImg.png" alt="product" /> */}
+                            {/* </div> */}
+                          </div>
+                        </div>
+                        <span className={styles.imgText}>대표사진</span>
+                        <button className={styles.AddImgButton} type="button">
+                          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                          <label htmlFor="img">
+                            사진 수정
+                            <input onChange={handleImgUpload} id="img" className={styles.productImgUpload} type="file" />
+                          </label>
+                        </button>
+
+                        {/* TODO 이미지 여러개 업로드 물품 대표 이미지::다음에 할 것 */}
+                        {/* https://velog.io/@jkl1545/%EC%9D%B4%EB%AF%B8%EC%A7%80-%EB%8B%A4%EC%A4%91-%EC%97%85%EB%A1%9C%EB%93%9C-%EB%B0%8F-%EB%AF%B8%EB%A6%AC%EB%B3%B4%EA%B8%B0 */}
+
+                      </div>
+                    </div>
+                  )
+                    : null
+
+              }
+
               {/*  물건을 픽업할 장소를 정해주세요. */}
               <div className={styles.LocationInputContainer}>
                 <h1>다음 사항을 입력해주세요.</h1>
@@ -1005,7 +1061,19 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
                     </span>
                     <div className={styles.priceOuterContainer}>
                       <div className={styles.priceInnerContainer}>
-                        <input value={product.price} onChange={(e) => { setProduct({ ...product, price: Number(e.currentTarget.value) }); }} className={styles.inputStyle} type="number" />
+                        <input
+                          value={product.price}
+                          onChange={(e) => {
+                            // eslint-disable-next-line max-len
+                            if (e.currentTarget.value === null || Number(e.currentTarget.value) === 0) {
+                              setProduct({ ...product, price: null });
+                            } else {
+                              setProduct({ ...product, price: Number(e.currentTarget.value) });
+                            }
+                          }}
+                          className={styles.inputStyle}
+                          type="number"
+                        />
                         <span className={styles.underText}>대여물품 파손 및 손상 시 이용자가 배상해야 할 금앱입니다.</span>
                       </div>
                       {/* <div className={styles.checkContainer}> */}

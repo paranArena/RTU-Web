@@ -6,9 +6,9 @@
 .rentItemOuterContainer{
     width : 100vw;
     height : 852px;
-    padding-top : 50px;
-    padding-left: 50px;
-    padding-right : 50px;
+    /*padding-top : 50px;*/
+    padding-left: 100px;
+    padding-right : 100px;
 
     /*FIXME margin-bottom*/
     /*margin-bottom : 100px;*/
@@ -84,6 +84,8 @@
 }
 
 .rentPrecautionsContainer{
+    padding-top : 50px;
+
     width : 100vw;
     height : auto;
     padding-right : 50px;

@@ -116,6 +116,8 @@ function NoticeListItem({
 
 interface RentalItemProps {
   clubId : number;
+  // eslint-disable-next-line react/require-default-props
+  setCurrentTab?: Dispatch<SetStateAction<string>>;
   id : number;
   thumbnailPath : string | null;
   rentalItemName : string;
@@ -125,6 +127,7 @@ interface RentalItemProps {
 
 function RentalItem({
   clubId, id,
+  setCurrentTab,
   thumbnailPath, rentalItemName, quantityTotal, quantityLeft,
 }: RentalItemProps) {
   let quantity = true;
@@ -134,7 +137,11 @@ function RentalItem({
   const router = useRouter();
 
   const onClickItem = () => {
-    router.push(`/rent/products?clubId=${clubId}&productId=${id}`);
+    if (rentalItemName === '더보기') {
+      setCurrentTab('대여');
+    } else {
+      router.push(`/rent/products?clubId=${clubId}&productId=${id}`);
+    }
   };
 
   return (
@@ -149,7 +156,11 @@ function RentalItem({
             <h3>{rentalItemName}</h3>
             <span>
               {quantityLeft}
-              /
+              {
+                quantityLeft === null && quantityTotal === null
+                  ? null
+                  : '/'
+              }
               {quantityTotal}
             </span>
           </>
@@ -168,10 +179,11 @@ function RentalItem({
 interface IGroupModalHome {
   show : boolean
   clubId : number;
+  setCurrentTab: Dispatch<SetStateAction<string>>;
 }
 
 // 그룹 모달 홈 탭
-function GroupModalHome({ show, clubId } : IGroupModalHome) {
+function GroupModalHome({ show, clubId, setCurrentTab } : IGroupModalHome) {
   // const queryString = window.location.search;
   // const clubId = queryString.slice(queryString.search('=') + 1);
 
@@ -237,7 +249,15 @@ function GroupModalHome({ show, clubId } : IGroupModalHome) {
       },
     })
       .then((res) => {
-        setRentalProduct(res.data.data);
+        const arr = [];
+        if (res.data.data.length >= 4) {
+          for (let i = 0; i < 4; i += 1) {
+            arr.push(res.data.data[i]);
+          }
+          setRentalProduct(arr);
+        } else {
+          setRentalProduct(res.data.data);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -340,6 +360,7 @@ function GroupModalHome({ show, clubId } : IGroupModalHome) {
                 {
         rentalProduct.map((product) => (
           <RentalItem
+            setCurrentTab={setCurrentTab}
             clubId={product.clubId}
             id={product.id}
             thumbnailPath={product.imagePath}
@@ -349,6 +370,22 @@ function GroupModalHome({ show, clubId } : IGroupModalHome) {
           />
         ))
       }
+                {
+                  rentalProduct.length !== 0
+                    ? (
+                      <RentalItem
+                        setCurrentTab={setCurrentTab}
+                        clubId={rentalProduct[0].clubId}
+                        id={rentalProduct[0].id}
+                        thumbnailPath="/images/물품더보기.png"
+                        rentalItemName="더보기"
+                        quantityTotal={null}
+                        quantityLeft={null}
+                      />
+                    )
+                    : null
+                }
+
               </ul>
             </div>
           </>
