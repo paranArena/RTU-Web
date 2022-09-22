@@ -204,7 +204,7 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
 
           <div className={stylesModal.groupNameContainer}>
             <span className={styles.modalText}>그룹 이름</span>
-            <input ref={groupNameRef} id="groupName" onChange={(e) => { setSettingClubData({ ...settingClubData, name: e.currentTarget.value }); }} className={stylesModal.inputLineGroupName} type="text" />
+            <input ref={groupNameRef} id="groupName" onChange={(e) => { setName(e.currentTarget.value); }} className={stylesModal.inputLineGroupName} type="text" />
           </div>
 
           <div className={stylesModal.introduceContainer}>
@@ -214,7 +214,7 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
               id="groupIntroduce"
               onChange={(e) => {
                 if (e.currentTarget.value.length <= 130) {
-                  setSettingClubData({ ...settingClubData, introduction: e.currentTarget.value });
+                  setIntroduction(e.currentTarget.value);
                 } else {
                   e.currentTarget.value = settingClubData.introduction;
                 }
@@ -544,7 +544,7 @@ function AdminPage() {
             onClick={onClickMenu}
             className={menu.admin ? styles.current : styles.disabled}
           >
-            클럽 관리자 관리
+            그룹 관리자 관리
           </h4>
           {/* eslint-disable-next-line max-len */}
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}

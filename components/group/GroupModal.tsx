@@ -287,7 +287,7 @@ function GroupModal({ clubData }: IGroupModal) {
         {/* div 2 */}
         {/* eslint-disable-next-line no-nested-ternary,max-len */}
         { tabStyles.home.current
-          ? <GroupModalHome clubId={clubData.id} show={(role === 'WAIT' || role === 'NONE')} />
+          ? <GroupModalHome setCurrentTab={setCurrentTab} clubId={clubData.id} show={(role === 'WAIT' || role === 'NONE')} />
         // eslint-disable-next-line no-nested-ternary
           : tabStyles.rent.current
             ? <GroupModalRent clubData={clubData} show={(role === 'WAIT' || role === 'NONE')} />

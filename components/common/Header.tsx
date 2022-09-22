@@ -6,7 +6,7 @@ function Header() {
       <title>Ren2U</title>
       <meta name="description" content="Ren2U Web Service" />
       {/* <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" /> */}
-      <link rel="icon" href="/favicon.ico" />
+      <link rel="icon" href="/favicon2.png" />
     </Head>
   );
 }
