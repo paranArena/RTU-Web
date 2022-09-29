@@ -1,0 +1,197 @@
+.couponTabContainer{
+    width : 100%;
+    height : 100%;
+
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(73, 80, 87, 0.15);
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.couponTitleContainer{
+    width : 100%;
+    height : 75px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.couponTitleContainer h1{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+
+    text-align: center;
+
+    color: #000000;
+}
+
+.couponRegistrationContainer{
+    width : 95%;
+    height : 45px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-end;
+
+    border-bottom : 2px solid #F1F3F5;
+}
+
+.couponRegisterButton{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.couponRegistrationContainer span{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #000000;
+}
+
+@media (min-width: 999px) {
+    .couponListContainer{
+        margin-top : 10px;
+        width : 100%;
+        height : 100%;
+
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        justify-items: center;
+
+        overflow-y: scroll;
+    }
+}
+
+@media (min-width: 1000px) {
+    .couponListContainer{
+        margin-top : 10px;
+        width : 100%;
+        height : 100%;
+
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        justify-items: center;
+
+
+        overflow-y: scroll;
+    }
+}
+
+@media (min-width: 1300px) {
+    .couponListContainer{
+        margin-top : 10px;
+        width : 100%;
+        height : 100%;
+
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        justify-items: center;
+
+
+        overflow-y: scroll;
+    }
+}
+
+@media (min-width: 1600px) {
+    .couponListContainer{
+        margin-top : 10px;
+        width : 100%;
+        height : 100%;
+
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        justify-items: center;
+
+
+        overflow-y: scroll;
+    }
+}
+
+@media (min-width: 1900px) {
+    .couponListContainer{
+        margin-top : 10px;
+        width : 100%;
+        height : 100%;
+
+        display: grid;
+        grid-template-columns: repeat(5,1fr);
+        justify-items: center;
+
+
+        overflow-y: scroll;
+    }
+}
+
+
+
+/* Coupon Item */
+.couponItemContainer{
+    padding : 20px;
+    width : 300px;
+    height : 300px;
+
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.couponImgContainer{
+    width: 180px;
+    height: 180px;
+}
+
+.couponImg{
+    width : 100%;
+    height : 100%;
+    border-radius: 17.5px;
+}
+
+.infoContainer{
+    width : 100%;
+    height : calc(100% - 180px);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+
+    justify-content: space-evenly;
+}
+
+.couponName{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+
+    color: #000000;
+}
+
+.dateOfUseInCoupon{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #868E96;
+}

@@ -8,7 +8,7 @@ import { IoReloadCircleOutline } from 'react-icons/io5';
 import { SERVER_API } from '../../../config';
 import { MapComponent } from '../../../pages/rent/products';
 
-const rentalLocation = [
+export const rentalLocation = [
   {
     key: 1, text: '우리집', latitude: 37.27206960304626, longitude: 127.04518368153681,
   },
@@ -732,7 +732,6 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
   };
 
   useEffect(() => {
-    console.log();
   }, [submitActive]);
 
   useEffect(() => {
@@ -1220,7 +1219,7 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
                       <div className={styles.locationNameContainer}>
                         {
                                 product.locationName
-                              }
+                        }
                       </div>
                     </div>
 
@@ -1382,6 +1381,7 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
 
   useEffect(() => {
     const clubID = window.location.search.slice(window.location.search.search('=') + 1);
+    console.log('qweqweqwe : ', clubID);
 
     axios.get(`${SERVER_API}/clubs/${clubID}/products/search/all`, {
       headers: {

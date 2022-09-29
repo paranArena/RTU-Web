@@ -85,3 +85,13 @@ export interface Location {
   latitude : number;
   longitude : number;
 }
+
+export interface IClubRentalHistory {
+  expDate : null | string;
+  id : number;
+  memberName : string;
+  numbering : number;
+  productName : string;
+  rentDate : string;
+  rentalStatus : 'CANCEL' | 'DONE' ;
+}

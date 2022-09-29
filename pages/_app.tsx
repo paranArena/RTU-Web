@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [showLogoutState, setShowLogoutState] = useState(false);
 
   useEffect(() => {
-    if (router.pathname === '/admin' || router.pathname === '/' || router.pathname === '/mypage') {
+    if (router.pathname === '/admin' || router.pathname === '/admin/coupon' || router.pathname === '/' || router.pathname === '/mypage') {
       setFlag(false);
     } else {
       setFlag(true);

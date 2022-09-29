@@ -14,6 +14,11 @@ import AlertModal from '../../components/common/AlertModal';
 import ProductManageModal from '../../components/admin/tab/product';
 import AdminRentalModal from '../../components/admin/tab/AdminRentalModal';
 import AdminManageTab from '../../components/admin/tab/AdminManageTab';
+import ClubMemberItem from '../../components/admin/dashboard/ClubMemberItem';
+import NotificationItem from '../../components/admin/dashboard/NotificationItem';
+import RentalStatusChart from '../../components/admin/dashboard/RentalStatusChart';
+import CouponTab from '../../components/admin/tab/coupon/CouponTab';
+import CouponDetail from '../../components/admin/tab/coupon/CouponDetail';
 
 interface IClubProfileSettingModal {
   id : string;
@@ -234,9 +239,47 @@ function ClubProfileSettingModal({ clubData, setClubData, id }:IClubProfileSetti
 
 // DashBoard
 function DashBoard() {
-  useEffect(() => {
+  const [mount, setMount] = useState(0);
+  const [memberList, setMemberList] = useState([]);
+  const [noticeList, setNoticeList] = useState([]);
 
-  }, []);
+  useEffect(() => {
+    if (mount === 0) {
+      setMount(1);
+    } else {
+      const clubId = window.location.href.slice((window.location.href.search('=') + 1));
+      axios.get(`${SERVER_API}/clubs/${clubId}/members/search/all`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      })
+        .then((res) => {
+          setMemberList(res.data.data);
+
+          axios.get(`${SERVER_API}/clubs/${clubId}/notifications/search/all`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          })
+            .then((response) => {
+              let tmpArr = response.data.data;
+              tmpArr = tmpArr.sort((a, b) => {
+                const A = new Date(a.updatedAt);
+                const B = new Date(b.updatedAt);
+                // @ts-ignore
+                return B - A;
+              });
+              setNoticeList(tmpArr);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [mount]);
 
   return (
     <div className={styles.tabViewOuterContainer}>
@@ -280,10 +323,13 @@ function DashBoard() {
               <h1 className={styles.sectionTitle}>
                 공지사항
               </h1>
-
-              <div>
-                {/* 공지사항 리스트 */}
-              </div>
+              <img className={styles.memberAddIcon} alt="member add" src="/icons/추가하기.png" />
+            </div>
+            <div className={styles.noticeTabListContainer}>
+              {/* 공지사항 리스트 */}
+              {
+                noticeList.map((notice) => <NotificationItem notification={notice} />)
+              }
             </div>
           </section>
         </div>
@@ -294,12 +340,13 @@ function DashBoard() {
             {/* 대여 현황 */}
             <div className={styles.titleContainer}>
               <h1 className={styles.sectionTitle}>
-                대여 현황
+                대여현황
               </h1>
             </div>
 
             <div>
               {/* 대여 현황 리스트 */}
+              <RentalStatusChart />
             </div>
           </section>
           <section className={styles.section_h_50}>
@@ -308,10 +355,14 @@ function DashBoard() {
               <h1 className={styles.sectionTitle}>
                 멤버 관리
               </h1>
+              <img className={styles.memberAddIcon} alt="member add" src="/icons/추가하기.png" />
             </div>
 
-            <div>
+            <div className={styles.memberListCardContainer}>
               {/* 멤버 리스트 */}
+              {
+                memberList.map((member) => <ClubMemberItem member={member} />)
+              }
             </div>
           </section>
         </div>
@@ -389,6 +440,7 @@ interface IMenuTabState {
   event: boolean;
   rentalActive: boolean;
   admin : boolean;
+  coupon : boolean;
 }
 
 const menuDefault:IMenuTabState = {
@@ -400,6 +452,7 @@ const menuDefault:IMenuTabState = {
   event: false,
   rentalActive: false,
   admin: false,
+  coupon: false,
 };
 
 function AdminPage() {
@@ -433,6 +486,8 @@ function AdminPage() {
       setMenu({ ...menuDefault, rentalActive: true });
     } else if (e.currentTarget.id === 'admin') {
       setMenu({ ...menuDefault, admin: true });
+    } else if (e.currentTarget.id === 'coupon') {
+      setMenu({ ...menuDefault, coupon: true });
     }
   };
 
@@ -548,6 +603,15 @@ function AdminPage() {
           </h4>
           {/* eslint-disable-next-line max-len */}
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
+          <h4
+            id="coupon"
+            onClick={onClickMenu}
+            className={menu.coupon ? styles.current : styles.disabled}
+          >
+            쿠폰 관리
+          </h4>
+          {/* eslint-disable-next-line max-len */}
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
           {/* <h4 */}
           {/*  id="event" */}
           {/*  onClick={onClickMenu} */}
@@ -603,9 +667,7 @@ function AdminPage() {
           {
             menu.dashBoard
               ? (
-                <div className={styles.dashboardImgContainer}>
-                  <img src="/images/dashboardImg.png" alt="임시 이미지" />
-                </div>
+                <DashBoard />
               )
             // <DashBoard />
               : null
@@ -630,6 +692,7 @@ function AdminPage() {
               ? <div>준비중</div>
               : null
           }
+
           {
             menu.rentalItemManage
             // eslint-disable-next-line max-len
@@ -641,6 +704,13 @@ function AdminPage() {
               ? <AdminManageTab />
               : null
           }
+
+          {
+            menu.coupon
+              ? <CouponTab />
+              : null
+          }
+
         </div>
       </div>
     </div>

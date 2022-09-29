@@ -1,0 +1,791 @@
+.couponDetailContainer{
+    width : 100%;
+    height : 100%;
+
+    background: #F5F5F5;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.couponDetailInnerContainer{
+    width : 47.5%;
+    height : 100%;
+
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(73, 80, 87, 0.15);
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.couponDetailInnerTitleContainer{
+    width : 90%;
+    height : 78px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-bottom:2px solid #F8F9FA;
+    margin-bottom : 10px;
+}
+
+.memberButtonTextContainer{
+    position: absolute;
+    bottom : 0;
+    right : 0;
+
+    width : 100%;
+    height : 20px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.viewSelectCntContainer{
+    width : 60px;
+    display: flex;
+    margin-left : 10px;
+    align-items: center;
+}
+
+.viewSelectCntContainer p{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #1E2F97;
+
+}
+
+.clickTextContainer{
+    width : 200px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.memberButtonText{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    cursor: pointer;
+
+    color: #000000;
+}
+
+.couponDetailInnerTitleContainer span{
+    position: absolute;
+    bottom : 0;
+    right : 0;
+    margin-right : 10px;
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.couponDetailInnerTitleContainer h1{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+
+    color: #000000;
+}
+
+.couponDetailInfoContainer{
+    width : 90%;
+    height : calc(100% - 78px);
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.couponDetailInfo1Container{
+    width : 100%;
+    height : 250px;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.couponImg{
+    width : 100%;
+    height : 100%;
+    border-radius: 7px;
+}
+
+.couponInfoContainer{
+    width : calc(100% - 250px);
+    height : 100%;
+
+    padding : 0 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.couponInfoTextContainer h3{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    color: #495057;
+}
+
+@media (min-width: 1300px){
+    .couponDetailInfo1Container{
+        width : 100%;
+        height : 180px;
+        margin-top: 10px;
+
+        display: flex;
+        flex-direction: row;
+    }
+    .couponImgContainer{
+        width : 180px;
+        height : 180px;
+
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .couponInfoTextContainer span{
+        font-style: normal;
+        font-weight: 600;
+        font-size: 10px;
+
+        display: flex;
+        align-items: center;
+
+        color: #000000;
+    }
+
+    .couponImg{
+        width : 100%;
+        height : 180px;
+        border-radius: 7px;
+    }
+
+    .couponInfoContainer{
+        width : calc(100% - 180px);
+        height : 100%;
+
+        padding : 0 10px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
+    .couponInfoTextContainer h3{
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        color: #495057;
+    }
+}
+
+@media (min-width: 1400px){
+.couponDetailInfo1Container{
+    width : 100%;
+    height : 180px;
+    margin-top: 10px;
+
+    display: flex;
+    flex-direction: row;
+}
+.couponImgContainer{
+    width : 180px;
+    height : 180px;
+
+    display: flex;
+    align-items: flex-end;
+}
+
+.couponInfoTextContainer span{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+}
+
+.couponImg{
+    width : 100%;
+    height : 180px;
+    border-radius: 7px;
+}
+
+.couponInfoContainer{
+    width : calc(100% - 180px);
+    height : 100%;
+
+    padding : 0 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.couponInfoTextContainer h3{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    color: #495057;
+}
+}
+
+@media (min-width: 2200px){
+    .couponDetailInfo1Container{
+        width : 100%;
+        height : 250px;
+        margin-top: 10px;
+
+        display: flex;
+        flex-direction: row;
+    }
+    .couponImgContainer{
+        width : 250px;
+        height : 250px;
+
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .couponInfoTextContainer span{
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+
+        display: flex;
+        align-items: center;
+
+        color: #000000;
+    }
+
+    .couponImg{
+        width : 100%;
+        height : 250px;
+        border-radius: 7px;
+    }
+
+    .couponInfoContainer{
+        width : calc(100% - 250px);
+        height : 100%;
+
+        padding : 0 10px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
+    .couponInfoTextContainer h3{
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        color: #495057;
+    }
+}
+
+@media (min-width: 1900px){
+    .couponImgContainer{
+        width : 250px;
+        height : 250px;
+    }
+
+    .couponInfoTextContainer span{
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+
+        display: flex;
+        align-items: center;
+
+        color: #000000;
+    }
+}
+
+@media (min-width: 1800px){
+    .couponImgContainer{
+        width : 225px;
+        height : 225px;
+    }
+
+    .couponInfoTextContainer span{
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+
+        display: flex;
+        align-items: center;
+
+        color: #000000;
+    }
+}
+
+@media (min-width: 1700px){
+    .couponImgContainer{
+        width : 200px;
+        height : 250px;
+
+        display: flex;
+        align-items: center;
+    }
+
+    .couponInfoTextContainer span{
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+
+        display: flex;
+        align-items: center;
+
+        color: #000000;
+    }
+
+    .couponImg{
+        width : 100%;
+        height : 200px;
+        border-radius: 7px;
+    }
+
+    .couponInfoContainer{
+        width : calc(100% - 200px);
+        height : 100%;
+
+        padding : 0 10px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+}
+
+
+@media (min-width: 1600px){
+    .couponDetailInfo1Container{
+        width : 100%;
+        height : 200px;
+        margin-top: 10px;
+
+        display: flex;
+        flex-direction: row;
+    }
+    .couponImgContainer{
+        width : 200px;
+        height : 200px;
+
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .couponInfoTextContainer span{
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+
+        display: flex;
+        align-items: center;
+
+        color: #000000;
+    }
+
+    .couponImg{
+        width : 100%;
+        height : 200px;
+        border-radius: 7px;
+    }
+
+    .couponInfoContainer{
+        width : calc(100% - 200px);
+        height : 100%;
+
+        padding : 0 10px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
+    .couponInfoTextContainer h3{
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        color: #495057;
+    }
+}
+
+
+.couponInfoTextContainer{
+    width : 100%;
+    height : 50px;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+
+.icon{
+    width : 20px;
+    height : 20px;
+    cursor: pointer;
+}
+
+.couponDetailInfo2Container{
+    width : 100%;
+    height : calc(100% - 250px);
+
+    margin-top  :30px;
+}
+
+.couponDetailTextContainer{
+    width : 100%;
+    height : 80%;
+
+}
+
+.couponDetailTextContainer h1{
+    margin-bottom : 15px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+
+    color: #495057;
+}
+
+.couponDetailTextContainer span{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+
+    color: #000000;
+}
+
+.couponDetailModifyButtonContainer{
+    width : 100%;
+    height : 20%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom : 20px;
+}
+
+.couponDetailModifyButtonContainer button{
+    width: 130px;
+    height: 45px;
+    background: #FFFFFF;
+    border: 1px solid #1E2F97;
+    box-shadow: 0 0 4px rgba(30, 47, 151, 0.3);
+    border-radius: 30px;
+
+    cursor: pointer;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    text-align: center;
+
+    color: #1E2F97;
+}
+
+.couponDetailModifyButtonContainer button:hover{
+    width: 130px;
+    height: 45px;
+    background: #1E2F97;
+    border: 1px solid #1E2F97;
+    box-shadow: 0 0 4px rgba(30, 47, 151, 0.3);
+    border-radius: 30px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.memberListContainer{
+    width : 90%;
+    height : calc(100% - 110px);
+
+    overflow-y: scroll;
+}
+
+/* Member Item */
+.memberItemContainer{
+    width : 100%;
+    height : 100px;
+
+    display: flex;
+    flex-direction: row;
+    position: relative;
+
+    border-bottom: 2px solid #F1F3F5;
+}
+
+.selectIcon{
+    width : 24px;
+    height : 24px;
+
+    cursor: pointer;
+}
+
+.memberNameNMajorContainer{
+    width : 100px;
+    height : 100%;
+
+    margin-left : 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.memberNameNMajorContainer h3{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+
+    margin-bottom : 5px;
+
+    color: #000000;
+}
+
+.memberNameNMajorContainer h5{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+
+    color: #868E96;
+}
+
+.selectButtonContainer{
+    width : 64px;
+    height : 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.userProfileImgContainer{
+    width : 100px;
+    height : 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.useProfileImg{
+    width : 80px;
+    height : 80px;
+    border-radius: 50%;
+}
+
+.statusContainer{
+    width : 80px;
+    height : 100%;
+    position: absolute;
+    right : 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.statusUnUsedText{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #1E2F97;
+}
+
+.statusUsedText{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #868E96;
+}
+
+.cursorPointer{
+    cursor: pointer;
+}
+
+.mapModalOuterContainer{
+    z-index : 999;
+    position: fixed;
+    left : 22.5%;
+
+    width : 60vw;
+    height : 75vh;
+
+    background: #F8F9FA;
+    box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mapModalInnerContainer{
+    width : 90%;
+    height : 90%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.mapModalTopContainer{
+    width : 100%;
+    height : 26px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.titleContainer{
+    width : 100%;
+    height : 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.titleContainer h1{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+
+    color: #000000;
+}
+
+.closeIcon{
+    margin : 5px;
+    width : 24px;
+    height : 24px;
+    cursor: pointer;
+}
+
+.MapComponentContainer{
+    width : 100%;
+    height : 90%;
+    background-color: #ADB5BD;
+}
+
+.mapContainer{
+    width : 90%;
+    height : 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.mapNSelectLocationNameContainer{
+    width : 90%;
+    min-height : 450px;
+    height : 80%;
+}
+
+.MapButtonContainer{
+    width : 90%;
+    height : 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mapSubmitButton{
+    cursor: pointer;
+    width : 170px;
+    height : 60px;
+    background: #1E2F97;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 38px;
+    /* identical to box height */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #FFFFFF;
+
+    box-shadow: 0 0 4px rgba(30, 47, 151, 0.35);
+    border-radius: 30px;
+}
+
+
+.disabled{
+    width : 180px;
+    height : 40px;
+    background: #F1F2F3;
+    border-radius: 9px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    color: white;
+}
+
+.locationNameContainer{
+    width : 100%;
+    height : 25px;
+    margin-top : 10px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+
+    color: #000000;
+    display: flex;
+    align-items: center;
+}
