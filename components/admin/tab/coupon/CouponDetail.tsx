@@ -363,20 +363,20 @@ function CouponDetail({ couponId, setCoupon }:CouponDetailProps) {
               </span>
             </div>
 
-            {/* <div className={styles.couponDetailModifyButtonContainer}> */}
-            {/*  <button */}
-            {/*    onClick={() => { */}
-            {/*      setCoupon({ */}
-            {/*        coupon: false, */}
-            {/*        addCoupon: false, */}
-            {/*        modifyCoupon: true, */}
-            {/*      }); */}
-            {/*    }} */}
-            {/*    type="button" */}
-            {/*  > */}
-            {/*    수정하기 */}
-            {/*  </button> */}
-            {/* </div> */}
+            <div className={styles.couponDetailModifyButtonContainer}>
+              <button
+                onClick={() => {
+                  setCoupon({
+                    coupon: false,
+                    addCoupon: false,
+                    modifyCoupon: true,
+                  });
+                }}
+                type="button"
+              >
+                수정하기
+              </button>
+            </div>
           </div>
 
         </div>

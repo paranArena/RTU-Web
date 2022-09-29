@@ -47,6 +47,10 @@ function AddCouponTab({ type, couponId }:AddCouponTabProps) {
   });
 
   useEffect(() => {
+    console.log(responseCouponInfo);
+  }, [responseCouponInfo]);
+
+  useEffect(() => {
     if (type === 'modify') {
       const clubId = window.location.href.slice(window.location.href.search('=') + 1);
       axios.get(`${SERVER_API}/clubs/${clubId}/coupons/${couponId}/admin`, {
@@ -56,16 +60,26 @@ function AddCouponTab({ type, couponId }:AddCouponTabProps) {
       })
         .then((res) => {
           if (res.status === 200) {
-            setResponseCouponInfo(res.data.data);
+            console.log(res.data.data);
             const actDate = new Date((res.data.data.actDate).concat('Z'));
             const expDate = new Date((res.data.data.expDate).concat('Z'));
-            const aDate = ((actDate.getFullYear().toString()).concat('.').concat((actDate.getMonth().toString()).concat('.')))
-              .concat(actDate.getDate().toString());
+            const aDate = ((actDate.getFullYear().toString()).concat('.').concat(((actDate.getMonth() + 1).toString()).concat('.')))
+              .concat((actDate.getDate()).toString());
 
-            const eDate = ((expDate.getFullYear().toString()).concat('.').concat((expDate.getMonth().toString()).concat('.')))
-              .concat(expDate.getDate().toString());
+            const eDate = ((expDate.getFullYear().toString()).concat('.').concat(((expDate.getMonth() + 1).toString()).concat('.')))
+              .concat((expDate.getDate()).toString());
             setResponseCouponInfo({
-              ...responseCouponInfo,
+              id: res.data.data.id,
+              name: res.data.data.name,
+              information: res.data.data.information,
+              allCouponCount: res.data.data.allCouponCount,
+              leftCouponCount: res.data.data.leftCouponCount,
+              imagePath: res.data.data.imagePath,
+              location: {
+                name: res.data.data.location.name,
+                latitude: res.data.data.location.latitude,
+                longitude: res.data.data.location.longitude,
+              },
               actDate: aDate,
               expDate: eDate,
             });
@@ -82,7 +96,8 @@ function AddCouponTab({ type, couponId }:AddCouponTabProps) {
   const onUpdateCoupon = () => {
     const clubId = window.location.href.slice(window.location.href.search('=') + 1);
 
-    if (imgURL.length === 0) {
+    console.log(files);
+    if (files.length === 0) {
       axios({
         method: 'put',
         url: `${SERVER_API}/clubs/${clubId}/coupons/${couponId}/admin`,
@@ -328,32 +343,38 @@ function AddCouponTab({ type, couponId }:AddCouponTabProps) {
                   쿠폰 이름
                 </label>
                 { type === 'add' ? (
-                  <input
-                    onChange={(event) => {
-                      event.preventDefault();
-                      setCouponInfo({
-                        ...couponInfo,
-                        name: event.currentTarget.value,
-                      });
-                    }}
-                    id="couponName"
-                    className={styles.addCouponInput}
-                  />
+                  <>
+                    <input
+                      onChange={(event) => {
+                        event.preventDefault();
+                        setCouponInfo({
+                          ...couponInfo,
+                          name: event.currentTarget.value,
+                        });
+                      }}
+                      id="couponName"
+                      className={styles.addCouponInput}
+                    />
+                    <span style={couponInfo.name !== '' ? { display: 'none' } : null} className={styles.inputPlzText}>입력이 필요합니다.</span>
+
+                  </>
                 ) : (
-                  <input
-                    onChange={(event) => {
-                      event.preventDefault();
-                      setResponseCouponInfo({
-                        ...responseCouponInfo,
-                        name: event.currentTarget.value,
-                      });
-                    }}
-                    value={responseCouponInfo.name}
-                    id="couponName"
-                    className={styles.addCouponInput}
-                  />
+                  <>
+                    <input
+                      onChange={(event) => {
+                        event.preventDefault();
+                        setResponseCouponInfo({
+                          ...responseCouponInfo,
+                          name: event.currentTarget.value,
+                        });
+                      }}
+                      value={responseCouponInfo.name}
+                      id="couponName"
+                      className={styles.addCouponInput}
+                    />
+                    <span style={responseCouponInfo.name !== '' ? { display: 'none' } : null} className={styles.inputPlzText}>입력이 필요합니다.</span>
+                  </>
                 ) }
-                <span style={couponInfo.name !== '' ? { display: 'none' } : null} className={styles.inputPlzText}>입력이 필요합니다.</span>
 
               </div>
               <div className={styles.dateOfUseInputContainer}>
@@ -432,8 +453,12 @@ function AddCouponTab({ type, couponId }:AddCouponTabProps) {
                   )}
                 </div>
               </div>
-              <span style={(couponInfo.startDate !== '' || couponInfo.endDate !== '') ? { display: 'none' } : null} className={styles.inputPlzText}>입력이 필요합니다.</span>
+              {
+                type === 'add'
+                  ? <span style={(couponInfo.startDate !== '' || couponInfo.endDate !== '') ? { display: 'none' } : null} className={styles.inputPlzText}>입력이 필요합니다.</span>
+                  : <span style={(responseCouponInfo.actDate !== '' || responseCouponInfo.expDate !== '') ? { display: 'none' } : null} className={styles.inputPlzText}>입력이 필요합니다.</span>
 
+              }
             </div>
           </div>
         </div>
@@ -465,50 +490,62 @@ function AddCouponTab({ type, couponId }:AddCouponTabProps) {
                   상세주소를 입력해주세요.
                 </span>
                 {type === 'add' ? (
-                  <input
-                    onChange={onChangeLocation}
-                    type="text"
-                    className={styles.addCouponInput}
-                  />
+                  <>
+                    <input
+                      onChange={onChangeLocation}
+                      type="text"
+                      className={styles.addCouponInput}
+                    />
+                    <span style={couponInfo.location.locationName !== '' ? { display: 'none' } : null} className={styles.inputPlzText}>입력이 필요합니다.</span>
+
+                  </>
                 ) : (
-                  <input
-                    onChange={onChangeLocation}
-                    type="text"
-                    value={responseCouponInfo.location.name}
-                    className={styles.addCouponInput}
-                  />
+                  <>
+                    <input
+                      onChange={onChangeLocation}
+                      type="text"
+                      value={responseCouponInfo.location.name}
+                      className={styles.addCouponInput}
+                    />
+                    <span style={responseCouponInfo.location.name !== '' ? { display: 'none' } : null} className={styles.inputPlzText}>입력이 필요합니다.</span>
+
+                  </>
                 )}
-                <span style={couponInfo.location.locationName !== '' ? { display: 'none' } : null} className={styles.inputPlzText}>입력이 필요합니다.</span>
               </div>
             </div>
 
             <div className={styles.rightSectionBottomContainer}>
               <h3 className={styles.blackTitle}>세부정보를 입력해주세요.</h3>
               {type === 'add' ? (
-                <textarea
-                  onChange={(e) => {
-                    e.preventDefault();
-                    setCouponInfo({
-                      ...couponInfo,
-                      detail: e.currentTarget.value,
-                    });
-                  }}
-                  className={styles.textArea}
-                />
+                <>
+                  <textarea
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setCouponInfo({
+                        ...couponInfo,
+                        detail: e.currentTarget.value,
+                      });
+                    }}
+                    className={styles.textArea}
+                  />
+                  <span className={styles.inputPlzText}>{couponInfo.detail !== '' ? null : '입력이 필요합니다.' }</span>
+                </>
               ) : (
-                <textarea
-                  onChange={(e) => {
-                    e.preventDefault();
-                    setResponseCouponInfo({
-                      ...responseCouponInfo,
-                      information: e.currentTarget.value,
-                    });
-                  }}
-                  value={responseCouponInfo.information}
-                  className={styles.textArea}
-                />
+                <>
+                  <textarea
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setResponseCouponInfo({
+                        ...responseCouponInfo,
+                        information: e.currentTarget.value,
+                      });
+                    }}
+                    value={responseCouponInfo.information}
+                    className={styles.textArea}
+                  />
+                  <span className={styles.inputPlzText}>{responseCouponInfo.information !== '' ? null : '입력이 필요합니다.' }</span>
+                </>
               )}
-              <span className={styles.inputPlzText}>{couponInfo.detail !== '' ? null : '입력이 필요합니다.' }</span>
 
             </div>
           </div>
@@ -537,7 +574,7 @@ function AddCouponTab({ type, couponId }:AddCouponTabProps) {
                 ? styles.couponAddSubmitButtonActive : styles.couponAddSubmitButton
             }
           >
-            등록
+            수정
           </button>
         )}
       </div>
