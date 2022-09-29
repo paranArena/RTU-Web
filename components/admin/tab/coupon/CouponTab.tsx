@@ -20,6 +20,7 @@ interface ICouponItem {
 
 function CouponItem(
   {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     setSelectCoupon, id, clubId, clubName, name, imagePath, actDate, expDate,
   }:ICouponItem,
 ) {

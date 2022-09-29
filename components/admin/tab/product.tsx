@@ -790,6 +790,7 @@ function AddProductModal({ setShowAddProduct, ModalType, itemId }:IAddProductMod
   }, [modiProduct]);
 
   // imageURL to Blob
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const convertURLtoFile = async (imgURL: string) => {
     const response = await fetch(imgURL);
     const data = await response.blob();

@@ -40,7 +40,7 @@ function CertificationModal({
   useEffect(() => {
     if (one === 1) {
       axios.post(`${SERVER_API}/members/email/requestCode`, { email })
-        .then((res) => {
+        .then(() => {
         }).catch((err) => {
           console.log(err);
         });

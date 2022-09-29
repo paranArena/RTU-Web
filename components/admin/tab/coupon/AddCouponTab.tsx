@@ -8,6 +8,7 @@ import { SERVER_API } from '../../../../config';
 
 interface AddCouponTabProps {
   type : 'add' | 'modify';
+  // eslint-disable-next-line react/require-default-props
   couponId? : number;
 }
 

@@ -5,7 +5,6 @@ import axios from 'axios';
 import { MapComponent } from 'pages/rent/products';
 import styles from '../../../../styles/admin/coupon/CouponDetail.module.css';
 import { SERVER_API } from '../../../../config';
-import { rentalLocation } from '../product';
 
 interface IMemberItem {
   name : string;
@@ -20,10 +19,12 @@ interface IMemberItem {
   // eslint-disable-next-line react/require-default-props
   addIssuedMember?:number[];
   id : number;
+  // eslint-disable-next-line react/require-default-props
   status? : 'unUse' | 'used';
 }
 
 function MemberItem({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   status, id, name, major, studentId, imagePath, type, setAddIssuedMember, addIssuedMember, state,
 }: IMemberItem) {
   const [select, setSelect] = useState(state);
