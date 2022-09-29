@@ -33,8 +33,9 @@ function GroupModal({ clubData }: IGroupModal) {
   const onClickLeaveButtonEvent = (e:React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
+    const clubId = window.location.href.slice(window.location.href.search('=') + 1);
     axios.delete(
-      `${SERVER_API}/clubs/${clubData.id}/requests/leave`,
+      `${SERVER_API}/clubs/${clubId}/requests/leave`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -52,10 +53,12 @@ function GroupModal({ clubData }: IGroupModal) {
 
   const onClickJoinEventButton = (e : React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    const clubId = window.location.href.slice(window.location.href.search('=') + 1);
+
     axios({
       method: 'post',
       // eslint-disable-next-line react/destructuring-assignment
-      url: `${SERVER_API}/clubs/${clubData.id}/requests/join`,
+      url: `${SERVER_API}/clubs/${clubId}/requests/join`,
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     })
       .then((res) => {
@@ -78,10 +81,12 @@ function GroupModal({ clubData }: IGroupModal) {
 
   const onClickCancelEventButton = (e : React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    const clubId = window.location.href.slice(window.location.href.search('=') + 1);
+
     axios({
       method: 'delete',
       // eslint-disable-next-line react/destructuring-assignment
-      url: `${SERVER_API}/clubs/${clubData.id}/requests/join/cancel`,
+      url: `${SERVER_API}/clubs/${clubId}/requests/join/cancel`,
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     })
       .then((res) => {
@@ -116,7 +121,9 @@ function GroupModal({ clubData }: IGroupModal) {
 
   useEffect(() => {
     // eslint-disable-next-line react/destructuring-assignment
-    axios.get(`${SERVER_API}/members/my/clubs/${clubData.id}/role`, {
+    const clubId = window.location.href.slice(window.location.href.search('=') + 1);
+
+    axios.get(`${SERVER_API}/members/my/clubs/${clubId}/role`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
@@ -129,7 +136,7 @@ function GroupModal({ clubData }: IGroupModal) {
         console.log(err);
       });
 
-    axios.get(`${SERVER_API}/clubs/${clubData.id}/members/search/all`, {
+    axios.get(`${SERVER_API}/clubs/${clubId}/members/search/all`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
