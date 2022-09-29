@@ -130,7 +130,7 @@ function MyRentalCard({ item }:MyRentalProps) {
           },
 
         },
-      ).then((res) => {
+      ).then(() => {
         alert('렌탈 반납 성공');
         window.location.reload();
       })
@@ -164,9 +164,9 @@ function MyRentalCard({ item }:MyRentalProps) {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         },
-      ).then((res) => {
+      ).then(() => {
         alert('대여 확정 성공');
-        // window.location.reload();
+        window.location.reload();
       })
         .catch((err) => {
           console.log(err);

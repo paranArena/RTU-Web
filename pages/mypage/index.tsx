@@ -9,7 +9,6 @@ import TermsOfService from 'components/admin/tab/TermsOfService';
 import ProfileSetting from 'components/mypage/ProfileSetting';
 // eslint-disable-next-line import/no-cycle
 import ProfileModal from '../../components/mypage/profile';
-import member from '../../components/admin/tab/member';
 
 interface IClub {
   id : number;

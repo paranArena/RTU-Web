@@ -18,7 +18,6 @@ import ClubMemberItem from '../../components/admin/dashboard/ClubMemberItem';
 import NotificationItem from '../../components/admin/dashboard/NotificationItem';
 import RentalStatusChart from '../../components/admin/dashboard/RentalStatusChart';
 import CouponTab from '../../components/admin/tab/coupon/CouponTab';
-import CouponDetail from '../../components/admin/tab/coupon/CouponDetail';
 
 interface IClubProfileSettingModal {
   id : string;
@@ -460,6 +459,7 @@ function AdminPage() {
   const [showDeleteAlert, setShowDeleteAlert] = useState<boolean>(false);
   const [clubId, setClubId] = useState('');
   // OWNER인지 ADMIN인지 판단하기 위한
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [myRole, setMyrole] = useState('');
 
   // 관리자가 미가입자 렌탈 기록용

@@ -12,7 +12,9 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 function RentalStatusChart() {
   const [mount, setMount] = useState(0);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [status, setStatus] = useState([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [showData, setShowData] = useState({
     labels: ['미반납', '대여 중', '예약', '보관'],
     datasets: [
