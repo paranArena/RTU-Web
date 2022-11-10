@@ -10,7 +10,7 @@
 
 .innerContainer{
     margin-top : 19.9090909091vh;
-    background-color: lightsteelblue;
+    background-image: url("/images/bg/Groupbackground.png") ;
     width : 100%;
     height : 100%;
     display: flex;
