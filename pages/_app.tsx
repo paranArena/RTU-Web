@@ -30,7 +30,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           : null
       }
       {/* eslint-disable-next-line max-len */}
-      { flag ? <TopNavigationBar setShowLogoutState={setShowLogoutState} setIsSearched={setIsSearched} isSearched={isSearched} /> : null }
+      {/* { flag ? <TopNavigationBar setShowLogoutState={setShowLogoutState} setIsSearched={setIsSearched} isSearched={isSearched} /> : null } */}
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <Component isSearched={isSearched} setIsSearched={setIsSearched} {...pageProps} />
     </>
