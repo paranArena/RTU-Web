@@ -24,7 +24,7 @@ function TopNavigationBar({ setIsSearched, isSearched, setShowLogoutState } :Top
 
   const [current, setCurrent] = useState({
     group: false,
-    rent: false,
+    // rent: false,
     mypage: false,
   });
 
@@ -36,19 +36,19 @@ function TopNavigationBar({ setIsSearched, isSearched, setShowLogoutState } :Top
     if (path === '/group') {
       setCurrent({
         group: true,
-        rent: false,
+        // rent: false,
         mypage: false,
       });
     } else if (path === '/rent') {
       setCurrent({
         group: false,
-        rent: true,
+        // rent: true,
         mypage: false,
       });
     } else if (path === '/mypage') {
       setCurrent({
         group: false,
-        rent: false,
+        // rent: false,
         mypage: true,
       });
     }
@@ -118,9 +118,9 @@ function TopNavigationBar({ setIsSearched, isSearched, setShowLogoutState } :Top
             <Link href="/group">그룹</Link>
           </li>
 
-          <li className={current.rent ? styles.currentNavItem : styles.navItem}>
-            <Link href="/rent">대여</Link>
-          </li>
+          {/* <li className={current.rent ? styles.currentNavItem : styles.navItem}> */}
+          {/*  <Link href="/rent">대여</Link> */}
+          {/* </li> */}
 
           <li className={current.mypage ? styles.currentNavItem : styles.navItem}>
             <Link href="/mypage">마이페이지</Link>
