@@ -1,6 +1,6 @@
-import styles from '../../styles/pages/ClubList.module.css';
-import { MY_CLUB } from '../../interface/API';
-import ClubCard from '../../components/common/Card/ClubCard';
+import styles from '../../../styles/pages/ClubList.module.css';
+import { MY_CLUB } from '../../../interface/API';
+import ClubCard from './ClubCard';
 
 interface ClubListProps {
   clubList: MY_CLUB[];

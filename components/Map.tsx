@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import styles from 'styles/pages/RentalProducts.module.css';
 import { KAKAO_API_KEY } from '../config';
-import { Location } from '../globalInterface';
 
 // const KAKAO_API_KEY = 'KAKAO_API_KEY';
 
@@ -54,18 +53,4 @@ export interface RentItem {
   numbering : number;
   rentalPolicy : 'FIFO' | 'RESERVE'; // 예약제인지 선착순인지
   rentalInfo : RentalInfo | null;
-}
-
-// rent/products
-interface RentalProductsPageProps {
-  id : number; // 대여 물품 id
-  name : string; // 대여 물품 이름
-  category : string; // 카테고리
-  location : Location; // 대여 픽업 위치
-  fifoRentalPeriod : number; // 선착순기간?
-  reserveRentalPeoriod : number; // 예약제/기간제
-  price : number; // 가격
-  caution : string; // 주의사항
-  imagePath : string; // 대여 물품 이미지
-  items : RentItem[];
 }

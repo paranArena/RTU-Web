@@ -4,7 +4,7 @@ import axios from 'axios';
 import { SERVER_API } from '../../config';
 import { MY_CLUB } from '../../interface/API';
 import { getMyClubs } from '../../api/Member';
-import ClubList from './ClubList';
+import ClubList from '../../components/common/Card/ClubList';
 
 function Main() {
   // 로그인한 유저가 ADMIN 또는 ONWER인 club list
