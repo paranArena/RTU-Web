@@ -548,13 +548,13 @@ function AdminPage() {
         <div className={styles.menuTabContainer}>
           {/* eslint-disable-next-line max-len */}
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
-          <h4
-            id="dashBoard"
-            onClick={onClickMenu}
-            className={menu.dashBoard ? styles.current : styles.disabled}
-          >
-            대시보드
-          </h4>
+          {/* <h4 */}
+          {/*  id="dashBoard" */}
+          {/*  onClick={onClickMenu} */}
+          {/*  className={menu.dashBoard ? styles.current : styles.disabled} */}
+          {/* > */}
+          {/*  대시보드 */}
+          {/* </h4> */}
           {/* eslint-disable-next-line max-len */}
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
           <h4
