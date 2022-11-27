@@ -1,0 +1,55 @@
+.container{
+    width: 220px;
+    height: 304px;
+    padding: 30px 32px;
+    border-radius: 16px;
+    background-color: var(--color-white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.container:hover{
+    background-color: var(--color-light-gray-100);
+}
+
+.container div{
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.clubImg{
+    width: 156px;
+    height: 156px;
+    border-radius: 16px;
+    margin-bottom: 12px;
+}
+
+.clubName{
+    width: 220px;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 35px;
+    text-align: center;
+    color: var(--color-black);
+    text-overflow: ellipsis;
+    display: flex;
+    justify-content: center;
+}
+
+.clubTag{
+    width: 156px;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 35px;
+    color: var(--color-dark-gray-100);
+}
