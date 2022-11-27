@@ -10,7 +10,7 @@ import { SERVER_API } from '../config';
 import ResetPassword from '../components/register/ResetPassword';
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = 'https://ren2u.shop';
+// axios.defaults.baseURL = 'https://ren2u.shop';
 
 export interface SignUpProps {
   email: string
@@ -68,7 +68,7 @@ function Login() {
           }
         })
         .catch(() => {
-          alert('아이디 또는 비번이 틀렸습니다.');
+          alert('아이디 또는 비밀번호가 틀렸습니다.');
         });
     }
   };

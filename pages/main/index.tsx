@@ -3,7 +3,7 @@ import styles from 'styles/pages/Main.module.css';
 import axios from 'axios';
 import { SERVER_API } from '../../config';
 import { MY_CLUB } from '../../interface/API';
-import { getMyClubs } from '../../api/Member';
+import { getMyClubs } from '../../api/member';
 import ClubList from './ClubList';
 
 function Main() {
@@ -13,8 +13,12 @@ function Main() {
   async function getOwnerClubList() {
     let responseList: MY_CLUB[] = [];
     responseList = await getMyClubs();
-    responseList = responseList.filter((response) => response.clubRole !== 'USER');
-    setAdminClubList(responseList);
+    if (responseList !== undefined) {
+      responseList = responseList.filter((response) => response.clubRole !== 'USER');
+      setAdminClubList(responseList);
+    } else {
+      setAdminClubList([]);
+    }
   }
 
   function Logout() {
@@ -57,7 +61,7 @@ function Main() {
                   ? (
                     <div>
                       <h1>관리하고 있는 그룹이 없습니다.</h1>
-                      <h3><a href="/admin/add">그룹 생성하기</a></h3>
+                      <h3><a href="/addGroup">그룹 생성하기</a></h3>
                     </div>
                   )
                   : <ClubList clubList={adminClubList} />

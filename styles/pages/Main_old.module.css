@@ -1,0 +1,49 @@
+.mainContainer{
+    width : 100vw;
+    height : 100vh;
+}
+
+.mainInnerContainer{
+    /*border-top : 1px solid lightgray;*/
+    width: 100vw;
+    /*position: fixed;*/
+    /*top : 100px;*/
+    height: 100vh;
+    /*height : calc(100% - 100px);*/
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.mainInnerContainer span{
+    margin-bottom : 20px;
+}
+
+.mainPageText{
+    color : var(--primary);
+    font-size : 4rem;
+    opacity: 1;
+    transition: opacity 3000ms;
+}
+
+.mainPageTextHidden{
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 5000ms , visibility 5000ms;
+}
+
+
+.mainPageText2{
+    color : var(--primary);
+    font-size : 4rem;
+    opacity: 1;
+    transition: opacity 5000ms;
+}
+
+.mainPageText2Hidden{
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 25000ms , visibility 25000ms;
+}

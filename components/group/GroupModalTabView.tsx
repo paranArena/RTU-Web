@@ -139,9 +139,10 @@ function RentalItem({
   const onClickItem = () => {
     if (rentalItemName === '더보기') {
       setCurrentTab('대여');
-    } else {
-      router.push(`/rent/products?clubId=${clubId}&productId=${id}`);
     }
+    // else {
+    //   router.push(`/rent/products?clubId=${clubId}&productId=${id}`);
+    // }
   };
 
   return (
