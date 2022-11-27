@@ -18,6 +18,8 @@ function ClubList(props: ClubListProps) {
       </div>
       <section className={styles.clubListContainer}>
         {
+            // eslint-disable-next-line max-len
+            // eslint-disable-next-line max-len,react/destructuring-assignment,react/no-array-index-key
             props.clubList.map((club, index) => <ClubCard cardId={club.id} key={index} name={club.name} tag={club.hashtags} imgPath={club.thumbnailPath} />)
         }
       </section>

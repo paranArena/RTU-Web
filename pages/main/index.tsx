@@ -49,6 +49,8 @@ function Main() {
           <h1>Ren2U</h1>
           <h2>관리자 모드</h2>
         </div>
+        {/* eslint-disable-next-line max-len */}
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
         <span onClick={Logout}>로그아웃</span>
       </div>
 

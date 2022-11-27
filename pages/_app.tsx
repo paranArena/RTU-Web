@@ -4,11 +4,11 @@ import type { AppProps } from 'next/app';
 import React, { useEffect, useState } from 'react';
 import Header from 'components/common/Header';
 import { useRouter } from 'next/router';
-import TopNavigationBar from '../components/common/TopNavigationBar';
 import { LogoutAlertModal } from './mypage';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isSearched, setIsSearched] = useState<boolean>(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [flag, setFlag] = useState<boolean>(false);
   const router = useRouter();
   const [showLogoutState, setShowLogoutState] = useState(false);

@@ -41,6 +41,8 @@ function addGroup() {
     <div className={styles.outerContainer}>
       <div className={styles.topNavigation}>
         <span><a href="/main">뒤로가기</a></span>
+        {/* eslint-disable-next-line max-len */}
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
         <span onClick={Logout}>로그아웃</span>
       </div>
 
