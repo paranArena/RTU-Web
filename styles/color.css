@@ -4,3 +4,18 @@
     --gray-dark : #495057;
     --black : #000000;
 }
+
+:root{
+    --color-white : #fff;
+    --color-black : #000;
+    --color-light-gray-300 : #ADB5BD;
+    --color-light-gray-100:#E9ECEF;
+    --color-red: #EB1808;
+    --color-green:#2CA900;
+    --color-main: #1E2F97;
+    --color-dark-gray: #495057;
+    --color-white-300: #F1F3F5;
+    --color-light-gray-200: #DEE2E6;
+    --color-dark-gray-100: #868E96;
+}
+
