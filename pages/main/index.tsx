@@ -57,7 +57,7 @@ function Main() {
                   ? (
                     <div>
                       <h1>관리하고 있는 그룹이 없습니다.</h1>
-                      <h3><a href="/admin/add">그룹 생성하기</a></h3>
+                      <h3><a href="/addGroup">그룹 생성하기</a></h3>
                     </div>
                   )
                   : <ClubList clubList={adminClubList} />
