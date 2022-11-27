@@ -557,7 +557,6 @@ function ProductItem({
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     }).then((res) => {
-      console.log(res);
       setApply(true);
     })
       .catch((err) => {

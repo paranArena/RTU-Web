@@ -52,7 +52,6 @@ function RentalStatusChart() {
           },
         },
       ).then((res) => {
-        console.log(res);
         setStatus(res.data.data);
       })
         .catch((historyErr) => {

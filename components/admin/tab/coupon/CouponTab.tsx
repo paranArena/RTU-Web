@@ -30,7 +30,6 @@ function CouponItem(
     <div
       className={styles.couponItemContainer}
       onClick={() => {
-        console.log('CouponItem id : ', id);
         setSelectCoupon(id);
       }}
     >
@@ -69,7 +68,7 @@ function CouponTab() {
   });
 
   useEffect(() => {
-    console.log(coupon);
+
   }, [coupon]);
 
   const [mount, setMount] = useState(0);

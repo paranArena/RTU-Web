@@ -48,7 +48,6 @@ function AddCouponTab({ type, couponId }:AddCouponTabProps) {
   });
 
   useEffect(() => {
-    console.log(responseCouponInfo);
   }, [responseCouponInfo]);
 
   useEffect(() => {
@@ -61,7 +60,6 @@ function AddCouponTab({ type, couponId }:AddCouponTabProps) {
       })
         .then((res) => {
           if (res.status === 200) {
-            console.log(res.data.data);
             const actDate = new Date((res.data.data.actDate).concat('Z'));
             const expDate = new Date((res.data.data.expDate).concat('Z'));
             const aDate = ((actDate.getFullYear().toString()).concat('.').concat(((actDate.getMonth() + 1).toString()).concat('.')))
@@ -96,8 +94,6 @@ function AddCouponTab({ type, couponId }:AddCouponTabProps) {
 
   const onUpdateCoupon = () => {
     const clubId = window.location.href.slice(window.location.href.search('=') + 1);
-
-    console.log(files);
     if (files.length === 0) {
       axios({
         method: 'put',

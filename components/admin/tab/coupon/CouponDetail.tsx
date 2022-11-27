@@ -164,7 +164,6 @@ function CouponDetail({ couponId, setCoupon }:CouponDetailProps) {
   }, [useMemberList, unUseMemberList, memberAllList]);
 
   useEffect(() => {
-    console.log(couponId);
   }, [couponId]);
 
   useEffect(() => {
