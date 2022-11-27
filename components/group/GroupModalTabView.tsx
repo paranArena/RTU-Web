@@ -126,6 +126,7 @@ interface RentalItemProps {
 }
 
 function RentalItem({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   clubId, id,
   setCurrentTab,
   thumbnailPath, rentalItemName, quantityTotal, quantityLeft,
@@ -134,6 +135,7 @@ function RentalItem({
   if (rentalItemName === '' && thumbnailPath === '' && quantityTotal === 0 && quantityLeft === 0) {
     quantity = false;
   }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const router = useRouter();
 
   const onClickItem = () => {
