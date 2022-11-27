@@ -2,7 +2,7 @@ import React, {
   Dispatch, SetStateAction, useEffect, useState,
 } from 'react';
 import axios from 'axios';
-import { MapComponent } from 'pages/rent/products';
+import { MapComponent } from '../../../Map';
 import styles from '../../../../styles/admin/coupon/CouponDetail.module.css';
 import { SERVER_API } from '../../../../config';
 

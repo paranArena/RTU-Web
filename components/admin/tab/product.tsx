@@ -6,7 +6,7 @@ import axios from 'axios';
 import router from 'next/router';
 import { IoReloadCircleOutline } from 'react-icons/io5';
 import { SERVER_API } from '../../../config';
-import { MapComponent } from '../../../pages/rent/products';
+import { MapComponent } from '../../Map';
 
 export const rentalLocation = [
   {

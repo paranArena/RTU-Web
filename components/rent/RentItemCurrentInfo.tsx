@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from 'styles/rent/RentItemCurrentInfo.module.css';
-import { RentItem } from '../../pages/rent/products';
+import { RentItem } from '../Map';
 
 interface RentItemCurrentInfoProps {
   rentItem :RentItem;

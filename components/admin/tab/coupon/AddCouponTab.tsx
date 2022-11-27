@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { MapComponent } from 'pages/rent/products';
+import { MapComponent } from '../../../Map';
 import styles from '../../../../styles/admin/coupon/AddCouponTab.module.css';
 import { rexDate } from '../../../../RegExp';
 import { rentalLocation } from '../product';
