@@ -79,9 +79,9 @@
 }
 
 .groupImage{
+    object-fit: cover;
     width : 100%;
     height : 90%;
-
     border-radius: 20px;
 }
 
