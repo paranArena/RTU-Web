@@ -131,7 +131,7 @@ function Login() {
 
           <div className={styles.explainTextContainer}>
             <span className={styles.firstText}>Welcome!</span>
-            <span className={styles.secondText}>로그인 후 다양한 &quot;가치&quot;를 누려보세요!</span>
+            <span className={styles.secondText}>관리자 전용 페이지 입니다.</span>
           </div>
 
           <div className={styles.loginBox}>
