@@ -410,21 +410,19 @@ function RentalItemCard({
               <span className={styles.RentalItemRentalDate}>{RentDateString.concat('~').concat(ExpDateString)}</span>
             </div>
 
-            <div className={styles.rentalInfoTextRight}>
-              <div className={styles.textContainer}>
-                <span className={styles.RentalItemReturnDateTitle}>반납시간</span>
-                <span className={styles.timeText}>{hour.concat(':').concat(minute)}</span>
-              </div>
-            </div>
+            {/*<div className={styles.rentalInfoTextRight}>*/}
+            {/*  <div className={styles.textContainer}>*/}
+            {/*    <span className={styles.RentalItemReturnDateTitle}>반납시간</span>*/}
+            {/*    <span className={styles.timeText}>{hour.concat(':').concat(minute)}</span>*/}
+            {/*  </div>*/}
+            {/*</div>*/}
           </div>
 
         </div>
-
         <div className={styles.RentalItemRightContainer}>
           <span className={styles.RentalItemReturnDateTitle}>반납일</span>
           <span className={styles.timeText}>{ReturnDate}</span>
         </div>
-
       </div>
     </div>
   );
