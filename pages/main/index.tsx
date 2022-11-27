@@ -3,7 +3,7 @@ import styles from 'styles/pages/Main.module.css';
 import axios from 'axios';
 import { SERVER_API } from '../../config';
 import { MY_CLUB } from '../../interface/API';
-import { getMyClubs } from '../../api/Member';
+import { getMyClubs } from '../../api/member';
 import ClubList from './ClubList';
 
 function Main() {
@@ -13,8 +13,12 @@ function Main() {
   async function getOwnerClubList() {
     let responseList: MY_CLUB[] = [];
     responseList = await getMyClubs();
-    responseList = responseList.filter((response) => response.clubRole !== 'USER');
-    setAdminClubList(responseList);
+    if (responseList !== undefined) {
+      responseList = responseList.filter((response) => response.clubRole !== 'USER');
+      setAdminClubList(responseList);
+    } else {
+      setAdminClubList([]);
+    }
   }
 
   function Logout() {

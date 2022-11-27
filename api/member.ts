@@ -7,6 +7,11 @@ const API = axios.create({
 export async function getMyClubs() {
   API.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('token')}`;
   return API.get('/members/my/clubs')
-    .then((res) => res.data.data)
+    .then((res) => {
+      if (res.status === 200) {
+        return res.data.data;
+      }
+      return [];
+    })
     .catch((e) => e);
 }

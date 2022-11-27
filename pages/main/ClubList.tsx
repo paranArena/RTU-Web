@@ -18,7 +18,7 @@ function ClubList(props: ClubListProps) {
       </div>
       <section className={styles.clubListContainer}>
         {
-            props.clubList.map((club, index) => <ClubCard key={index} name={club.name} tag={club.hashtags} imgPath={club.thumbnailPath} />)
+            props.clubList.map((club, index) => <ClubCard cardId={club.id} key={index} name={club.name} tag={club.hashtags} imgPath={club.thumbnailPath} />)
         }
       </section>
       {/* <div className={styles.pageNationContainer}>page natqion</div> */}
