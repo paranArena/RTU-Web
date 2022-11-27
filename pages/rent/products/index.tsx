@@ -361,7 +361,6 @@ function RentalProductsPage() {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       let rentalId = null;
       // rentalItemData.items.sort((a, b) => a.id - b.id);
-      console.log('rentalItemData : \n', rentalItemData);
       if (Array.isArray(rentalItemData.items)) {
         // eslint-disable-next-line consistent-return
         rentalItemData.items.forEach((item) => {
@@ -580,9 +579,11 @@ function RentalProductsPage() {
                   <h3>물품목록</h3>
                   <div className={styles.rentItemListContainer}>
                     {
-                      rentalItemData.items.map((item) => (
-                        <RentItemCurrentInfo rentItem={item} itemName={rentalItemData.name} />
-                      ))
+                      rentalItemData.items !== undefined
+                        ? rentalItemData.items.map((item) => (
+                          <RentItemCurrentInfo rentItem={item} itemName={rentalItemData.name} />
+                        ))
+                        : null
                     }
                   </div>
                 </div>
