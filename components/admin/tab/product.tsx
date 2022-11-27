@@ -556,7 +556,7 @@ function ProductItem({
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
-    }).then((res) => {
+    }).then(() => {
       setApply(true);
     })
       .catch((err) => {
