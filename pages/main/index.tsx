@@ -3,7 +3,7 @@ import styles from 'styles/pages/Main.module.css';
 import axios from 'axios';
 import { SERVER_API } from '../../config';
 import { MY_CLUB } from '../../interface/API';
-import { getMyClubs } from '../../api/member';
+import { getMyClubs } from '../../api/Member';
 import ClubList from './ClubList';
 
 function Main() {
