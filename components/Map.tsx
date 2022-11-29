@@ -21,11 +21,11 @@ export function MapComponent({ latitude, longitude }: MapProps) {
       window.kakao.maps.load(() => {
         const container = document.getElementById('map');
         const options = {
-          center: new window.kakao.maps.LatLng(longitude, latitude),
+          center: new window.kakao.maps.LatLng(latitude, longitude),
         };
 
         const map = new window.kakao.maps.Map(container, options);
-        const markerPosition = new window.kakao.maps.LatLng(longitude, latitude);
+        const markerPosition = new window.kakao.maps.LatLng(latitude, longitude);
         const marker = new window.kakao.maps.Marker({
           position: markerPosition,
         });
