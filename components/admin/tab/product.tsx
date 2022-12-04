@@ -1324,7 +1324,8 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
   // 새로고침
   const reload = () => {
     if (tab.reserve || tab.rental) {
-      axios.get(`${SERVER_API}/clubs/${clubId}/rentals/search/all`, {
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      clubId && axios.get(`${SERVER_API}/clubs/${clubId}/rentals/search/all`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -1372,8 +1373,6 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
 
   useEffect(() => {
     const clubID = window.location.search.slice(window.location.search.search('=') + 1);
-    console.log('qweqweqwe : ', clubID);
-
     axios.get(`${SERVER_API}/clubs/${clubID}/products/search/all`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -1388,7 +1387,8 @@ function ProductManageModal({ viewAdminRental, clubId, setViewAdminRental }:Prod
 
     if (tab.reserve) {
       // 예약 탭
-      axios.get(`${SERVER_API}/clubs/${clubId}/rentals/search/all`, {
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      clubId && axios.get(`${SERVER_API}/clubs/${clubId}/rentals/search/all`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

@@ -18,6 +18,7 @@ import ClubMemberItem from '../../components/admin/dashboard/ClubMemberItem';
 import NotificationItem from '../../components/admin/dashboard/NotificationItem';
 import RentalStatusChart from '../../components/admin/dashboard/RentalStatusChart';
 import CouponTab from '../../components/admin/tab/coupon/CouponTab';
+import AddMember from '../../components/admin/dashboard/AddMember';
 
 interface IClubProfileSettingModal {
   id : string;
@@ -241,6 +242,7 @@ function DashBoard() {
   const [mount, setMount] = useState(0);
   const [memberList, setMemberList] = useState([]);
   const [noticeList, setNoticeList] = useState([]);
+  const [viewAddMember, setViewAddMember] = useState(false);
 
   useEffect(() => {
     if (mount === 0) {
@@ -280,8 +282,15 @@ function DashBoard() {
     }
   }, [mount]);
 
+  const onClickAddMember: () => void = () => {
+    setViewAddMember(true);
+  };
+
   return (
     <div className={styles.tabViewOuterContainer}>
+      {
+        viewAddMember ? <AddMember setViewAddMember={setViewAddMember} /> : null
+      }
       <div className={styles.dashBoardContainer}>
         <div className={styles.sectionContainer}>
           {/* 실시간 대여 */}
@@ -354,7 +363,9 @@ function DashBoard() {
               <h1 className={styles.sectionTitle}>
                 멤버 관리
               </h1>
-              <img className={styles.memberAddIcon} alt="member add" src="/icons/추가하기.png" />
+              {/* eslint-disable-next-line max-len */}
+              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
+              <img onClick={onClickAddMember} className={styles.memberAddIcon} alt="member add" src="/icons/추가하기.png" />
             </div>
 
             <div className={styles.memberListCardContainer}>
@@ -497,7 +508,8 @@ function AdminPage() {
   }, []);
 
   useEffect(() => {
-    axios.get(
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    clubId && axios.get(
       `${SERVER_API}/members/my/clubs/${clubId}/role`,
       {
         headers: {
@@ -548,13 +560,13 @@ function AdminPage() {
         <div className={styles.menuTabContainer}>
           {/* eslint-disable-next-line max-len */}
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
-          {/* <h4 */}
-          {/*  id="dashBoard" */}
-          {/*  onClick={onClickMenu} */}
-          {/*  className={menu.dashBoard ? styles.current : styles.disabled} */}
-          {/* > */}
-          {/*  대시보드 */}
-          {/* </h4> */}
+          <h4
+            id="dashBoard"
+            onClick={onClickMenu}
+            className={menu.dashBoard ? styles.current : styles.disabled}
+          >
+            대시보드
+          </h4>
           {/* eslint-disable-next-line max-len */}
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
           <h4
